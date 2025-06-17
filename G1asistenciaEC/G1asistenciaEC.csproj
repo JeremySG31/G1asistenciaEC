@@ -339,6 +339,9 @@
     <EmbeddedResource Include="vista\UcTurnos.resx">
       <DependentUpon>UcTurnos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="vista\UcUsuarios.resx">
+      <DependentUpon>UcUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
