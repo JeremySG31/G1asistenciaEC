@@ -79,10 +79,10 @@
             // 
             this.dgvGrados.AllowUserToDeleteRows = false;
             this.dgvGrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGrados.Location = new System.Drawing.Point(42, 59);
+            this.dgvGrados.Location = new System.Drawing.Point(42, 47);
             this.dgvGrados.Name = "dgvGrados";
             this.dgvGrados.RowHeadersWidth = 51;
-            this.dgvGrados.Size = new System.Drawing.Size(395, 178);
+            this.dgvGrados.Size = new System.Drawing.Size(467, 190);
             this.dgvGrados.TabIndex = 0;
             this.dgvGrados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGrados_CellContentClick);
             // 
@@ -90,10 +90,10 @@
             // 
             this.dgvSecciones.AllowUserToDeleteRows = false;
             this.dgvSecciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSecciones.Location = new System.Drawing.Point(575, 59);
+            this.dgvSecciones.Location = new System.Drawing.Point(575, 47);
             this.dgvSecciones.Name = "dgvSecciones";
             this.dgvSecciones.RowHeadersWidth = 51;
-            this.dgvSecciones.Size = new System.Drawing.Size(394, 178);
+            this.dgvSecciones.Size = new System.Drawing.Size(436, 190);
             this.dgvSecciones.TabIndex = 1;
             // 
             // txtIdGrado
@@ -268,7 +268,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(37, 30);
+            this.label1.Location = new System.Drawing.Point(37, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 25);
             this.label1.TabIndex = 26;
@@ -278,7 +278,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(570, 30);
+            this.label2.Location = new System.Drawing.Point(573, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 25);
             this.label2.TabIndex = 27;

@@ -54,6 +54,7 @@
             this.dgvRoles.RowHeadersWidth = 51;
             this.dgvRoles.Size = new System.Drawing.Size(380, 216);
             this.dgvRoles.TabIndex = 6;
+            this.dgvRoles.AllowUserToAddRows = true;
             // 
             // btnInsertar
             // 

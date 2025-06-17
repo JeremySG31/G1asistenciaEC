@@ -30,6 +30,7 @@ namespace G1asistenciaEC.vista
             dgvTurnos.BackgroundColor = Color.White;
             dgvTurnos.BorderStyle = BorderStyle.Fixed3D;
             dgvTurnos.RowHeadersVisible = true;
+            dgvTurnos.AllowUserToAddRows = true;
         }
 
         private void ConfigurarEventos()
