@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace G1asistenciaEC.modelo
 {
-    public class usuarioM
+    public class loginM
     {
         public string NombreUsuario { get; set; }
         public string Contrasena { get; set; }

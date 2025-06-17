@@ -1,4 +1,6 @@
-﻿namespace G1asistenciaEC.vista
+﻿using System.Windows.Forms;
+
+namespace G1asistenciaEC.vista
 {
     partial class UcCursos
     {
@@ -53,6 +55,7 @@
             // dgvCursos
             // 
             this.dgvCursos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCursos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCursos.Location = new System.Drawing.Point(386, 77);
             this.dgvCursos.Name = "dgvCursos";
             this.dgvCursos.RowHeadersWidth = 51;

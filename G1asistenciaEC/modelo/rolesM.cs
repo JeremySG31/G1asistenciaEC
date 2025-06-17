@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace G1asistenciaEC.modelo
 {
-    internal class turno
+    public class RolM
     {
+        public string Id { get; set; }
+        public string NombreRol { get; set; }
     }
 }

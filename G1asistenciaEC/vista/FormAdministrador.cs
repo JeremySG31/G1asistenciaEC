@@ -22,7 +22,6 @@ namespace G1asistenciaEC
             this.Load += FormAdministrador_Load;
         }
 
-        // Método para mostrar un UserControl en el panel central
         private void MostrarEnPanel(UserControl control)
         {
             panelContenido.Controls.Clear();
@@ -37,10 +36,8 @@ namespace G1asistenciaEC
 
         private void MostrarUcUsuarios()
         {
-            // Limpia el contenedor antes de agregar el UserControl
             panelContenido.Controls.Clear();
 
-            // Crea una instancia de UcUsuarios y la agrega al panel
             UcUsuarios ucUsuarios = new UcUsuarios();
             ucUsuarios.Dock = DockStyle.Fill;
             panelContenido.Controls.Add(ucUsuarios);

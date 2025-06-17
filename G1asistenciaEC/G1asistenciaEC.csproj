@@ -177,11 +177,18 @@
     <Compile Include="modelo\cursoM.cs" />
     <Compile Include="modelo\cursosMatriculadosM.cs" />
     <Compile Include="modelo\estudianteApoderadoM.cs" />
+    <Compile Include="modelo\gradosSeccionesM.cs" />
+    <Compile Include="modelo\matriculasM.cs" />
+    <Compile Include="modelo\rolesM.cs" />
+    <Compile Include="modelo\usuariosM.cs" />
     <Compile Include="negocio\aniosLectivosN.cs" />
     <Compile Include="negocio\cursoN.cs" />
     <Compile Include="negocio\cursosMatriculadosN.cs" />
     <Compile Include="negocio\estudianteApoderadoN.cs" />
-    <Compile Include="negocio\usuarioN.cs" />
+    <Compile Include="negocio\gradosSeccionesN.cs" />
+    <Compile Include="negocio\matriculasN.cs" />
+    <Compile Include="negocio\rolesN.cs" />
+    <Compile Include="negocio\usuariosN.cs" />
     <Compile Include="negocio\administradorN.cs" />
     <Compile Include="modelo\administradorM.cs" />
     <Compile Include="controlador\administradorC.cs" />
@@ -193,11 +200,11 @@
     <Compile Include="modelo\estudianteM.cs" />
     <Compile Include="modelo\personaM.cs" />
     <Compile Include="modelo\profesorM.cs" />
-    <Compile Include="modelo\usuarioM.cs" />
+    <Compile Include="modelo\loginM.cs" />
     <Compile Include="controlador\apoderadoC.cs" />
     <Compile Include="controlador\estudianteC.cs" />
     <Compile Include="controlador\profesorC.cs" />
-    <Compile Include="controlador\usuarioC.cs" />
+    <Compile Include="controlador\loginC.cs" />
     <Compile Include="vista\FormAdministrador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,8 +235,8 @@
     <Compile Include="vista\FormProfesor.Designer.cs">
       <DependentUpon>FormProfesor.cs</DependentUpon>
     </Compile>
-    <Compile Include="modelo\turno.cs" />
-    <Compile Include="negocio\nTurno.cs" />
+    <Compile Include="modelo\turnosM.cs" />
+    <Compile Include="negocio\turnosN.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="dao\conexion.cs" />

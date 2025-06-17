@@ -104,7 +104,6 @@
             this.dgvUsuarios.RowHeadersWidth = 51;
             this.dgvUsuarios.Size = new System.Drawing.Size(683, 342);
             this.dgvUsuarios.TabIndex = 26;
-            this.dgvUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellContentClick);
             // 
             // btnInsertar
             // 
@@ -239,7 +238,6 @@
             this.lblNombreUsuario.Size = new System.Drawing.Size(106, 16);
             this.lblNombreUsuario.TabIndex = 3;
             this.lblNombreUsuario.Text = "Nombre Usuario";
-            this.lblNombreUsuario.Click += new System.EventHandler(this.lblNombreUsuario_Click);
             // 
             // lblNombres
             // 
@@ -436,7 +434,6 @@
             this.Controls.Add(this.dgvUsuarios);
             this.Name = "UcUsuarios";
             this.Size = new System.Drawing.Size(1151, 501);
-            this.Load += new System.EventHandler(this.UcUsuarios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

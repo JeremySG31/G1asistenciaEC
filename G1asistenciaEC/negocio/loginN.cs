@@ -1,20 +1,75 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
 using G1asistenciaEC.modelo;
-using G1asistenciaEC.negocio;
-namespace G1asistenciaEC.controlador
-{
-    public class loginN
-    {
-        private usuarioC usuarioNegocio = new usuarioC();
+using G1asistenciaEC.controlador;
 
-        public usuarioM Login(string usuario, string contrasenia)
+namespace G1asistenciaEC.negocio
+{
+    public class LoginN
+    {
+        private readonly LoginC _loginControlador;
+
+        public LoginN()
         {
-            return usuarioNegocio.Autenticar(usuario, contrasenia);
+            _loginControlador = new LoginC();
+        }
+
+        public loginM Login(string usuario, string contrasenia)
+        {
+            if (!ValidarDatosLogin(usuario, contrasenia))
+            {
+                return null;
+            }
+
+            var usuarioAutenticado = _loginControlador.ObtenerUsuarioPorCredenciales(usuario, contrasenia);
+
+            if (usuarioAutenticado == null)
+            {
+                return null;
+            }
+
+            if (!string.IsNullOrWhiteSpace(usuarioAutenticado.Estado) &&
+                !string.Equals(usuarioAutenticado.Estado, "activo", StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            return usuarioAutenticado;
+        }
+
+        public bool VerificarPermisos(string nombreUsuario, string[] rolesPermitidos)
+        {
+            if (string.IsNullOrWhiteSpace(nombreUsuario) || rolesPermitidos == null || rolesPermitidos.Length == 0)
+            {
+                return false;
+            }
+
+            try
+            {
+                var usuario = _loginControlador.ObtenerUsuarioPorNombre(nombreUsuario);
+                return usuario != null && Array.Exists(rolesPermitidos, rol =>
+                    string.Equals(rol, usuario.Rol, StringComparison.OrdinalIgnoreCase));
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ValidarSesionActiva(loginM sesion)
+        {
+            if (sesion == null)
+            {
+                return false;
+            }
+
+            var usuarioActual = _loginControlador.ObtenerUsuarioPorNombre(sesion.NombreUsuario);
+            return usuarioActual != null &&
+                   string.Equals(usuarioActual.Estado, "activo", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool ValidarDatosLogin(string usuario, string contrasena)
+        {
+            return !string.IsNullOrWhiteSpace(usuario) && !string.IsNullOrWhiteSpace(contrasena);
         }
     }
 }

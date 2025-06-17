@@ -1,13 +1,15 @@
 ﻿using G1asistenciaEC.dao;
+using G1asistenciaEC.modelo;
+using G1asistenciaEC.negocio;
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace G1asistenciaEC.vista
 {
     public partial class UcEstudianteApoderado : UserControl
     {
+        private readonly EstudianteApoderadoN _negocio = new EstudianteApoderadoN();
+
         public UcEstudianteApoderado()
         {
             InitializeComponent();
@@ -21,7 +23,6 @@ namespace G1asistenciaEC.vista
 
         private void CargarCombos()
         {
-            // Prioridad
             cbPrioridad.Items.Clear();
             cbPrioridad.Items.Add(new ComboBoxItem("1 - Muy baja", 1));
             cbPrioridad.Items.Add(new ComboBoxItem("2 - Baja", 2));
@@ -30,44 +31,18 @@ namespace G1asistenciaEC.vista
             cbPrioridad.Items.Add(new ComboBoxItem("5 - Muy alta", 5));
             cbPrioridad.SelectedIndex = 2; // Media por defecto
 
-            // Estudiantes (id de la tabla estudiantes y nombre)
             cbIdEstudiante.Items.Clear();
-            using (SqlConnection conn = Conexion.ObtenerConexion())
+            var estudiantes = _negocio.ObtenerEstudiantes();
+            foreach (var est in estudiantes)
             {
-                conn.Open();
-                var cmd = new SqlCommand(
-                    @"SELECT e.id, u.nombres, u.ape_paterno, u.ape_materno
-                      FROM estudiantes e
-                      INNER JOIN usuarios u ON e.id_usuario = u.id", conn);
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string id = reader["id"].ToString();
-                        string nombre = $"{reader["nombres"]} {reader["ape_paterno"]} {reader["ape_materno"]}";
-                        cbIdEstudiante.Items.Add(new ComboBoxItem($"{id} - {nombre}", id));
-                    }
-                }
+                cbIdEstudiante.Items.Add(new ComboBoxItem($"{est.Key} - {est.Value}", est.Key));
             }
 
-            // Apoderados (id de la tabla apoderados y nombre)
             cbIdApoderado.Items.Clear();
-            using (SqlConnection conn = Conexion.ObtenerConexion())
+            var apoderados = _negocio.ObtenerApoderados();
+            foreach (var apo in apoderados)
             {
-                conn.Open();
-                var cmd = new SqlCommand(
-                    @"SELECT a.id, u.nombres, u.ape_paterno, u.ape_materno
-                      FROM apoderados a
-                      INNER JOIN usuarios u ON a.id_usuario = u.id", conn);
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string id = reader["id"].ToString();
-                        string nombre = $"{reader["nombres"]} {reader["ape_paterno"]} {reader["ape_materno"]}";
-                        cbIdApoderado.Items.Add(new ComboBoxItem($"{id} - {nombre}", id));
-                    }
-                }
+                cbIdApoderado.Items.Add(new ComboBoxItem($"{apo.Key} - {apo.Value}", apo.Key));
             }
         }
 
@@ -75,16 +50,8 @@ namespace G1asistenciaEC.vista
         {
             try
             {
-                using (SqlConnection conn = Conexion.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = "SELECT id, id_estudiante, id_apoderado, parentesco, prioridad, estado FROM estudiante_apoderados";
-                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dgvEstudianteApoderados.DataSource = dt;
-                }
-
+                var lista = _negocio.ObtenerTodos();
+                dgvEstudianteApoderados.DataSource = lista;
             }
             catch (Exception ex)
             {
@@ -96,43 +63,23 @@ namespace G1asistenciaEC.vista
         {
             try
             {
-                using (SqlConnection conn = Conexion.ObtenerConexion())
+                if (!ValidarCamposRequeridos())
                 {
-                    conn.Open();
-                    var campos = new System.Collections.Generic.List<string>();
-                    var valores = new System.Collections.Generic.List<string>();
-                    var parametros = new System.Collections.Generic.List<SqlParameter>();
-
-                    if (!string.IsNullOrWhiteSpace(txtId.Text)) { campos.Add("id"); valores.Add("@id"); parametros.Add(new SqlParameter("@id", txtId.Text)); }
-                    if (cbIdEstudiante.SelectedItem != null)
-                    {
-                        campos.Add("id_estudiante");
-                        valores.Add("@id_estudiante");
-                        parametros.Add(new SqlParameter("@id_estudiante", ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value));
-                    }
-                    if (cbIdApoderado.SelectedItem != null)
-                    {
-                        campos.Add("id_apoderado");
-                        valores.Add("@id_apoderado");
-                        parametros.Add(new SqlParameter("@id_apoderado", ((ComboBoxItem)cbIdApoderado.SelectedItem).Value));
-                    }
-                    if (!string.IsNullOrWhiteSpace(txtParentesco.Text)) { campos.Add("parentesco"); valores.Add("@parentesco"); parametros.Add(new SqlParameter("@parentesco", txtParentesco.Text)); }
-                    if (cbPrioridad.SelectedItem != null) { campos.Add("prioridad"); valores.Add("@prioridad"); parametros.Add(new SqlParameter("@prioridad", ((ComboBoxItem)cbPrioridad.SelectedItem).Value)); }
-                    if (!string.IsNullOrWhiteSpace(cbEstado.Text)) { campos.Add("estado"); valores.Add("@estado"); parametros.Add(new SqlParameter("@estado", cbEstado.Text)); }
-
-                    if (campos.Count == 0)
-                    {
-                        MessageBox.Show("Debe ingresar al menos un campo para insertar.");
-                        return;
-                    }
-
-                    string query = $"INSERT INTO estudiante_apoderados ({string.Join(",", campos)}) VALUES ({string.Join(",", valores)})";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddRange(parametros.ToArray());
-                        cmd.ExecuteNonQuery();
-                    }
+                    MessageBox.Show("Debe completar los campos requeridos.");
+                    return;
                 }
+
+                var estudianteApoderado = new EstudianteApoderadoM
+                {
+                    Id = txtId.Text,
+                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem)?.Value.ToString(),
+                    IdApoderado = ((ComboBoxItem)cbIdApoderado.SelectedItem)?.Value.ToString(),
+                    Parentesco = txtParentesco.Text,
+                    Prioridad = (int)((ComboBoxItem)cbPrioridad.SelectedItem)?.Value,
+                    Estado = cbEstado.Text
+                };
+
+                _negocio.Insertar(estudianteApoderado);
                 CargarEstudianteApoderados();
                 LimpiarCampos();
                 MessageBox.Show("Registro insertado correctamente.");
@@ -149,44 +96,21 @@ namespace G1asistenciaEC.vista
             {
                 if (string.IsNullOrWhiteSpace(txtId.Text))
                 {
-                    MessageBox.Show("Debe ingresar el ID del registro a modificar.");
+                    MessageBox.Show("Debe seleccionar un registro para modificar.");
                     return;
                 }
 
-                using (SqlConnection conn = Conexion.ObtenerConexion())
+                var estudianteApoderado = new EstudianteApoderadoM
                 {
-                    conn.Open();
-                    var sets = new System.Collections.Generic.List<string>();
-                    var parametros = new System.Collections.Generic.List<SqlParameter>();
+                    Id = txtId.Text,
+                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem)?.Value.ToString(),
+                    IdApoderado = ((ComboBoxItem)cbIdApoderado.SelectedItem)?.Value.ToString(),
+                    Parentesco = txtParentesco.Text,
+                    Prioridad = (int)((ComboBoxItem)cbPrioridad.SelectedItem)?.Value,
+                    Estado = cbEstado.Text
+                };
 
-                    if (cbIdEstudiante.SelectedItem != null)
-                    {
-                        sets.Add("id_estudiante=@id_estudiante");
-                        parametros.Add(new SqlParameter("@id_estudiante", ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value));
-                    }
-                    if (cbIdApoderado.SelectedItem != null)
-                    {
-                        sets.Add("id_apoderado=@id_apoderado");
-                        parametros.Add(new SqlParameter("@id_apoderado", ((ComboBoxItem)cbIdApoderado.SelectedItem).Value));
-                    }
-                    if (!string.IsNullOrWhiteSpace(txtParentesco.Text)) { sets.Add("parentesco=@parentesco"); parametros.Add(new SqlParameter("@parentesco", txtParentesco.Text)); }
-                    if (cbPrioridad.SelectedItem != null) { sets.Add("prioridad=@prioridad"); parametros.Add(new SqlParameter("@prioridad", ((ComboBoxItem)cbPrioridad.SelectedItem).Value)); }
-                    if (!string.IsNullOrWhiteSpace(cbEstado.Text)) { sets.Add("estado=@estado"); parametros.Add(new SqlParameter("@estado", cbEstado.Text)); }
-
-                    if (sets.Count == 0)
-                    {
-                        MessageBox.Show("Debe ingresar al menos un campo para modificar.");
-                        return;
-                    }
-
-                    string query = $"UPDATE estudiante_apoderados SET {string.Join(",", sets)} WHERE id=@id";
-                    parametros.Add(new SqlParameter("@id", txtId.Text));
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddRange(parametros.ToArray());
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                _negocio.Modificar(estudianteApoderado);
                 CargarEstudianteApoderados();
                 LimpiarCampos();
                 MessageBox.Show("Registro modificado correctamente.");
@@ -203,23 +127,18 @@ namespace G1asistenciaEC.vista
             {
                 if (string.IsNullOrWhiteSpace(txtId.Text))
                 {
-                    MessageBox.Show("Debe ingresar el ID del registro a eliminar.");
+                    MessageBox.Show("Debe seleccionar un registro para eliminar.");
                     return;
                 }
 
-                using (SqlConnection conn = Conexion.ObtenerConexion())
+                if (MessageBox.Show("¿Está seguro de eliminar este registro?", "Confirmar eliminación",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    conn.Open();
-                    string query = "DELETE FROM estudiante_apoderados WHERE id=@id";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@id", txtId.Text);
-                        cmd.ExecuteNonQuery();
-                    }
+                    _negocio.Eliminar(txtId.Text);
+                    CargarEstudianteApoderados();
+                    LimpiarCampos();
+                    MessageBox.Show("Registro eliminado correctamente.");
                 }
-                CargarEstudianteApoderados();
-                LimpiarCampos();
-                MessageBox.Show("Registro eliminado correctamente.");
             }
             catch (Exception ex)
             {
@@ -229,41 +148,44 @@ namespace G1asistenciaEC.vista
 
         private void dgvEstudianteApoderados_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvEstudianteApoderados.CurrentRow != null && dgvEstudianteApoderados.CurrentRow.Index >= 0)
+            if (dgvEstudianteApoderados.CurrentRow != null)
             {
-                var row = dgvEstudianteApoderados.CurrentRow;
-                txtId.Text = row.Cells["id"].Value?.ToString();
-
-                // Selecciona el ítem correcto por ID
-                if (row.Cells["id_estudiante"].Value != null)
+                var estudianteApoderado = dgvEstudianteApoderados.CurrentRow.DataBoundItem as EstudianteApoderadoM;
+                if (estudianteApoderado != null)
                 {
-                    string idEst = row.Cells["id_estudiante"].Value.ToString();
+                    txtId.Text = estudianteApoderado.Id;
+
                     foreach (ComboBoxItem item in cbIdEstudiante.Items)
-                        if (item.Value.ToString() == idEst) { cbIdEstudiante.SelectedItem = item; break; }
-                }
-                if (row.Cells["id_apoderado"].Value != null)
-                {
-                    string idApo = row.Cells["id_apoderado"].Value.ToString();
+                    {
+                        if (item.Value.ToString() == estudianteApoderado.IdEstudiante)
+                        {
+                            cbIdEstudiante.SelectedItem = item;
+                            break;
+                        }
+                    }
+
                     foreach (ComboBoxItem item in cbIdApoderado.Items)
-                        if (item.Value.ToString() == idApo) { cbIdApoderado.SelectedItem = item; break; }
-                }
+                    {
+                        if (item.Value.ToString() == estudianteApoderado.IdApoderado)
+                        {
+                            cbIdApoderado.SelectedItem = item;
+                            break;
+                        }
+                    }
 
-                txtParentesco.Text = row.Cells["parentesco"].Value?.ToString();
+                    txtParentesco.Text = estudianteApoderado.Parentesco;
 
-                // Selecciona la prioridad por valor
-                if (row.Cells["prioridad"].Value != null)
-                {
-                    string prioridad = row.Cells["prioridad"].Value.ToString();
                     foreach (ComboBoxItem item in cbPrioridad.Items)
                     {
-                        if (item.Value.ToString() == prioridad)
+                        if ((int)item.Value == estudianteApoderado.Prioridad)
                         {
                             cbPrioridad.SelectedItem = item;
                             break;
                         }
                     }
+
+                    cbEstado.Text = estudianteApoderado.Estado;
                 }
-                cbEstado.Text = row.Cells["estado"].Value?.ToString();
             }
         }
 
@@ -277,7 +199,6 @@ namespace G1asistenciaEC.vista
             cbEstado.Text = "";
         }
 
-        // Clase auxiliar para mostrar texto y valor en ComboBox
         private class ComboBoxItem
         {
             public string Text { get; set; }
@@ -298,6 +219,23 @@ namespace G1asistenciaEC.vista
         private void cbEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private bool ValidarCamposRequeridos()
+        {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+                return false;
+            if (cbIdEstudiante.SelectedItem == null)
+                return false;
+            if (cbIdApoderado.SelectedItem == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(txtParentesco.Text))
+                return false;
+            if (cbPrioridad.SelectedItem == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(cbEstado.Text))
+                return false;
+            return true;
         }
     }
 }

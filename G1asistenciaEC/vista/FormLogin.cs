@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using G1asistenciaEC.dao;
 using G1asistenciaEC.controlador;
 using G1asistenciaEC.modelo;
+using G1asistenciaEC.negocio;
 
 namespace G1asistenciaEC
 {
@@ -37,8 +38,8 @@ namespace G1asistenciaEC
 
             try
             {
-                var loginControlador = new loginN();
-                usuarioM usuarioAutenticado = loginControlador.Login(usuario, contrasenia);
+                var loginControlador = new LoginN();
+                loginM usuarioAutenticado = loginControlador.Login(usuario, contrasenia);
 
                 if (usuarioAutenticado == null)
                 {

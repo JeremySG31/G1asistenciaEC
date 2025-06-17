@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using G1asistenciaEC.dao;
+using G1asistenciaEC.modelo;
+using G1asistenciaEC.negocio;
 
 namespace G1asistenciaEC.vista
 {
     public partial class UcRoles : UserControl
     {
+        private readonly RolesN _negocio = new RolesN();
+        private BindingSource bindingSource = new BindingSource();
+
         public UcRoles()
         {
             InitializeComponent();
+            ConfigurarEventos();
             CargarRoles();
+        }
+
+        private void ConfigurarEventos()
+        {
             dgvRoles.SelectionChanged += dgvRoles_SelectionChanged;
             btnInsertar.Click += btnInsertar_Click;
             btnModificar.Click += btnModificar_Click;
@@ -28,15 +30,9 @@ namespace G1asistenciaEC.vista
         {
             try
             {
-                using (SqlConnection conn = Conexion.ObtenerConexion())
-                {
-                    conn.Open();
-                    string query = "SELECT id, nombre_rol FROM roles";
-                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dgvRoles.DataSource = dt;
-                }
+                var roles = _negocio.ObtenerTodos();
+                dgvRoles.DataSource = roles;
+                ConfigurarColumnasRoles();
             }
             catch (Exception ex)
             {
@@ -44,43 +40,50 @@ namespace G1asistenciaEC.vista
             }
         }
 
+        private void ConfigurarColumnasRoles()
+        {
+            if (dgvRoles.Columns.Contains("Id"))
+                dgvRoles.Columns["Id"].HeaderText = "ID";
+            if (dgvRoles.Columns.Contains("NombreRol"))
+                dgvRoles.Columns["NombreRol"].HeaderText = "Nombre del Rol";
+        }
+
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("Debe ingresar el ID del rol.");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtNombreRol.Text))
+            {
+                MessageBox.Show("Debe ingresar el nombre del rol.");
+                return false;
+            }
+            return true;
+        }
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SqlConnection conn = Conexion.ObtenerConexion())
+                if (!ValidarCampos())
+                    return;
+
+                var rol = new RolM
                 {
-                    conn.Open();
-                    // Solo insertamos los campos que el usuario haya escrito
-                    var campos = new List<string>();
-                    var valores = new List<string>();
-                    var parametros = new List<SqlParameter>();
+                    Id = txtId.Text,
+                    NombreRol = txtNombreRol.Text
+                };
 
-                    if (!string.IsNullOrWhiteSpace(txtId.Text)) { campos.Add("id"); valores.Add("@id"); parametros.Add(new SqlParameter("@id", txtId.Text)); }
-                    if (!string.IsNullOrWhiteSpace(txtNombreRol.Text)) { campos.Add("nombre_rol"); valores.Add("@nombre_rol"); parametros.Add(new SqlParameter("@nombre_rol", txtNombreRol.Text)); }
-  
-
-                    if (campos.Count == 0)
-                    {
-                        MessageBox.Show("Debe ingresar al menos un campo para insertar.");
-                        return;
-                    }
-
-                    string query = $"INSERT INTO roles ({string.Join(",", campos)}) VALUES ({string.Join(",", valores)})";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddRange(parametros.ToArray());
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                _negocio.Insertar(rol);
                 CargarRoles();
                 LimpiarCampos();
-                MessageBox.Show("Usuario insertado correctamente.");
+                MessageBox.Show("Rol insertado correctamente.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al insertar roles: " + ex.Message);
+                MessageBox.Show("Error al insertar rol: " + ex.Message);
             }
         }
 
@@ -88,38 +91,19 @@ namespace G1asistenciaEC.vista
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtId.Text))
-                {
-                    MessageBox.Show("Debe ingresar el ID del rol a modificar.");
+                if (!ValidarCampos())
                     return;
-                }
 
-                using (SqlConnection conn = Conexion.ObtenerConexion())
+                var rol = new RolM
                 {
-                    conn.Open();
-                    var sets = new List<string>();
-                    var parametros = new List<SqlParameter>();
+                    Id = txtId.Text,
+                    NombreRol = txtNombreRol.Text
+                };
 
-                    if (!string.IsNullOrWhiteSpace(txtId.Text)) { sets.Add("id=@id"); parametros.Add(new SqlParameter("@id", txtId.Text)); }
-                    if (!string.IsNullOrWhiteSpace(txtNombreRol.Text)) { sets.Add("nombre_rol=@nombre_rol"); parametros.Add(new SqlParameter("@nombre_rol", txtNombreRol.Text)); }
-
-                    if (sets.Count == 0)
-                    {
-                        MessageBox.Show("Debe ingresar al menos un campo para modificar.");
-                        return;
-                    }
-
-                    string query = $"UPDATE roles SET {string.Join(",", sets)} WHERE id=@id";
-                    parametros.Add(new SqlParameter("@id", txtId.Text));
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddRange(parametros.ToArray());
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                _negocio.Modificar(rol);
                 CargarRoles();
                 LimpiarCampos();
-                MessageBox.Show("Usuario modificado correctamente.");
+                MessageBox.Show("Rol modificado correctamente.");
             }
             catch (Exception ex)
             {
@@ -133,23 +117,18 @@ namespace G1asistenciaEC.vista
             {
                 if (string.IsNullOrWhiteSpace(txtId.Text))
                 {
-                    MessageBox.Show("Debe ingresar el ID del usuario a eliminar.");
+                    MessageBox.Show("Debe seleccionar un rol para eliminar.");
                     return;
                 }
 
-                using (SqlConnection conn = Conexion.ObtenerConexion())
+                if (MessageBox.Show("¿Está seguro de eliminar este rol?", "Confirmar eliminación",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    conn.Open();
-                    string query = "DELETE FROM roles WHERE id=@id";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@id", txtId.Text);
-                        cmd.ExecuteNonQuery();
-                    }
+                    _negocio.Eliminar(txtId.Text);
+                    CargarRoles();
+                    LimpiarCampos();
+                    MessageBox.Show("Rol eliminado correctamente.");
                 }
-                CargarRoles();
-                LimpiarCampos();
-                MessageBox.Show("Rol eliminado correctamente.");
             }
             catch (Exception ex)
             {
@@ -161,10 +140,12 @@ namespace G1asistenciaEC.vista
         {
             if (dgvRoles.CurrentRow != null && dgvRoles.CurrentRow.Index >= 0)
             {
-                var row = dgvRoles.CurrentRow;
-                txtId.Text = row.Cells["id"].Value?.ToString();
-                txtNombreRol.Text = row.Cells["nombre_rol"].Value?.ToString();
-         
+                var rol = dgvRoles.CurrentRow.DataBoundItem as RolM;
+                if (rol != null)
+                {
+                    txtId.Text = rol.Id;
+                    txtNombreRol.Text = rol.NombreRol;
+                }
             }
         }
 
@@ -172,15 +153,6 @@ namespace G1asistenciaEC.vista
         {
             txtId.Text = "";
             txtNombreRol.Text = "";
-
-        }
-
-        // Clase auxiliar para el ComboBox
-        private class ComboBoxItem
-        {
-            public string Text { get; set; }
-            public string Value { get; set; }
-            public override string ToString() => Text;
         }
     }
 }
