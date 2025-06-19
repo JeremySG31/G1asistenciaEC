@@ -165,6 +165,7 @@
   <ItemGroup>
     <Compile Include="controlador\aniosLectivosC.cs" />
     <Compile Include="controlador\asistenciaMatriculadosC.cs" />
+    <Compile Include="controlador\asistenciasMatriculadosC.cs" />
     <Compile Include="controlador\cursosC.cs" />
     <Compile Include="controlador\cursosMatriculadosC.cs" />
     <Compile Include="controlador\estudianteApoderadoC.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="controlador\turnosC.cs" />
     <Compile Include="controlador\usuariosC.cs" />
     <Compile Include="modelo\aniosLectivosM.cs" />
+    <Compile Include="modelo\asistenciasMatriculadosM.cs" />
     <Compile Include="modelo\cursoM.cs" />
     <Compile Include="modelo\cursosMatriculadosM.cs" />
     <Compile Include="modelo\estudianteApoderadoM.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="modelo\rolesM.cs" />
     <Compile Include="modelo\usuariosM.cs" />
     <Compile Include="negocio\aniosLectivosN.cs" />
+    <Compile Include="negocio\asistenciasMatriculadosN.cs" />
     <Compile Include="negocio\cursoN.cs" />
     <Compile Include="negocio\cursosMatriculadosN.cs" />
     <Compile Include="negocio\estudianteApoderadoN.cs" />

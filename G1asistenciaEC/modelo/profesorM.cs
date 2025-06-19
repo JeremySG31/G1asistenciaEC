@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace G1asistenciaEC.modelo
 {
     public class profesorM : Persona
     {
-        public string NombreCompleto => $"{Nombres} {ApellidoPaterno} {ApellidoMaterno}";
+        public string Id { get; set; }
         
+        public string NombreCompleto
+        {
+            get { return $"{Nombres} {ApellidoPaterno} {ApellidoMaterno}"; }
+        }
     }
 }

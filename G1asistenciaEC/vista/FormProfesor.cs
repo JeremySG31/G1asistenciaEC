@@ -1,43 +1,323 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using G1asistenciaEC.controlador;
+using System.Collections.Generic;
+using G1asistenciaEC.negocio;
 using G1asistenciaEC.modelo;
-using G1asistenciaEC.vista;
 
 namespace G1asistenciaEC
 {
     public partial class FormProfesor : Form
     {
-        private G1asistenciaEC.modelo.profesorM _profesor; 
+        private profesorM _profesor;
+        private Dictionary<string, Dictionary<DateTime, string>> _asistenciasCache;
 
         public FormProfesor(string usuario)
         {
             InitializeComponent();
             this.Text = "Panel del Profesor";
+            _asistenciasCache = new Dictionary<string, Dictionary<DateTime, string>>();
 
-            var controlador = new profesorN();
-            _profesor = controlador.ObtenerInformacionProfesor(usuario);
+            var negocio = new profesorN();
+            _profesor = negocio.ObtenerInformacionProfesor(usuario);
 
             lblNombreProfesor.Text = _profesor.NombreCompleto;
+            tabControl.SelectedTab = tabTomar;
+
+            // Establecer la fecha actual en el DateTimePicker
+            dtpFecha.Value = DateTime.Today;
+
+            ConfigurarDataGridView();
+            ConfigurarEventos();
+            CargarFiltros();
         }
 
+        private void ConfigurarDataGridView()
+        {
+            dgvAsistencia.AutoGenerateColumns = false;
+            dgvAsistencia.Columns.Clear();
 
+            dgvAsistencia.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "IdMatricula",
+                DataPropertyName = "IdMatricula",
+                HeaderText = "ID Matrícula",
+                Width = 100,
+                ReadOnly = true
+            });
+
+            dgvAsistencia.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "NombreEstudiante",
+                DataPropertyName = "NombreEstudiante",
+                HeaderText = "Estudiante",
+                ReadOnly = true,
+                Width = 200
+            });
+
+            dgvAsistencia.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Estado",
+                DataPropertyName = "Estado",
+                HeaderText = "Estado",
+                Width = 100,
+                ReadOnly = true
+            });
+
+            dgvAsistencia.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Fecha",
+                DataPropertyName = "Fecha",
+                HeaderText = "Fecha",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" },
+                ReadOnly = true,
+                Width = 100
+            });
+
+            dgvAsistencia.EditMode = DataGridViewEditMode.EditOnEnter;
+            dgvAsistencia.AllowUserToAddRows = false;
+            dgvAsistencia.MultiSelect = true;
+            dgvAsistencia.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+        private void ConfigurarEventos()
+        {
+            cbGrado.SelectedIndexChanged += cbGrado_Seccion_Changed;
+            cbSeccion.SelectedIndexChanged += cbGrado_Seccion_Changed;
+            chkA.CheckedChanged += chkA_CheckedChanged;
+            chkT.CheckedChanged += chkT_CheckedChanged;
+            chkF.CheckedChanged += chkF_CheckedChanged;
+            dtpFecha.ValueChanged += dtpFecha_ValueChanged;
+            dgvAsistencia.CellClick += dgvAsistencia_CellClick;
+        }
+
+        private void CargarFiltros()
+        {
+            cbGrado.Items.Clear();
+            cbGrado.Items.AddRange(new[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" });
+
+            cbSeccion.Items.Clear();
+            cbSeccion.Items.AddRange(Enumerable.Range('A', 26).Select(c => ((char)c).ToString()).ToArray());
+        }
+
+        private void cbGrado_Seccion_Changed(object sender, EventArgs e)
+        {
+            if (cbGrado.SelectedItem == null || cbSeccion.SelectedItem == null) return;
+
+            var gradoSeleccionado = cbGrado.SelectedItem.ToString();
+            var seccionSeleccionada = cbSeccion.SelectedItem.ToString();
+            var fecha = dtpFecha.Value.Date;
+
+            ActualizarGrilla(gradoSeleccionado, seccionSeleccionada, fecha);
+        }
+
+        private void ActualizarGrilla(string grado, string seccion, DateTime fecha)
+        {
+            try
+            {
+                var asistenciasN = new asistenciasMatriculadosN();
+                // 1. Obtener asistencias de la BD para la fecha y filtros actuales
+                var asistenciasDB = asistenciasN.ObtenerPorGradoYSeccionYFecha(grado, seccion, fecha);
+                var asistenciasPorMatriculaDB = asistenciasDB.ToDictionary(a => a.IdMatricula);
+
+                // 2. Obtener la lista de alumnos activos para el grado y sección
+                var alumnos = new MatriculasN().ObtenerTodos()
+                    .Where(m => m.NombreGrado.Equals(grado, StringComparison.OrdinalIgnoreCase) &&
+                                 m.NombreSeccion.Equals(seccion, StringComparison.OrdinalIgnoreCase) &&
+                                 m.Estado.Equals("activo", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                // 3. Crear el DataSource, priorizando la base de datos sobre el caché
+                var source = alumnos.Select(a =>
+                {
+                    string estadoActual;
+
+                    // Primero intentamos obtener el estado de la base de datos
+                    if (asistenciasPorMatriculaDB.TryGetValue(a.Id, out var asistenciaDB))
+                    {
+                        estadoActual = asistenciaDB.Estado;
+                        
+                        // Actualizamos el caché con el valor de la base de datos
+                        if (!_asistenciasCache.ContainsKey(a.Id))
+                        {
+                            _asistenciasCache[a.Id] = new Dictionary<DateTime, string>();
+                        }
+                        _asistenciasCache[a.Id][fecha] = estadoActual;
+                    }
+                    // Si no está en la base de datos, intentamos obtener del caché
+                    else if (_asistenciasCache.TryGetValue(a.Id, out var asistenciasPorFechaEnCache) &&
+                             asistenciasPorFechaEnCache.TryGetValue(fecha, out var estadoEnCache))
+                    {
+                        estadoActual = estadoEnCache;
+                    }
+                    // Si no está en ningún lado, entonces sí es "Sin registro"
+                    else
+                    {
+                        estadoActual = "Sin registro";
+                    }
+
+                    return new AsistenciaViewModel
+                    {
+                        IdMatricula = a.Id,
+                        NombreEstudiante = a.NombreEstudiante,
+                        Estado = estadoActual,
+                        Fecha = fecha
+                    };
+                }).ToList();
+
+                dgvAsistencia.DataSource = null;
+                dgvAsistencia.DataSource = source;
+                dgvAsistencia.Refresh();
+
+                // Actualizar checkboxes si hay selección
+                if (dgvAsistencia.SelectedRows.Count > 0)
+                {
+                    var estado = dgvAsistencia.SelectedRows[0].Cells["Estado"].Value?.ToString();
+                    ActualizarCheckboxes(estado);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar la grilla: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void chkA_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkA.Checked)
+            {
+                chkT.Checked = false;
+                chkF.Checked = false;
+                MarcarAsistencia("A");
+            }
+        }
+
+        private void chkT_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkT.Checked)
+            {
+                chkA.Checked = false;
+                chkF.Checked = false;
+                MarcarAsistencia("T");
+            }
+        }
+
+        private void chkF_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkF.Checked)
+            {
+                chkA.Checked = false;
+                chkT.Checked = false;
+                MarcarAsistencia("F");
+            }
+        }
+
+        private void MarcarAsistencia(string estado)
+        {
+            if (dtpFecha.Value.Date != DateTime.Today)
+            {
+                MessageBox.Show("Solo se puede registrar asistencia para el día actual.",
+                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DesmarcarCheckboxes();
+                return;
+            }
+
+            if (dgvAsistencia.SelectedRows.Count == 0) return;
+
+            var negocio = new asistenciasMatriculadosN();
+            var fecha = dtpFecha.Value.Date;
+
+            foreach (DataGridViewRow row in dgvAsistencia.SelectedRows)
+            {
+                var idMatricula = row.Cells["IdMatricula"].Value?.ToString();
+                if (string.IsNullOrEmpty(idMatricula)) continue;
+
+                var asistenciaExistente = negocio.ObtenerPorMatriculaYFecha(idMatricula, fecha);
+                if (asistenciaExistente != null)
+                {
+                    asistenciaExistente.Estado = estado;
+                    negocio.Modificar(asistenciaExistente);
+                }
+                else
+                {
+                    var nuevaAsistencia = new asistenciasMatriculadosM
+                    {
+                        IdMatricula = idMatricula,
+                        Estado = estado,
+                        Fecha = fecha
+                    };
+                    negocio.Insertar(nuevaAsistencia);
+                }
+
+                // Actualizar el caché y la celda
+                if (!_asistenciasCache.ContainsKey(idMatricula))
+                {
+                    _asistenciasCache[idMatricula] = new Dictionary<DateTime, string>();
+                }
+                _asistenciasCache[idMatricula][fecha] = estado; // ¡Aquí se sobrescribe o agrega en el caché!
+                row.Cells["Estado"].Value = estado;
+            }
+
+            dgvAsistencia.Refresh();
+        }
+
+        private void dtpFecha_ValueChanged(object sender, EventArgs e)
+        {
+            bool esDiaActual = dtpFecha.Value.Date == DateTime.Today;
+            chkA.Enabled = esDiaActual;
+            chkT.Enabled = esDiaActual;
+            chkF.Enabled = esDiaActual;
+
+            DesmarcarCheckboxes();
+
+            if (cbGrado.SelectedItem != null && cbSeccion.SelectedItem != null)
+            {
+                // No llamamos directamente a ActualizarGrilla aquí, sino al evento de cambio de Grado/Seccion
+                // para que se dispare la lógica completa de actualización de grilla y caché.
+                cbGrado_Seccion_Changed(sender, e);
+            }
+        }
+
+        private void DesmarcarCheckboxes()
+        {
+            chkA.Checked = false;
+            chkT.Checked = false;
+            chkF.Checked = false;
+        }
+
+        private void ActualizarCheckboxes(string estado)
+        {
+            chkA.Checked = estado == "A";
+            chkT.Checked = estado == "T";
+            chkF.Checked = estado == "F";
+        }
+
+        private void dgvAsistencia_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var estado = dgvAsistencia.Rows[e.RowIndex].Cells["Estado"].Value?.ToString();
+                ActualizarCheckboxes(estado);
+            }
+        }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void cbCursos_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnInfoPersonal_Click(object sender, EventArgs e)
         {
+            MessageBox.Show($"Información del profesor:\n\nNombre: {_profesor.NombreCompleto}\nDNI: {_profesor.Dni}\nCorreo: {_profesor.Correo}");
+        }
 
+        public class AsistenciaViewModel
+        {
+            public string IdMatricula { get; set; }
+            public string NombreEstudiante { get; set; }
+            public string Estado { get; set; }
+            public DateTime Fecha { get; set; }
         }
     }
 }
