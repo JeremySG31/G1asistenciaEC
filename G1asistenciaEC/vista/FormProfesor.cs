@@ -25,8 +25,10 @@ namespace G1asistenciaEC
             tabControl.SelectedTab = tabTomar;
 
             dtpFecha.Value = DateTime.Today;
+            dtpFechaHistorial.Value = DateTime.Today;
 
             ConfigurarDataGridView();
+            ConfigurarDataGridViewHistorial();
             ConfigurarEventos();
             CargarFiltros();
         }
@@ -79,6 +81,60 @@ namespace G1asistenciaEC
             dgvAsistencia.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
+        private void ConfigurarDataGridViewHistorial()
+        {
+            dgvHistorial.AutoGenerateColumns = false;
+            dgvHistorial.Columns.Clear();
+
+            // 1. Nombre del Estudiante
+            dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "NombreEstudiante",
+                DataPropertyName = "NombreEstudiante",
+                HeaderText = "Estudiante",
+                ReadOnly = true,
+                Width = 200,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+
+            // 2. Correo
+            dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CorreoUsuario",
+                DataPropertyName = "CorreoUsuario",
+                HeaderText = "Correo",
+                ReadOnly = true,
+                Width = 200,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+
+            // 3. Grado y Sección
+            dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "GradoSeccion",
+                DataPropertyName = "GradoSeccion",
+                HeaderText = "Grado y Sección",
+                ReadOnly = true,
+                Width = 150
+            });
+
+            // 4. Estado
+            dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Estado",
+                DataPropertyName = "Estado",
+                HeaderText = "Estado",
+                ReadOnly = true,
+                Width = 100
+            });
+
+            dgvHistorial.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvHistorial.AllowUserToAddRows = false;
+            dgvHistorial.AllowUserToDeleteRows = false;
+            dgvHistorial.ReadOnly = true;
+            dgvHistorial.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
         private void ConfigurarEventos()
         {
             cbGrado.SelectedIndexChanged += cbGrado_Seccion_Changed;
@@ -88,6 +144,7 @@ namespace G1asistenciaEC
             chkF.CheckedChanged += chkF_CheckedChanged;
             dtpFecha.ValueChanged += dtpFecha_ValueChanged;
             dgvAsistencia.CellClick += dgvAsistencia_CellClick;
+            btnBuscar.Click += btnBuscar_Click;
         }
 
         private void CargarFiltros()
@@ -299,6 +356,49 @@ namespace G1asistenciaEC
         private void btnInfoPersonal_Click(object sender, EventArgs e)
         {
             MessageBox.Show($"Información del profesor:\n\nNombre: {_profesor.NombreCompleto}\nDNI: {_profesor.Dni}\nCorreo: {_profesor.Correo}");
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                var fecha = dtpFechaHistorial.Value.Date;
+                var asistenciasN = new asistenciasMatriculadosN();
+                var asistencias = asistenciasN.ObtenerAsistenciasPorFecha(fecha);
+
+                if (asistencias == null || !asistencias.Any())
+                {
+                    MessageBox.Show("No se encontraron registros de asistencia para la fecha seleccionada.",
+                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgvHistorial.DataSource = null;
+                    return;
+                }
+
+                var historialViewModel = asistencias.Select(a => new
+                {
+                    NombreEstudiante = a.NombreEstudiante ?? "Sin nombre",
+                    CorreoUsuario = a.CorreoUsuario ?? "Sin correo",
+                    GradoSeccion = $"{a.NombreGrado ?? "Sin grado"} - {a.NombreSeccion ?? "Sin sección"}",
+                    Estado = a.Estado ?? "Sin registro"
+                }).OrderBy(x => x.GradoSeccion)
+                  .ThenBy(x => x.NombreEstudiante)
+                  .ToList();
+
+                dgvHistorial.DataSource = null;
+                dgvHistorial.DataSource = historialViewModel;
+                dgvHistorial.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el historial: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
 
         public class AsistenciaViewModel
