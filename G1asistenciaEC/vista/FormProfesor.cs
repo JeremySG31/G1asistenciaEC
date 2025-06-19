@@ -24,7 +24,6 @@ namespace G1asistenciaEC
             lblNombreProfesor.Text = _profesor.NombreCompleto;
             tabControl.SelectedTab = tabTomar;
 
-            // Establecer la fecha actual en el DateTimePicker
             dtpFecha.Value = DateTime.Today;
 
             ConfigurarDataGridView();
@@ -116,41 +115,34 @@ namespace G1asistenciaEC
             try
             {
                 var asistenciasN = new asistenciasMatriculadosN();
-                // 1. Obtener asistencias de la BD para la fecha y filtros actuales
                 var asistenciasDB = asistenciasN.ObtenerPorGradoYSeccionYFecha(grado, seccion, fecha);
                 var asistenciasPorMatriculaDB = asistenciasDB.ToDictionary(a => a.IdMatricula);
 
-                // 2. Obtener la lista de alumnos activos para el grado y sección
                 var alumnos = new MatriculasN().ObtenerTodos()
                     .Where(m => m.NombreGrado.Equals(grado, StringComparison.OrdinalIgnoreCase) &&
                                  m.NombreSeccion.Equals(seccion, StringComparison.OrdinalIgnoreCase) &&
                                  m.Estado.Equals("activo", StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                // 3. Crear el DataSource, priorizando la base de datos sobre el caché
                 var source = alumnos.Select(a =>
                 {
                     string estadoActual;
 
-                    // Primero intentamos obtener el estado de la base de datos
                     if (asistenciasPorMatriculaDB.TryGetValue(a.Id, out var asistenciaDB))
                     {
                         estadoActual = asistenciaDB.Estado;
                         
-                        // Actualizamos el caché con el valor de la base de datos
                         if (!_asistenciasCache.ContainsKey(a.Id))
                         {
                             _asistenciasCache[a.Id] = new Dictionary<DateTime, string>();
                         }
                         _asistenciasCache[a.Id][fecha] = estadoActual;
                     }
-                    // Si no está en la base de datos, intentamos obtener del caché
                     else if (_asistenciasCache.TryGetValue(a.Id, out var asistenciasPorFechaEnCache) &&
                              asistenciasPorFechaEnCache.TryGetValue(fecha, out var estadoEnCache))
                     {
                         estadoActual = estadoEnCache;
                     }
-                    // Si no está en ningún lado, entonces sí es "Sin registro"
                     else
                     {
                         estadoActual = "Sin registro";
@@ -169,7 +161,6 @@ namespace G1asistenciaEC
                 dgvAsistencia.DataSource = source;
                 dgvAsistencia.Refresh();
 
-                // Actualizar checkboxes si hay selección
                 if (dgvAsistencia.SelectedRows.Count > 0)
                 {
                     var estado = dgvAsistencia.SelectedRows[0].Cells["Estado"].Value?.ToString();
@@ -250,12 +241,12 @@ namespace G1asistenciaEC
                     negocio.Insertar(nuevaAsistencia);
                 }
 
-                // Actualizar el caché y la celda
                 if (!_asistenciasCache.ContainsKey(idMatricula))
                 {
                     _asistenciasCache[idMatricula] = new Dictionary<DateTime, string>();
                 }
-                _asistenciasCache[idMatricula][fecha] = estado; // ¡Aquí se sobrescribe o agrega en el caché!
+                _asistenciasCache[idMatricula][fecha] = estado; 
+
                 row.Cells["Estado"].Value = estado;
             }
 
@@ -273,8 +264,6 @@ namespace G1asistenciaEC
 
             if (cbGrado.SelectedItem != null && cbSeccion.SelectedItem != null)
             {
-                // No llamamos directamente a ActualizarGrilla aquí, sino al evento de cambio de Grado/Seccion
-                // para que se dispare la lógica completa de actualización de grilla y caché.
                 cbGrado_Seccion_Changed(sender, e);
             }
         }

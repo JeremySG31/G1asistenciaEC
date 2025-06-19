@@ -27,17 +27,15 @@
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabTomar = new System.Windows.Forms.TabPage();
+            this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
             this.lblNombreProfesor = new System.Windows.Forms.Label();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnInfoPersonal = new System.Windows.Forms.Button();
-            this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
-
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).BeginInit();
-            this.tabTomar.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.tabTomar.SuspendLayout();
             this.groupBoxFiltros.SuspendLayout();
             this.SuspendLayout();
-
             // 
             // dgvAsistencia
             // 
@@ -49,7 +47,6 @@
             this.dgvAsistencia.RowHeadersWidth = 51;
             this.dgvAsistencia.Size = new System.Drawing.Size(800, 200);
             this.dgvAsistencia.TabIndex = 0;
-
             // 
             // chkA
             // 
@@ -62,7 +59,6 @@
             this.chkA.Text = "A";
             this.chkA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkA.UseVisualStyleBackColor = true;
-
             // 
             // chkT
             // 
@@ -75,7 +71,6 @@
             this.chkT.Text = "T";
             this.chkT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkT.UseVisualStyleBackColor = true;
-
             // 
             // chkF
             // 
@@ -88,7 +83,6 @@
             this.chkF.Text = "F";
             this.chkF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkF.UseVisualStyleBackColor = true;
-
             // 
             // cbGrado
             // 
@@ -98,7 +92,6 @@
             this.cbGrado.Name = "cbGrado";
             this.cbGrado.Size = new System.Drawing.Size(150, 24);
             this.cbGrado.TabIndex = 4;
-
             // 
             // cbSeccion
             // 
@@ -108,7 +101,6 @@
             this.cbSeccion.Name = "cbSeccion";
             this.cbSeccion.Size = new System.Drawing.Size(150, 24);
             this.cbSeccion.TabIndex = 5;
-
             // 
             // dtpFecha
             // 
@@ -117,7 +109,25 @@
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(200, 22);
             this.dtpFecha.TabIndex = 6;
-
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabTomar);
+            this.tabControl.Location = new System.Drawing.Point(12, 48);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(860, 340);
+            this.tabControl.TabIndex = 7;
+            // 
+            // tabTomar
+            // 
+            this.tabTomar.Controls.Add(this.groupBoxFiltros);
+            this.tabTomar.Controls.Add(this.dgvAsistencia);
+            this.tabTomar.Location = new System.Drawing.Point(4, 25);
+            this.tabTomar.Name = "tabTomar";
+            this.tabTomar.Size = new System.Drawing.Size(852, 311);
+            this.tabTomar.TabIndex = 0;
+            this.tabTomar.Text = "Tomar Asistencia";
             // 
             // groupBoxFiltros
             // 
@@ -133,28 +143,6 @@
             this.groupBoxFiltros.TabIndex = 11;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Asistencia";
-
-            // 
-            // tabTomar
-            // 
-            this.tabTomar.Controls.Add(this.groupBoxFiltros);
-            this.tabTomar.Controls.Add(this.dgvAsistencia);
-            this.tabTomar.Location = new System.Drawing.Point(4, 25);
-            this.tabTomar.Name = "tabTomar";
-            this.tabTomar.Size = new System.Drawing.Size(852, 311);
-            this.tabTomar.TabIndex = 0;
-            this.tabTomar.Text = "Tomar Asistencia";
-
-            // 
-            // tabControl
-            // 
-            this.tabControl.Controls.Add(this.tabTomar);
-            this.tabControl.Location = new System.Drawing.Point(12, 48);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(860, 340);
-            this.tabControl.TabIndex = 7;
-
             // 
             // lblNombreProfesor
             // 
@@ -165,7 +153,6 @@
             this.lblNombreProfesor.Size = new System.Drawing.Size(183, 20);
             this.lblNombreProfesor.TabIndex = 8;
             this.lblNombreProfesor.Text = "Nombre del Profesor";
-
             // 
             // btnCerrarSesion
             // 
@@ -176,7 +163,6 @@
             this.btnCerrarSesion.Text = "Cerrar sesión";
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
-
             // 
             // btnInfoPersonal
             // 
@@ -187,7 +173,6 @@
             this.btnInfoPersonal.Text = "Información personal";
             this.btnInfoPersonal.UseVisualStyleBackColor = true;
             this.btnInfoPersonal.Click += new System.EventHandler(this.btnInfoPersonal_Click);
-
             // 
             // FormProfesor
             // 
@@ -200,13 +185,13 @@
             this.Controls.Add(this.btnCerrarSesion);
             this.Name = "FormProfesor";
             this.Text = "FormProfesor";
-
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).EndInit();
-            this.tabTomar.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
+            this.tabTomar.ResumeLayout(false);
             this.groupBoxFiltros.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }
