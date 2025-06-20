@@ -29,6 +29,8 @@ namespace G1asistenciaEC
 
             ConfigurarDataGridView();
             ConfigurarDataGridViewHistorial();
+            // Evitar doble suscripción
+            btnBuscar.Click -= btnBuscar_Click;
             ConfigurarEventos();
             CargarFiltros();
         }
@@ -63,16 +65,6 @@ namespace G1asistenciaEC
                 HeaderText = "Estado",
                 Width = 100,
                 ReadOnly = true
-            });
-
-            dgvAsistencia.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Fecha",
-                DataPropertyName = "Fecha",
-                HeaderText = "Fecha",
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy" },
-                ReadOnly = true,
-                Width = 100
             });
 
             dgvAsistencia.EditMode = DataGridViewEditMode.EditOnEnter;
@@ -209,8 +201,7 @@ namespace G1asistenciaEC
                     {
                         IdMatricula = a.Id,
                         NombreEstudiante = a.NombreEstudiante,
-                        Estado = estadoActual,
-                        Fecha = fecha
+                        Estado = estadoActual
                     };
                 }).ToList();
 
@@ -368,11 +359,11 @@ namespace G1asistenciaEC
                 var asistenciasN = new asistenciasMatriculadosN();
                 var asistencias = asistenciasN.ObtenerAsistenciasPorFecha(fecha);
 
+                dgvHistorial.DataSource = null; // Limpiar antes de mostrar el mensaje
                 if (asistencias == null || !asistencias.Any())
                 {
                     MessageBox.Show("No se encontraron registros de asistencia para la fecha seleccionada.",
                         "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    dgvHistorial.DataSource = null;
                     return;
                 }
 
@@ -386,7 +377,6 @@ namespace G1asistenciaEC
                   .ThenBy(x => x.NombreEstudiante)
                   .ToList();
 
-                dgvHistorial.DataSource = null;
                 dgvHistorial.DataSource = historialViewModel;
                 dgvHistorial.Refresh();
             }
@@ -406,7 +396,6 @@ namespace G1asistenciaEC
             public string IdMatricula { get; set; }
             public string NombreEstudiante { get; set; }
             public string Estado { get; set; }
-            public DateTime Fecha { get; set; }
         }
     }
 }

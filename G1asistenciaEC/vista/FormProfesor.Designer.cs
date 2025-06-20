@@ -1,4 +1,6 @@
-﻿namespace G1asistenciaEC
+﻿using System;
+
+namespace G1asistenciaEC
 {
     partial class FormProfesor
     {
@@ -33,23 +35,23 @@
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabTomar = new System.Windows.Forms.TabPage();
-            this.tabHistorial = new System.Windows.Forms.TabPage();
-            this.dgvHistorial = new System.Windows.Forms.DataGridView();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
+            this.tabHistorial = new System.Windows.Forms.TabPage();
             this.groupBoxFiltrosHistorial = new System.Windows.Forms.GroupBox();
-            this.dtpFechaHistorial = new System.Windows.Forms.DateTimePicker();
             this.lblFechaHistorial = new System.Windows.Forms.Label();
+            this.dtpFechaHistorial = new System.Windows.Forms.DateTimePicker();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.dgvHistorial = new System.Windows.Forms.DataGridView();
             this.lblNombreProfesor = new System.Windows.Forms.Label();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnInfoPersonal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabTomar.SuspendLayout();
-            this.tabHistorial.SuspendLayout();
             this.groupBoxFiltros.SuspendLayout();
+            this.tabHistorial.SuspendLayout();
             this.groupBoxFiltrosHistorial.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvAsistencia
@@ -62,6 +64,7 @@
             this.dgvAsistencia.RowHeadersWidth = 51;
             this.dgvAsistencia.Size = new System.Drawing.Size(800, 200);
             this.dgvAsistencia.TabIndex = 0;
+            this.dgvAsistencia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsistencia_CellClick);
             // 
             // chkA
             // 
@@ -74,6 +77,7 @@
             this.chkA.Text = "A";
             this.chkA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkA.UseVisualStyleBackColor = true;
+            this.chkA.CheckedChanged += new System.EventHandler(this.chkA_CheckedChanged);
             // 
             // chkT
             // 
@@ -86,6 +90,7 @@
             this.chkT.Text = "T";
             this.chkT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkT.UseVisualStyleBackColor = true;
+            this.chkT.CheckedChanged += new System.EventHandler(this.chkT_CheckedChanged);
             // 
             // chkF
             // 
@@ -98,6 +103,7 @@
             this.chkF.Text = "F";
             this.chkF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkF.UseVisualStyleBackColor = true;
+            this.chkF.CheckedChanged += new System.EventHandler(this.chkF_CheckedChanged);
             // 
             // cbGrado
             // 
@@ -107,6 +113,7 @@
             this.cbGrado.Name = "cbGrado";
             this.cbGrado.Size = new System.Drawing.Size(150, 24);
             this.cbGrado.TabIndex = 4;
+            this.cbGrado.SelectedIndexChanged += new System.EventHandler(this.cbGrado_Seccion_Changed);
             // 
             // cbSeccion
             // 
@@ -116,6 +123,7 @@
             this.cbSeccion.Name = "cbSeccion";
             this.cbSeccion.Size = new System.Drawing.Size(150, 24);
             this.cbSeccion.TabIndex = 5;
+            this.cbSeccion.SelectedIndexChanged += new System.EventHandler(this.cbGrado_Seccion_Changed);
             // 
             // dtpFecha
             // 
@@ -124,6 +132,7 @@
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(200, 22);
             this.dtpFecha.TabIndex = 6;
+            this.dtpFecha.ValueChanged += new System.EventHandler(this.dtpFecha_ValueChanged);
             // 
             // tabControl
             // 
@@ -146,29 +155,6 @@
             this.tabTomar.Text = "Tomar Asistencia";
             this.tabTomar.UseVisualStyleBackColor = true;
             // 
-            // tabHistorial
-            // 
-            this.tabHistorial.Controls.Add(this.groupBoxFiltrosHistorial);
-            this.tabHistorial.Controls.Add(this.dgvHistorial);
-            this.tabHistorial.Location = new System.Drawing.Point(4, 25);
-            this.tabHistorial.Name = "tabHistorial";
-            this.tabHistorial.Size = new System.Drawing.Size(852, 311);
-            this.tabHistorial.TabIndex = 1;
-            this.tabHistorial.Text = "Historial de Asistencias";
-            this.tabHistorial.UseVisualStyleBackColor = true;
-            // 
-            // dgvHistorial
-            // 
-            this.dgvHistorial.AllowUserToAddRows = false;
-            this.dgvHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHistorial.Location = new System.Drawing.Point(20, 150);
-            this.dgvHistorial.Name = "dgvHistorial";
-            this.dgvHistorial.RowHeadersWidth = 51;
-            this.dgvHistorial.Size = new System.Drawing.Size(800, 200);
-            this.dgvHistorial.TabIndex = 1;
-            this.dgvHistorial.ReadOnly = true;
-            // 
             // groupBoxFiltros
             // 
             this.groupBoxFiltros.Controls.Add(this.chkA);
@@ -183,6 +169,17 @@
             this.groupBoxFiltros.TabIndex = 11;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Asistencia";
+            // 
+            // tabHistorial
+            // 
+            this.tabHistorial.Controls.Add(this.groupBoxFiltrosHistorial);
+            this.tabHistorial.Controls.Add(this.dgvHistorial);
+            this.tabHistorial.Location = new System.Drawing.Point(4, 25);
+            this.tabHistorial.Name = "tabHistorial";
+            this.tabHistorial.Size = new System.Drawing.Size(852, 311);
+            this.tabHistorial.TabIndex = 1;
+            this.tabHistorial.Text = "Historial de Asistencias";
+            this.tabHistorial.UseVisualStyleBackColor = true;
             // 
             // groupBoxFiltrosHistorial
             // 
@@ -202,6 +199,7 @@
             this.lblFechaHistorial.Location = new System.Drawing.Point(20, 30);
             this.lblFechaHistorial.Name = "lblFechaHistorial";
             this.lblFechaHistorial.Size = new System.Drawing.Size(48, 16);
+            this.lblFechaHistorial.TabIndex = 0;
             this.lblFechaHistorial.Text = "Fecha:";
             // 
             // dtpFechaHistorial
@@ -210,6 +208,7 @@
             this.dtpFechaHistorial.Location = new System.Drawing.Point(80, 28);
             this.dtpFechaHistorial.Name = "dtpFechaHistorial";
             this.dtpFechaHistorial.Size = new System.Drawing.Size(150, 22);
+            this.dtpFechaHistorial.TabIndex = 1;
             // 
             // btnBuscar
             // 
@@ -219,6 +218,19 @@
             this.btnBuscar.TabIndex = 5;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // dgvHistorial
+            // 
+            this.dgvHistorial.AllowUserToAddRows = false;
+            this.dgvHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHistorial.Location = new System.Drawing.Point(20, 150);
+            this.dgvHistorial.Name = "dgvHistorial";
+            this.dgvHistorial.ReadOnly = true;
+            this.dgvHistorial.RowHeadersWidth = 51;
+            this.dgvHistorial.Size = new System.Drawing.Size(800, 200);
+            this.dgvHistorial.TabIndex = 1;
             // 
             // lblNombreProfesor
             // 
@@ -238,6 +250,7 @@
             this.btnCerrarSesion.TabIndex = 9;
             this.btnCerrarSesion.Text = "Cerrar sesión";
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
+            this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
             // 
             // btnInfoPersonal
             // 
@@ -247,6 +260,7 @@
             this.btnInfoPersonal.TabIndex = 10;
             this.btnInfoPersonal.Text = "Información personal";
             this.btnInfoPersonal.UseVisualStyleBackColor = true;
+            this.btnInfoPersonal.Click += new System.EventHandler(this.btnInfoPersonal_Click);
             // 
             // FormProfesor
             // 
@@ -260,13 +274,13 @@
             this.Name = "FormProfesor";
             this.Text = "FormProfesor";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabTomar.ResumeLayout(false);
-            this.tabHistorial.ResumeLayout(false);
             this.groupBoxFiltros.ResumeLayout(false);
+            this.tabHistorial.ResumeLayout(false);
             this.groupBoxFiltrosHistorial.ResumeLayout(false);
             this.groupBoxFiltrosHistorial.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
