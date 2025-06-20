@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using G1asistenciaEC.modelo;
 using G1asistenciaEC.negocio;
 
-namespace G1asistenciaEC.negocio // Cambiado a G1asistenciaEC.negocio
+namespace G1asistenciaEC.negocio 
 {
     public class profesorN
     {
