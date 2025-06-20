@@ -164,7 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controlador\aniosLectivosC.cs" />
-    <Compile Include="controlador\asistenciaMatriculadosC.cs" />
     <Compile Include="controlador\asistenciasMatriculadosC.cs" />
     <Compile Include="controlador\cursosC.cs" />
     <Compile Include="controlador\cursosMatriculadosC.cs" />

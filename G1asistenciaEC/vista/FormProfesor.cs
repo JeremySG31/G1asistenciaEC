@@ -29,7 +29,6 @@ namespace G1asistenciaEC
 
             ConfigurarDataGridView();
             ConfigurarDataGridViewHistorial();
-            // Evitar doble suscripción
             btnBuscar.Click -= btnBuscar_Click;
             ConfigurarEventos();
             CargarFiltros();
@@ -78,7 +77,6 @@ namespace G1asistenciaEC
             dgvHistorial.AutoGenerateColumns = false;
             dgvHistorial.Columns.Clear();
 
-            // 1. Nombre del Estudiante
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "NombreEstudiante",
@@ -89,7 +87,6 @@ namespace G1asistenciaEC
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
 
-            // 2. Correo
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "CorreoUsuario",
@@ -100,7 +97,6 @@ namespace G1asistenciaEC
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             });
 
-            // 3. Grado y Sección
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "GradoSeccion",
@@ -110,7 +106,6 @@ namespace G1asistenciaEC
                 Width = 150
             });
 
-            // 4. Estado
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Estado",
@@ -359,7 +354,7 @@ namespace G1asistenciaEC
                 var asistenciasN = new asistenciasMatriculadosN();
                 var asistencias = asistenciasN.ObtenerAsistenciasPorFecha(fecha);
 
-                dgvHistorial.DataSource = null; // Limpiar antes de mostrar el mensaje
+                dgvHistorial.DataSource = null;
                 if (asistencias == null || !asistencias.Any())
                 {
                     MessageBox.Show("No se encontraron registros de asistencia para la fecha seleccionada.",

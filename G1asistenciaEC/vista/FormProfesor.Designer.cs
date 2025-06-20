@@ -62,7 +62,7 @@ namespace G1asistenciaEC
             this.dgvAsistencia.Location = new System.Drawing.Point(20, 150);
             this.dgvAsistencia.Name = "dgvAsistencia";
             this.dgvAsistencia.RowHeadersWidth = 51;
-            this.dgvAsistencia.Size = new System.Drawing.Size(800, 200);
+            this.dgvAsistencia.Size = new System.Drawing.Size(800, 157);
             this.dgvAsistencia.TabIndex = 0;
             this.dgvAsistencia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsistencia_CellClick);
             // 
@@ -266,7 +266,7 @@ namespace G1asistenciaEC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(885, 394);
+            this.ClientSize = new System.Drawing.Size(885, 392);
             this.Controls.Add(this.lblNombreProfesor);
             this.Controls.Add(this.btnInfoPersonal);
             this.Controls.Add(this.tabControl);
@@ -283,6 +283,7 @@ namespace G1asistenciaEC
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }
