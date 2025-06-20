@@ -22,7 +22,9 @@ namespace G1asistenciaEC
             _profesor = negocio.ObtenerInformacionProfesor(usuario);
 
             lblNombreProfesor.Text = _profesor.NombreCompleto;
-            tabControl.SelectedTab = tabTomar;
+
+            // Usa el índice en vez del objeto para evitar errores de inicialización
+            tabControl.SelectedIndex = 0; // 0 = tabTomar, 1 = tabHistorial
 
             dtpFecha.Value = DateTime.Today;
             dtpFechaHistorial.Value = DateTime.Today;
@@ -339,6 +341,10 @@ namespace G1asistenciaEC
             this.Close();
         }
 
+        private void FormProfesor_Load(object sender, EventArgs e)
+        {
+
+        }
         private void btnInfoPersonal_Click(object sender, EventArgs e)
         {
             MessageBox.Show($"Información del profesor:\n\nNombre: {_profesor.NombreCompleto}\nDNI: {_profesor.Dni}\nCorreo: {_profesor.Correo}");
@@ -392,5 +398,7 @@ namespace G1asistenciaEC
             public string NombreEstudiante { get; set; }
             public string Estado { get; set; }
         }
+
+  
     }
 }

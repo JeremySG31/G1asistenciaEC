@@ -302,6 +302,9 @@
     <Compile Include="vista\UcUsuarios.Designer.cs">
       <DependentUpon>UcUsuarios.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="vista\FormEstudiante.resx">
+      <DependentUpon>FormEstudiante.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="vista\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>

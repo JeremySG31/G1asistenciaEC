@@ -17,5 +17,10 @@ namespace G1asistenciaEC.controlador
         {
             return _negocio.ObtenerEstudiantePorUsuario(usuario);
         }
+
+        public estudianteM ObtenerPorDni(string dni)
+        {
+            return _negocio.ObtenerPorDni(dni);
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace G1asistenciaEC.modelo
 {
     public class estudianteM : Persona
     {
-       
+        public string Id { get; set; } 
+
     }
 }

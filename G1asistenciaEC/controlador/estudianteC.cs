@@ -36,5 +36,39 @@ namespace G1asistenciaEC.negocio
             }
             return null;
         }
+
+        public estudianteM ObtenerPorDni(string dni)
+        {
+            using (var conn = Conexion.ObtenerConexion())
+            {
+                conn.Open();
+                var cmd = new SqlCommand(@"
+                    SELECT e.id, u.nombres, u.ape_paterno, u.ape_materno, u.dni, u.correo, u.estado, u.telefono
+                    FROM estudiantes e
+                    INNER JOIN usuarios u ON e.id_usuario = u.id
+                    WHERE u.dni = @dni", conn);
+
+                cmd.Parameters.AddWithValue("@dni", dni);
+
+                using (var dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        return new estudianteM
+                        {
+                            Id = dr["id"].ToString(),
+                            Nombres = dr["nombres"].ToString(),
+                            ApellidoPaterno = dr["ape_paterno"].ToString(),
+                            ApellidoMaterno = dr["ape_materno"].ToString(),
+                            Dni = dr["dni"].ToString(),
+                            Correo = dr["correo"].ToString(),
+                            Estado = dr["estado"].ToString(),
+                            Telefono = dr["telefono"].ToString()
+                        };
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

@@ -62,7 +62,7 @@ namespace G1asistenciaEC
             this.dgvAsistencia.Location = new System.Drawing.Point(20, 150);
             this.dgvAsistencia.Name = "dgvAsistencia";
             this.dgvAsistencia.RowHeadersWidth = 51;
-            this.dgvAsistencia.Size = new System.Drawing.Size(800, 157);
+            this.dgvAsistencia.Size = new System.Drawing.Size(1022, 329);
             this.dgvAsistencia.TabIndex = 0;
             this.dgvAsistencia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsistencia_CellClick);
             // 
@@ -138,10 +138,10 @@ namespace G1asistenciaEC
             // 
             this.tabControl.Controls.Add(this.tabTomar);
             this.tabControl.Controls.Add(this.tabHistorial);
-            this.tabControl.Location = new System.Drawing.Point(12, 48);
+            this.tabControl.Location = new System.Drawing.Point(12, 60);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(860, 340);
+            this.tabControl.Size = new System.Drawing.Size(1067, 517);
             this.tabControl.TabIndex = 7;
             // 
             // tabTomar
@@ -150,7 +150,7 @@ namespace G1asistenciaEC
             this.tabTomar.Controls.Add(this.dgvAsistencia);
             this.tabTomar.Location = new System.Drawing.Point(4, 25);
             this.tabTomar.Name = "tabTomar";
-            this.tabTomar.Size = new System.Drawing.Size(852, 311);
+            this.tabTomar.Size = new System.Drawing.Size(1059, 488);
             this.tabTomar.TabIndex = 0;
             this.tabTomar.Text = "Tomar Asistencia";
             this.tabTomar.UseVisualStyleBackColor = true;
@@ -176,7 +176,7 @@ namespace G1asistenciaEC
             this.tabHistorial.Controls.Add(this.dgvHistorial);
             this.tabHistorial.Location = new System.Drawing.Point(4, 25);
             this.tabHistorial.Name = "tabHistorial";
-            this.tabHistorial.Size = new System.Drawing.Size(852, 311);
+            this.tabHistorial.Size = new System.Drawing.Size(1059, 488);
             this.tabHistorial.TabIndex = 1;
             this.tabHistorial.Text = "Historial de Asistencias";
             this.tabHistorial.UseVisualStyleBackColor = true;
@@ -188,7 +188,7 @@ namespace G1asistenciaEC
             this.groupBoxFiltrosHistorial.Controls.Add(this.btnBuscar);
             this.groupBoxFiltrosHistorial.Location = new System.Drawing.Point(20, 20);
             this.groupBoxFiltrosHistorial.Name = "groupBoxFiltrosHistorial";
-            this.groupBoxFiltrosHistorial.Size = new System.Drawing.Size(800, 100);
+            this.groupBoxFiltrosHistorial.Size = new System.Drawing.Size(1017, 100);
             this.groupBoxFiltrosHistorial.TabIndex = 0;
             this.groupBoxFiltrosHistorial.TabStop = false;
             this.groupBoxFiltrosHistorial.Text = "Filtros de Historial";
@@ -229,14 +229,14 @@ namespace G1asistenciaEC
             this.dgvHistorial.Name = "dgvHistorial";
             this.dgvHistorial.ReadOnly = true;
             this.dgvHistorial.RowHeadersWidth = 51;
-            this.dgvHistorial.Size = new System.Drawing.Size(800, 200);
+            this.dgvHistorial.Size = new System.Drawing.Size(1024, 324);
             this.dgvHistorial.TabIndex = 1;
             // 
             // lblNombreProfesor
             // 
             this.lblNombreProfesor.AutoSize = true;
             this.lblNombreProfesor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.lblNombreProfesor.Location = new System.Drawing.Point(20, 12);
+            this.lblNombreProfesor.Location = new System.Drawing.Point(13, 24);
             this.lblNombreProfesor.Name = "lblNombreProfesor";
             this.lblNombreProfesor.Size = new System.Drawing.Size(183, 20);
             this.lblNombreProfesor.TabIndex = 8;
@@ -244,7 +244,7 @@ namespace G1asistenciaEC
             // 
             // btnCerrarSesion
             // 
-            this.btnCerrarSesion.Location = new System.Drawing.Point(748, 12);
+            this.btnCerrarSesion.Location = new System.Drawing.Point(952, 24);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(120, 30);
             this.btnCerrarSesion.TabIndex = 9;
@@ -254,7 +254,7 @@ namespace G1asistenciaEC
             // 
             // btnInfoPersonal
             // 
-            this.btnInfoPersonal.Location = new System.Drawing.Point(551, 12);
+            this.btnInfoPersonal.Location = new System.Drawing.Point(776, 24);
             this.btnInfoPersonal.Name = "btnInfoPersonal";
             this.btnInfoPersonal.Size = new System.Drawing.Size(170, 30);
             this.btnInfoPersonal.TabIndex = 10;
@@ -266,13 +266,14 @@ namespace G1asistenciaEC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(885, 392);
+            this.ClientSize = new System.Drawing.Size(1091, 615);
             this.Controls.Add(this.lblNombreProfesor);
             this.Controls.Add(this.btnInfoPersonal);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnCerrarSesion);
             this.Name = "FormProfesor";
             this.Text = "FormProfesor";
+            this.Load += new System.EventHandler(this.FormProfesor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabTomar.ResumeLayout(false);
