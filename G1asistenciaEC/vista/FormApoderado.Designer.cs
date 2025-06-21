@@ -39,9 +39,7 @@
             this.tabHistorial.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblNombreApoderado
-            // 
+          
             this.lblNombreApoderado.AutoSize = true;
             this.lblNombreApoderado.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblNombreApoderado.Location = new System.Drawing.Point(11, 32);
@@ -50,9 +48,7 @@
             this.lblNombreApoderado.Size = new System.Drawing.Size(234, 28);
             this.lblNombreApoderado.TabIndex = 1;
             this.lblNombreApoderado.Text = "Nombre del Apoderado";
-            // 
-            // tabControl
-            // 
+      
             this.tabControl.Controls.Add(this.tabHistorial);
             this.tabControl.Location = new System.Drawing.Point(12, 74);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4);
@@ -60,9 +56,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(976, 483);
             this.tabControl.TabIndex = 4;
-            // 
-            // tabHistorial
-            // 
+         
             this.tabHistorial.Controls.Add(this.dgvHistorial);
             this.tabHistorial.Controls.Add(this.btnBuscar);
             this.tabHistorial.Location = new System.Drawing.Point(4, 25);
@@ -73,9 +67,7 @@
             this.tabHistorial.TabIndex = 0;
             this.tabHistorial.Text = "Asistencias del estudiante asociado";
             this.tabHistorial.UseVisualStyleBackColor = true;
-            // 
-            // dgvHistorial
-            // 
+       
             this.dgvHistorial.AllowUserToAddRows = false;
             this.dgvHistorial.AllowUserToDeleteRows = false;
             this.dgvHistorial.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -89,9 +81,7 @@
             this.dgvHistorial.RowHeadersWidth = 51;
             this.dgvHistorial.Size = new System.Drawing.Size(909, 360);
             this.dgvHistorial.TabIndex = 0;
-            // 
-            // btnBuscar
-            // 
+        
             this.btnBuscar.Location = new System.Drawing.Point(27, 17);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
@@ -99,9 +89,7 @@
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.Text = "Consultar historial de asistencias";
             this.btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // btnInfoPersonal
-            // 
+          
             this.btnInfoPersonal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoPersonal.Location = new System.Drawing.Point(706, 36);
             this.btnInfoPersonal.Margin = new System.Windows.Forms.Padding(4);
@@ -110,9 +98,7 @@
             this.btnInfoPersonal.TabIndex = 5;
             this.btnInfoPersonal.Text = "Información Personal";
             this.btnInfoPersonal.UseVisualStyleBackColor = true;
-            // 
-            // btnCerrarSesion
-            // 
+         
             this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrarSesion.Location = new System.Drawing.Point(865, 36);
             this.btnCerrarSesion.Margin = new System.Windows.Forms.Padding(4);
@@ -121,9 +107,7 @@
             this.btnCerrarSesion.TabIndex = 6;
             this.btnCerrarSesion.Text = "Cerrar Sesión";
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
-            // 
-            // FormApoderado
-            // 
+     
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1001, 580);

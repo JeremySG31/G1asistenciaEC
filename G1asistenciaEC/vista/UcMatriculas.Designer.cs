@@ -67,42 +67,32 @@
             this.lblEstado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatriculas)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvMatriculas
-            // 
+
             this.dgvMatriculas.ColumnHeadersHeight = 29;
             this.dgvMatriculas.Location = new System.Drawing.Point(350, 24);
             this.dgvMatriculas.Name = "dgvMatriculas";
             this.dgvMatriculas.RowHeadersWidth = 51;
             this.dgvMatriculas.Size = new System.Drawing.Size(700, 320);
             this.dgvMatriculas.TabIndex = 20;
-            // 
-            // btnInsertar
-            // 
+
             this.btnInsertar.Location = new System.Drawing.Point(50, 420);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(76, 26);
             this.btnInsertar.TabIndex = 15;
             this.btnInsertar.Text = "Insertar";
-            // 
-            // btnModificar
-            // 
+
             this.btnModificar.Location = new System.Drawing.Point(140, 420);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(82, 26);
             this.btnModificar.TabIndex = 16;
             this.btnModificar.Text = "Modificar";
-            // 
-            // btnEliminar
-            // 
+
             this.btnEliminar.Location = new System.Drawing.Point(230, 420);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(78, 26);
             this.btnEliminar.TabIndex = 17;
             this.btnEliminar.Text = "Eliminar";
-            // 
-            // lblTitulo
-            // 
+ 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.Location = new System.Drawing.Point(46, 22);
@@ -110,87 +100,65 @@
             this.lblTitulo.Size = new System.Drawing.Size(110, 25);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Matrículas";
-            // 
-            // txtId
-            // 
+
             this.txtId.Location = new System.Drawing.Point(150, 59);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(150, 22);
             this.txtId.TabIndex = 1;
-            // 
-            // cbEstudiante
-            // 
+   
             this.cbEstudiante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstudiante.Location = new System.Drawing.Point(150, 89);
             this.cbEstudiante.Name = "cbEstudiante";
             this.cbEstudiante.Size = new System.Drawing.Size(150, 22);
             this.cbEstudiante.TabIndex = 2;
-            // 
-            // cbGrado
-            // 
+
             this.cbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbGrado.Location = new System.Drawing.Point(150, 119);
             this.cbGrado.Name = "cbGrado";
             this.cbGrado.Size = new System.Drawing.Size(150, 22);
             this.cbGrado.TabIndex = 3;
-            // 
-            // cbNivel
-            // 
+
             this.cbNivel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNivel.Location = new System.Drawing.Point(150, 149);
             this.cbNivel.Name = "cbNivel";
             this.cbNivel.Size = new System.Drawing.Size(150, 22);
             this.cbNivel.TabIndex = 4;
-            // 
-            // cbSeccion
-            // 
+
             this.cbSeccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSeccion.Location = new System.Drawing.Point(150, 179);
             this.cbSeccion.Name = "cbSeccion";
             this.cbSeccion.Size = new System.Drawing.Size(150, 22);
             this.cbSeccion.TabIndex = 5;
-            // 
-            // cbTurno
-            // 
+
             this.cbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTurno.Location = new System.Drawing.Point(150, 209);
             this.cbTurno.Name = "cbTurno";
             this.cbTurno.Size = new System.Drawing.Size(150, 22);
             this.cbTurno.TabIndex = 6;
-            // 
-            // cbAnioLectivo
-            // 
+
             this.cbAnioLectivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAnioLectivo.Location = new System.Drawing.Point(150, 239);
             this.cbAnioLectivo.Name = "cbAnioLectivo";
             this.cbAnioLectivo.Size = new System.Drawing.Size(150, 22);
             this.cbAnioLectivo.TabIndex = 7;
-            // 
-            // cbApoderado
-            // 
+
             this.cbApoderado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbApoderado.Location = new System.Drawing.Point(150, 269);
             this.cbApoderado.Name = "cbApoderado";
             this.cbApoderado.Size = new System.Drawing.Size(150, 22);
             this.cbApoderado.TabIndex = 8;
-            // 
-            // dtpFechaMatricula
-            // 
+
             this.dtpFechaMatricula.Location = new System.Drawing.Point(150, 299);
             this.dtpFechaMatricula.Name = "dtpFechaMatricula";
             this.dtpFechaMatricula.Size = new System.Drawing.Size(150, 22);
             this.dtpFechaMatricula.TabIndex = 9;
-            // 
-            // cbEstado
-            // 
+
             this.cbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstado.Location = new System.Drawing.Point(150, 329);
             this.cbEstado.Name = "cbEstado";
             this.cbEstado.Size = new System.Drawing.Size(150, 22);
             this.cbEstado.TabIndex = 10;
-            // 
-            // Labels
-            // 
+
             this.lblId.Location = new System.Drawing.Point(46, 62);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(100, 16);
@@ -231,9 +199,7 @@
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(100, 16);
             this.lblEstado.Text = "Estado";
-            // 
-            // UcMatriculas
-            // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTitulo);

@@ -8,7 +8,7 @@ namespace G1asistenciaEC.modelo
         public string Nombres { get; set; }
         public string IdEstudiante { get; set; }
         public string Nivel { get; set; }
-        public string NombreEstudiante { get; set; }  // Para mostrar en la UI
+        public string NombreEstudiante { get; set; } 
     }
 
     public class SeccionM
@@ -16,7 +16,7 @@ namespace G1asistenciaEC.modelo
         public string Id { get; set; }
         public string Nombre { get; set; }
         public string IdEstudiante { get; set; }
-        public string NombreEstudiante { get; set; }  // Para mostrar en la UI
+        public string NombreEstudiante { get; set; } 
     }
 
     public class EstudianteComboM

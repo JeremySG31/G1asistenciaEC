@@ -35,7 +35,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.gESTIONDEMATRICULASToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aDMINISTRARMATRICULASToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aSISTENCIAPORMATRICULASToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cURSOSPORToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cONFIGURACIONACADEMICAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aÑOSLECTIVOSToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,8 +101,7 @@
             // 
             this.gESTIONDEMATRICULASToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aDMINISTRARMATRICULASToolStripMenuItem,
-            this.cURSOSPORToolStripMenuItem,
-            this.aSISTENCIAPORMATRICULASToolStripMenuItem});
+            this.cURSOSPORToolStripMenuItem});
             this.gESTIONDEMATRICULASToolStripMenuItem.Name = "gESTIONDEMATRICULASToolStripMenuItem";
             this.gESTIONDEMATRICULASToolStripMenuItem.Size = new System.Drawing.Size(197, 24);
             this.gESTIONDEMATRICULASToolStripMenuItem.Text = "GESTION DE MATRICULAS";
@@ -114,12 +112,6 @@
             this.aDMINISTRARMATRICULASToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
             this.aDMINISTRARMATRICULASToolStripMenuItem.Text = "ADMINISTRAR MATRICULAS";
             this.aDMINISTRARMATRICULASToolStripMenuItem.Click += new System.EventHandler(this.aDMINISTRARMATRICULASToolStripMenuItem_Click);
-            // 
-            // aSISTENCIAPORMATRICULASToolStripMenuItem
-            // 
-            this.aSISTENCIAPORMATRICULASToolStripMenuItem.Name = "aSISTENCIAPORMATRICULASToolStripMenuItem";
-            this.aSISTENCIAPORMATRICULASToolStripMenuItem.Size = new System.Drawing.Size(280, 26);
-            this.aSISTENCIAPORMATRICULASToolStripMenuItem.Text = "ASISTENCIA ";
             // 
             // cURSOSPORToolStripMenuItem
             // 
@@ -213,7 +205,6 @@
         private System.Windows.Forms.Panel panelContenido;
         private System.Windows.Forms.ToolStripMenuItem gESTIONDEMATRICULASToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aDMINISTRARMATRICULASToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aSISTENCIAPORMATRICULASToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cURSOSPORToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem cONFIGURACIONACADEMICAToolStripMenuItem;

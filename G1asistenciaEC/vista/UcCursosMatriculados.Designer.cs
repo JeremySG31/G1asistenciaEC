@@ -59,119 +59,91 @@
             this.lblBuscar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursosMatriculados)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvCursosMatriculados
-            // 
+ 
             this.dgvCursosMatriculados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCursosMatriculados.Location = new System.Drawing.Point(369, 20);
             this.dgvCursosMatriculados.Name = "dgvCursosMatriculados";
             this.dgvCursosMatriculados.RowHeadersWidth = 51;
             this.dgvCursosMatriculados.Size = new System.Drawing.Size(453, 300);
             this.dgvCursosMatriculados.TabIndex = 1;
-            // 
-            // cbMatricula
-            // 
+
             this.cbMatricula.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMatricula.Location = new System.Drawing.Point(120, 107);
             this.cbMatricula.Name = "cbMatricula";
             this.cbMatricula.Size = new System.Drawing.Size(200, 24);
             this.cbMatricula.TabIndex = 5;
-            // 
-            // cbCurso
-            // 
+
             this.cbCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCurso.Location = new System.Drawing.Point(120, 147);
             this.cbCurso.Name = "cbCurso";
             this.cbCurso.Size = new System.Drawing.Size(200, 24);
             this.cbCurso.TabIndex = 7;
-            // 
-            // cbEstudiante
-            // 
+ 
             this.cbEstudiante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstudiante.Location = new System.Drawing.Point(120, 187);
             this.cbEstudiante.Name = "cbEstudiante";
             this.cbEstudiante.Size = new System.Drawing.Size(200, 24);
             this.cbEstudiante.TabIndex = 9;
-            // 
-            // cbIdCursosMatriculados
-            // 
+ 
             this.cbIdCursosMatriculados.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbIdCursosMatriculados.Location = new System.Drawing.Point(120, 67);
             this.cbIdCursosMatriculados.Name = "cbIdCursosMatriculados";
             this.cbIdCursosMatriculados.Size = new System.Drawing.Size(120, 24);
             this.cbIdCursosMatriculados.TabIndex = 3;
-            // 
-            // btnInsertar
-            // 
+
             this.btnInsertar.Location = new System.Drawing.Point(30, 240);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(85, 29);
             this.btnInsertar.TabIndex = 10;
             this.btnInsertar.Text = "Insertar";
-            // 
-            // btnModificar
-            // 
+
             this.btnModificar.Location = new System.Drawing.Point(130, 240);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(85, 29);
             this.btnModificar.TabIndex = 11;
             this.btnModificar.Text = "Modificar";
-            // 
-            // btnEliminar
-            // 
+
             this.btnEliminar.Location = new System.Drawing.Point(230, 240);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(85, 29);
             this.btnEliminar.TabIndex = 12;
             this.btnEliminar.Text = "Eliminar";
-            // 
-            // lblId
-            // 
+
             this.lblId.AutoSize = true;
             this.lblId.Location = new System.Drawing.Point(20, 70);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(18, 16);
             this.lblId.TabIndex = 2;
             this.lblId.Text = "Id";
-            // 
-            // lblMatricula
-            // 
+ 
             this.lblMatricula.AutoSize = true;
             this.lblMatricula.Location = new System.Drawing.Point(20, 110);
             this.lblMatricula.Name = "lblMatricula";
             this.lblMatricula.Size = new System.Drawing.Size(61, 16);
             this.lblMatricula.TabIndex = 4;
             this.lblMatricula.Text = "Matrícula";
-            // 
-            // lblCurso
-            // 
+
             this.lblCurso.AutoSize = true;
             this.lblCurso.Location = new System.Drawing.Point(20, 150);
             this.lblCurso.Name = "lblCurso";
             this.lblCurso.Size = new System.Drawing.Size(42, 16);
             this.lblCurso.TabIndex = 6;
             this.lblCurso.Text = "Curso";
-            // 
-            // lblEstudiante
-            // 
+
             this.lblEstudiante.AutoSize = true;
             this.lblEstudiante.Location = new System.Drawing.Point(20, 190);
             this.lblEstudiante.Name = "lblEstudiante";
             this.lblEstudiante.Size = new System.Drawing.Size(70, 16);
             this.lblEstudiante.TabIndex = 8;
             this.lblEstudiante.Text = "Estudiante";
-            // 
-            // lblIdCursosMatriculados
-            // 
+
             this.lblIdCursosMatriculados.AutoSize = true;
             this.lblIdCursosMatriculados.Location = new System.Drawing.Point(20, 70);
             this.lblIdCursosMatriculados.Name = "lblIdCursosMatriculados";
             this.lblIdCursosMatriculados.Size = new System.Drawing.Size(74, 16);
             this.lblIdCursosMatriculados.TabIndex = 2;
             this.lblIdCursosMatriculados.Text = "ID Registro";
-            // 
-            // labelTitulo
-            // 
+
             this.labelTitulo.AutoSize = true;
             this.labelTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.labelTitulo.Location = new System.Drawing.Point(20, 20);
@@ -179,25 +151,19 @@
             this.labelTitulo.Size = new System.Drawing.Size(210, 25);
             this.labelTitulo.TabIndex = 0;
             this.labelTitulo.Text = "Cursos Matriculados";
-            // 
-            // txtBuscar
-            // 
+ 
             this.txtBuscar.Location = new System.Drawing.Point(428, 335);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(200, 22);
             this.txtBuscar.TabIndex = 13;
-            // 
-            // lblBuscar
-            // 
+ 
             this.lblBuscar.AutoSize = true;
             this.lblBuscar.Location = new System.Drawing.Point(368, 338);
             this.lblBuscar.Name = "lblBuscar";
             this.lblBuscar.Size = new System.Drawing.Size(52, 16);
             this.lblBuscar.TabIndex = 14;
             this.lblBuscar.Text = "Buscar:";
-            // 
-            // UcCursosMatriculados
-            // 
+
             this.Controls.Add(this.labelTitulo);
             this.Controls.Add(this.dgvCursosMatriculados);
             this.Controls.Add(this.lblIdCursosMatriculados);

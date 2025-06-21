@@ -10,17 +10,16 @@ namespace G1asistenciaEC
     public partial class FormEstudiante : Form
     {
         private estudianteM _estudiante;
-        private string _idEstudiante; // <-- Agregado
+        private string _idEstudiante; 
 
         public FormEstudiante(string usuario)
         {
             InitializeComponent();
             this.Text = "Panel del Estudiante";
 
-            var negocio = new estudianteN(); // <-- Corregido
+            var negocio = new estudianteN();
             _estudiante = negocio.ObtenerInformacionEstudiante(usuario);
-
-            // Obtener el id real del estudiante usando el Dni
+         
             _idEstudiante = ObtenerIdEstudiantePorDni(_estudiante.Dni);
 
             lblNombreEstudiante.Text = $"{_estudiante.Nombres} {_estudiante.ApellidoPaterno} {_estudiante.ApellidoMaterno}";
@@ -33,7 +32,6 @@ namespace G1asistenciaEC
             btnInfoPersonal.Click += btnInfoPersonal_Click;
         }
 
-        // Método para obtener el id de la tabla estudiantes usando el Dni
         private string ObtenerIdEstudiantePorDni(string dni)
         {
             var estudiante = new estudianteN().ObtenerPorDni(dni);
@@ -45,7 +43,6 @@ namespace G1asistenciaEC
             dgvHistorial.AutoGenerateColumns = false;
             dgvHistorial.Columns.Clear();
 
-            // 1. Fecha
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Fecha",
@@ -55,7 +52,6 @@ namespace G1asistenciaEC
                 Width = 100
             });
 
-            // 2. Correo
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "CorreoUsuario",
@@ -65,7 +61,6 @@ namespace G1asistenciaEC
                 Width = 200
             });
 
-            // 3. Grado y Sección
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "GradoSeccion",
@@ -75,7 +70,6 @@ namespace G1asistenciaEC
                 Width = 200
             });
 
-            // 4. Estado
             dgvHistorial.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Estado",

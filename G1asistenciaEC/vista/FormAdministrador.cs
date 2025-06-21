@@ -48,11 +48,6 @@ namespace G1asistenciaEC
 
         }
 
-        private void aSISTENCIAMATRICULADOSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MostrarEnPanel(new UcAsistenciaMatriculados());
-        }
-
         private void eSTUDIANTEAPODERADOSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MostrarEnPanel(new UcEstudianteApoderado());

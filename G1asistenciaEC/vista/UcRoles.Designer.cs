@@ -45,9 +45,7 @@
             this.lblNombreRol = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvRoles
-            // 
+
             this.dgvRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRoles.Location = new System.Drawing.Point(320, 27);
             this.dgvRoles.Name = "dgvRoles";
@@ -55,36 +53,28 @@
             this.dgvRoles.Size = new System.Drawing.Size(380, 216);
             this.dgvRoles.TabIndex = 6;
             this.dgvRoles.AllowUserToAddRows = true;
-            // 
-            // btnInsertar
-            // 
+
             this.btnInsertar.Location = new System.Drawing.Point(120, 120);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(90, 30);
             this.btnInsertar.TabIndex = 4;
             this.btnInsertar.Text = "Insertar";
             this.btnInsertar.UseVisualStyleBackColor = true;
-            // 
-            // btnModificar
-            // 
+
             this.btnModificar.Location = new System.Drawing.Point(120, 160);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(90, 30);
             this.btnModificar.TabIndex = 5;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
-            // 
-            // btnEliminar
-            // 
+
             this.btnEliminar.Location = new System.Drawing.Point(120, 200);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(90, 30);
             this.btnEliminar.TabIndex = 6;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
-            // 
-            // lblTitulo
-            // 
+
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.Location = new System.Drawing.Point(20, 10);
@@ -92,41 +82,31 @@
             this.lblTitulo.Size = new System.Drawing.Size(81, 29);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Roles";
-            // 
-            // txtId
-            // 
+
             this.txtId.Location = new System.Drawing.Point(120, 57);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(150, 22);
             this.txtId.TabIndex = 2;
-            // 
-            // txtNombreRol
-            // 
+
             this.txtNombreRol.Location = new System.Drawing.Point(120, 87);
             this.txtNombreRol.Name = "txtNombreRol";
             this.txtNombreRol.Size = new System.Drawing.Size(150, 22);
             this.txtNombreRol.TabIndex = 3;
-            // 
-            // lblId
-            // 
+
             this.lblId.AutoSize = true;
             this.lblId.Location = new System.Drawing.Point(30, 60);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(20, 16);
             this.lblId.TabIndex = 1;
             this.lblId.Text = "ID";
-            // 
-            // lblNombreRol
-            // 
+
             this.lblNombreRol.AutoSize = true;
             this.lblNombreRol.Location = new System.Drawing.Point(30, 90);
             this.lblNombreRol.Name = "lblNombreRol";
             this.lblNombreRol.Size = new System.Drawing.Size(80, 16);
             this.lblNombreRol.TabIndex = 3;
             this.lblNombreRol.Text = "Nombre Rol";
-            // 
-            // UcRoles
-            // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTitulo);
