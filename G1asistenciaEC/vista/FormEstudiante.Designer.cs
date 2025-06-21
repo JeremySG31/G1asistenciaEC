@@ -71,10 +71,10 @@
             // btnInfoPersonal
             // 
             this.btnInfoPersonal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInfoPersonal.Location = new System.Drawing.Point(787, 36);
+            this.btnInfoPersonal.Location = new System.Drawing.Point(756, 36);
             this.btnInfoPersonal.Margin = new System.Windows.Forms.Padding(4);
             this.btnInfoPersonal.Name = "btnInfoPersonal";
-            this.btnInfoPersonal.Size = new System.Drawing.Size(147, 28);
+            this.btnInfoPersonal.Size = new System.Drawing.Size(178, 28);
             this.btnInfoPersonal.TabIndex = 2;
             this.btnInfoPersonal.Text = "Información Personal";
             this.btnInfoPersonal.UseVisualStyleBackColor = true;
