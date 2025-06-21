@@ -23,8 +23,7 @@ namespace G1asistenciaEC
 
             lblNombreProfesor.Text = _profesor.NombreCompleto;
 
-            // Usa el índice en vez del objeto para evitar errores de inicialización
-            tabControl.SelectedIndex = 0; // 0 = tabTomar, 1 = tabHistorial
+            tabControl.SelectedIndex = 0; 
 
             dtpFecha.Value = DateTime.Today;
             dtpFechaHistorial.Value = DateTime.Today;
@@ -347,7 +346,7 @@ namespace G1asistenciaEC
         }
         private void btnInfoPersonal_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Información del profesor:\n\nNombre: {_profesor.NombreCompleto}\nDNI: {_profesor.Dni}\nCorreo: {_profesor.Correo}");
+            MessageBox.Show($"Información del profesor:\n\nNombre: {_profesor.NombreCompleto}\nDNI: {_profesor.Dni}\nCorreo: {_profesor.Correo}\nEstado: {_profesor.Estado}");
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

@@ -143,7 +143,9 @@ namespace G1asistenciaEC
                 $"Nombre: {_estudiante.Nombres} {_estudiante.ApellidoPaterno} {_estudiante.ApellidoMaterno}\n" +
                 $"DNI: {_estudiante.Dni}\n" +
                 $"Correo: {_estudiante.Correo}\n" +
-                $"Teléfono: {_estudiante.Telefono}"
+                $"Teléfono: {_estudiante.Telefono}\n" +
+                $"Estado: {_estudiante.Estado}"
+
             );
         }
     }

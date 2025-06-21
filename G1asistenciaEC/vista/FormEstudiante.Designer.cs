@@ -50,7 +50,7 @@
             // 
             this.lblNombreEstudiante.AutoSize = true;
             this.lblNombreEstudiante.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblNombreEstudiante.Location = new System.Drawing.Point(26, 27);
+            this.lblNombreEstudiante.Location = new System.Drawing.Point(22, 32);
             this.lblNombreEstudiante.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombreEstudiante.Name = "lblNombreEstudiante";
             this.lblNombreEstudiante.Size = new System.Drawing.Size(230, 28);

@@ -8,6 +8,6 @@ namespace G1asistenciaEC.modelo
 {
     public class apoderadoM : Persona
     {
-        
+        public string Id { get; set; }
     }
 }
