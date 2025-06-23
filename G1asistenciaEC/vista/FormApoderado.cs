@@ -1,9 +1,8 @@
-﻿using System;
+﻿using G1asistenciaEC.modelo;
+using G1asistenciaEC.negocio;
+using System;
 using System.Data;
 using System.Windows.Forms;
-using G1asistenciaEC.controlador;
-using G1asistenciaEC.modelo;
-using G1asistenciaEC.negocio;
 
 namespace G1asistenciaEC
 {
