@@ -27,12 +27,6 @@ namespace G1asistenciaEC.negocio
                 return null;
             }
 
-            if (!string.IsNullOrWhiteSpace(usuarioAutenticado.Estado) &&
-                !string.Equals(usuarioAutenticado.Estado, "activo", StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
-
             return usuarioAutenticado;
         }
 
