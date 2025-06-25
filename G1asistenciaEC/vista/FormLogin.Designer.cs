@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
             this.login = new System.Windows.Forms.Button();
             this.titulo_login = new System.Windows.Forms.Label();
             this.usuario_login = new System.Windows.Forms.Label();
@@ -41,9 +42,10 @@
             // 
             this.login.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.login.ForeColor = System.Drawing.Color.Navy;
-            this.login.Location = new System.Drawing.Point(315, 199);
+            this.login.Location = new System.Drawing.Point(236, 162);
+            this.login.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.login.Name = "login";
-            this.login.Size = new System.Drawing.Size(226, 40);
+            this.login.Size = new System.Drawing.Size(170, 32);
             this.login.TabIndex = 0;
             this.login.Text = "INICIAR SESION";
             this.login.UseVisualStyleBackColor = true;
@@ -52,69 +54,80 @@
             // titulo_login
             // 
             this.titulo_login.AutoSize = true;
+            this.titulo_login.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.titulo_login.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titulo_login.ForeColor = System.Drawing.Color.Maroon;
-            this.titulo_login.Location = new System.Drawing.Point(21, 26);
+            this.titulo_login.Location = new System.Drawing.Point(16, 21);
+            this.titulo_login.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.titulo_login.Name = "titulo_login";
-            this.titulo_login.Size = new System.Drawing.Size(748, 36);
+            this.titulo_login.Size = new System.Drawing.Size(601, 29);
             this.titulo_login.TabIndex = 1;
             this.titulo_login.Text = "GESTION ESCOLAR DE ASISTENCIA: ACADEMIX";
             // 
             // usuario_login
             // 
             this.usuario_login.AutoSize = true;
+            this.usuario_login.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.usuario_login.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usuario_login.Location = new System.Drawing.Point(160, 99);
+            this.usuario_login.Location = new System.Drawing.Point(120, 80);
+            this.usuario_login.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.usuario_login.Name = "usuario_login";
-            this.usuario_login.Size = new System.Drawing.Size(141, 29);
+            this.usuario_login.Size = new System.Drawing.Size(112, 24);
             this.usuario_login.TabIndex = 2;
             this.usuario_login.Text = "USUARIO :";
             // 
             // contrasenia_login
             // 
             this.contrasenia_login.AutoSize = true;
+            this.contrasenia_login.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.contrasenia_login.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contrasenia_login.Location = new System.Drawing.Point(97, 147);
+            this.contrasenia_login.Location = new System.Drawing.Point(73, 119);
+            this.contrasenia_login.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.contrasenia_login.Name = "contrasenia_login";
-            this.contrasenia_login.Size = new System.Drawing.Size(204, 29);
+            this.contrasenia_login.Size = new System.Drawing.Size(164, 24);
             this.contrasenia_login.TabIndex = 3;
             this.contrasenia_login.Text = "CONTRASEÑA :";
             // 
             // campo_usuario
             // 
             this.campo_usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.campo_usuario.Location = new System.Drawing.Point(315, 99);
+            this.campo_usuario.Location = new System.Drawing.Point(236, 80);
+            this.campo_usuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.campo_usuario.Name = "campo_usuario";
-            this.campo_usuario.Size = new System.Drawing.Size(226, 34);
+            this.campo_usuario.Size = new System.Drawing.Size(170, 28);
             this.campo_usuario.TabIndex = 4;
             // 
             // campo_contrasenia
             // 
             this.campo_contrasenia.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.campo_contrasenia.Location = new System.Drawing.Point(315, 147);
+            this.campo_contrasenia.Location = new System.Drawing.Point(236, 119);
+            this.campo_contrasenia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.campo_contrasenia.Name = "campo_contrasenia";
-            this.campo_contrasenia.Size = new System.Drawing.Size(226, 34);
+            this.campo_contrasenia.Size = new System.Drawing.Size(170, 28);
             this.campo_contrasenia.TabIndex = 5;
             this.campo_contrasenia.UseSystemPasswordChar = true;
             // 
             // checkBoxMostrar
             // 
             this.checkBoxMostrar.AutoSize = true;
+            this.checkBoxMostrar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.checkBoxMostrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxMostrar.Location = new System.Drawing.Point(560, 147);
+            this.checkBoxMostrar.Location = new System.Drawing.Point(420, 119);
+            this.checkBoxMostrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxMostrar.Name = "checkBoxMostrar";
-            this.checkBoxMostrar.Size = new System.Drawing.Size(198, 29);
+            this.checkBoxMostrar.Size = new System.Drawing.Size(163, 24);
             this.checkBoxMostrar.TabIndex = 6;
             this.checkBoxMostrar.Text = "Mostrar contraseña";
-            this.checkBoxMostrar.UseVisualStyleBackColor = true;
+            this.checkBoxMostrar.UseVisualStyleBackColor = false;
             this.checkBoxMostrar.CheckedChanged += new System.EventHandler(this.checkBoxMostrar_CheckedChanged);
             // 
             // FormLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 247);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(626, 201);
             this.Controls.Add(this.checkBoxMostrar);
             this.Controls.Add(this.campo_usuario);
             this.Controls.Add(this.campo_contrasenia);
@@ -122,6 +135,7 @@
             this.Controls.Add(this.usuario_login);
             this.Controls.Add(this.contrasenia_login);
             this.Controls.Add(this.login);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormLogin";
             this.Text = "FormLogin";
             this.ResumeLayout(false);
