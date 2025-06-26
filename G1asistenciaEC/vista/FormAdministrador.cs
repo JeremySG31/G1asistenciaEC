@@ -2,6 +2,7 @@
 using G1asistenciaEC.modelo;
 using G1asistenciaEC.vista;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace G1asistenciaEC
@@ -14,6 +15,10 @@ namespace G1asistenciaEC
         public FormAdministrador(string usuario, FormLogin formLogin)
         {
             InitializeComponent();
+            this.Size = new Size(900, 500); 
+            this.MaximumSize = new Size(900, 500);
+            this.MinimumSize = new Size(900, 500);
+            this.MaximizeBox = false; 
             this.Text = "Panel del Administrador";
             _formLogin = formLogin;
 

@@ -1,9 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
+﻿using G1asistenciaEC.controlador;
 using G1asistenciaEC.modelo;
 using G1asistenciaEC.negocio;
-using G1asistenciaEC.controlador;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace G1asistenciaEC
 {
@@ -15,6 +16,10 @@ namespace G1asistenciaEC
         public FormEstudiante(string usuario)
         {
             InitializeComponent();
+            this.Size = new Size(800, 520);
+            this.MaximumSize = new Size(800, 520);
+            this.MinimumSize = new Size(800, 520);
+            this.MaximizeBox = false;
             this.Text = "Panel del Estudiante";
 
             var negocio = new estudianteN();
@@ -141,6 +146,11 @@ namespace G1asistenciaEC
                 $"Estado: {_estudiante.Estado}"
 
             );
+        }
+
+        private void FormEstudiante_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

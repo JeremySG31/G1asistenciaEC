@@ -1,9 +1,10 @@
-﻿using System;
+﻿using G1asistenciaEC.modelo;
+using G1asistenciaEC.negocio;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using G1asistenciaEC.negocio;
-using G1asistenciaEC.modelo;
 
 namespace G1asistenciaEC
 {
@@ -15,6 +16,10 @@ namespace G1asistenciaEC
         public FormProfesor(string usuario)
         {
             InitializeComponent();
+            this.Size = new Size(900, 550);
+            this.MaximumSize = new Size(850, 550);
+            this.MinimumSize = new Size(850, 550);
+            this.MaximizeBox = false;
             this.Text = "Panel del Profesor";
             _asistenciasCache = new Dictionary<string, Dictionary<DateTime, string>>();
 
