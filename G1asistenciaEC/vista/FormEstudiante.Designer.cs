@@ -60,7 +60,7 @@
             // btnCerrarSesion
             // 
             this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrarSesion.Location = new System.Drawing.Point(942, 36);
+            this.btnCerrarSesion.Location = new System.Drawing.Point(897, 36);
             this.btnCerrarSesion.Margin = new System.Windows.Forms.Padding(4);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(119, 28);
@@ -71,7 +71,7 @@
             // btnInfoPersonal
             // 
             this.btnInfoPersonal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInfoPersonal.Location = new System.Drawing.Point(756, 36);
+            this.btnInfoPersonal.Location = new System.Drawing.Point(711, 36);
             this.btnInfoPersonal.Margin = new System.Windows.Forms.Padding(4);
             this.btnInfoPersonal.Name = "btnInfoPersonal";
             this.btnInfoPersonal.Size = new System.Drawing.Size(178, 28);
@@ -83,11 +83,11 @@
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabHistorial);
-            this.tabControl.Location = new System.Drawing.Point(27, 74);
+            this.tabControl.Location = new System.Drawing.Point(24, 64);
             this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1040, 517);
+            this.tabControl.Size = new System.Drawing.Size(1001, 517);
             this.tabControl.TabIndex = 3;
             // 
             // tabHistorial
@@ -99,7 +99,7 @@
             this.tabHistorial.Margin = new System.Windows.Forms.Padding(4);
             this.tabHistorial.Name = "tabHistorial";
             this.tabHistorial.Padding = new System.Windows.Forms.Padding(4);
-            this.tabHistorial.Size = new System.Drawing.Size(1032, 488);
+            this.tabHistorial.Size = new System.Drawing.Size(993, 488);
             this.tabHistorial.TabIndex = 0;
             this.tabHistorial.Text = "Historial de Asistencias";
             this.tabHistorial.UseVisualStyleBackColor = true;
@@ -117,23 +117,24 @@
             this.dgvHistorial.Name = "dgvHistorial";
             this.dgvHistorial.ReadOnly = true;
             this.dgvHistorial.RowHeadersWidth = 51;
-            this.dgvHistorial.Size = new System.Drawing.Size(973, 394);
+            this.dgvHistorial.Size = new System.Drawing.Size(934, 394);
             this.dgvHistorial.TabIndex = 0;
             // 
             // dtpFechaHistorial
             // 
+            this.dtpFechaHistorial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaHistorial.Location = new System.Drawing.Point(27, 25);
             this.dtpFechaHistorial.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaHistorial.Name = "dtpFechaHistorial";
-            this.dtpFechaHistorial.Size = new System.Drawing.Size(265, 22);
+            this.dtpFechaHistorial.Size = new System.Drawing.Size(159, 22);
             this.dtpFechaHistorial.TabIndex = 1;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(320, 18);
+            this.btnBuscar.Location = new System.Drawing.Point(200, 20);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(133, 37);
+            this.btnBuscar.Size = new System.Drawing.Size(124, 32);
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -142,7 +143,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1091, 615);
+            this.ClientSize = new System.Drawing.Size(1038, 615);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnInfoPersonal);
             this.Controls.Add(this.btnCerrarSesion);
@@ -150,6 +151,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormEstudiante";
             this.Text = "Panel del Estudiante";
+            this.Load += new System.EventHandler(this.FormEstudiante_Load);
             this.tabControl.ResumeLayout(false);
             this.tabHistorial.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();

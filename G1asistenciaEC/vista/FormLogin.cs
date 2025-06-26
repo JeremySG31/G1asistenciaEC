@@ -1,10 +1,11 @@
-﻿using System;
-using System.Data.SqlClient;
-using System.Windows.Forms;
+﻿using G1asistenciaEC.controlador;
 using G1asistenciaEC.dao;
-using G1asistenciaEC.controlador;
 using G1asistenciaEC.modelo;
 using G1asistenciaEC.negocio;
+using System;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace G1asistenciaEC
 {
@@ -13,6 +14,10 @@ namespace G1asistenciaEC
         public FormLogin()
         {
             InitializeComponent();
+            this.Size = new Size(685, 290);
+            this.MaximumSize = new Size(685, 275);
+            this.MinimumSize = new Size(685, 275);
+            this.MaximizeBox = false;
             campo_contrasenia.UseSystemPasswordChar = true;
             checkBoxMostrar.CheckedChanged += checkBoxMostrar_CheckedChanged;
         }

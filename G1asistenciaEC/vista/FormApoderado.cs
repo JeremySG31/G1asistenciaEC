@@ -2,6 +2,7 @@
 using G1asistenciaEC.negocio;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace G1asistenciaEC
@@ -14,6 +15,10 @@ namespace G1asistenciaEC
         public FormApoderado(string usuario)
         {
             InitializeComponent();
+            this.Size = new Size(769, 500);
+            this.MaximumSize = new Size(769, 500);
+            this.MinimumSize = new Size(769, 500);
+            this.MaximizeBox = false;
             this.Text = "Panel del Apoderado";
 
             _negocio = new apoderadoN();
