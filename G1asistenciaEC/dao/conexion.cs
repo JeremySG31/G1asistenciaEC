@@ -14,8 +14,8 @@ namespace G1asistenciaEC.dao
     public class Conexion
     {
         private static readonly string cadenaConexion =
-            //"Data Source=Jeremy;Initial Catalog=G1asistenciaEC;Integrated Security=True;Encrypt=False";
-            "Data Source=176.50.40.239;Initial Catalog=G1asistenciaEC;User ID=sa;Password=12345;";
+            "Data Source=Jeremy;Initial Catalog=G1asistenciaEC;Integrated Security=True;Encrypt=False";
+            //"Data Source=176.50.40.239;Initial Catalog=G1asistenciaEC;User ID=sa;Password=12345;";
 
         public static SqlConnection ObtenerConexion()
         {
