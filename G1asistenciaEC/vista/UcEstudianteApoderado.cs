@@ -1,5 +1,4 @@
-﻿using G1asistenciaEC.dao;
-using G1asistenciaEC.modelo;
+﻿using G1asistenciaEC.modelo;
 using G1asistenciaEC.negocio;
 using System;
 using System.Windows.Forms;
@@ -29,7 +28,7 @@ namespace G1asistenciaEC.vista
             cbPrioridad.Items.Add(new ComboBoxItem("3 - Media", 3));
             cbPrioridad.Items.Add(new ComboBoxItem("4 - Alta", 4));
             cbPrioridad.Items.Add(new ComboBoxItem("5 - Muy alta", 5));
-            cbPrioridad.SelectedIndex = 2; // Media por defecto
+            cbPrioridad.SelectedIndex = 2; 
 
             cbIdEstudiante.Items.Clear();
             var estudiantes = _negocio.ObtenerEstudiantes();
