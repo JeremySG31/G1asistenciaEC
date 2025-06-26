@@ -16,6 +16,8 @@ namespace G1asistenciaEC.vista
             _usuariosNegocio = new UsuariosN();
             ConfigurarEventos();
             CargarDatosIniciales();
+            // Llama a esta función para establecer el estado inicial de los campos ID
+            ActualizarEstadoCamposIDs();
         }
 
         private void ConfigurarEventos()
@@ -25,6 +27,10 @@ namespace G1asistenciaEC.vista
             btnModificar.Click += btnModificar_Click;
             btnEliminar.Click += btnEliminar_Click;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
+            cbRol.SelectedIndexChanged += cbRol_SelectedIndexChanged;
+            chkIdEstudiante.CheckedChanged += chkIdEstudiante_CheckedChanged;
+            chkIdProfesor.CheckedChanged += chkIdProfesor_CheckedChanged;
+            chkIdApoderado.CheckedChanged += chkIdApoderado_CheckedChanged;
         }
 
         private void CargarDatosIniciales()
@@ -76,6 +82,10 @@ namespace G1asistenciaEC.vista
                 cbEstado.Items.Clear();
                 cbEstado.Items.Add("activo");
                 cbEstado.Items.Add("inactivo");
+                if (cbEstado.Items.Count > 0)
+                {
+                    cbEstado.SelectedIndex = 0; // Seleccionar el primero por defecto
+                }
             }
             catch (Exception ex)
             {
@@ -151,6 +161,8 @@ namespace G1asistenciaEC.vista
             if (dgvUsuarios.CurrentRow != null && dgvUsuarios.CurrentRow.Index >= 0)
             {
                 CargarDatosEnFormulario(dgvUsuarios.CurrentRow);
+                // Cuando se carga un usuario, también actualiza el estado de los campos ID
+                ActualizarEstadoCamposIDs();
             }
         }
 
@@ -165,8 +177,8 @@ namespace G1asistenciaEC.vista
         private void AplicarFiltro(DataTable dt, string columna, string filtro)
         {
             filtro = filtro.Replace("'", "''");
-            dt.DefaultView.RowFilter = string.IsNullOrEmpty(filtro) 
-                ? "" 
+            dt.DefaultView.RowFilter = string.IsNullOrEmpty(filtro)
+                ? ""
                 : $"CONVERT([{columna}], System.String) LIKE '%{filtro}%'";
         }
 
@@ -175,9 +187,9 @@ namespace G1asistenciaEC.vista
             return new UsuariosM
             {
                 Id = txtId.Text,
-                IdEstudiante = txtIdEstudiante.Text,
-                IdProfesor = txtIdProfesor.Text,
-                IdApoderado = txtIdApoderado.Text,
+                IdEstudiante = chkIdEstudiante.Checked ? txtIdEstudiante.Text : null,
+                IdProfesor = chkIdProfesor.Checked ? txtIdProfesor.Text : null,
+                IdApoderado = chkIdApoderado.Checked ? txtIdApoderado.Text : null,
                 NombreUsuario = txtNombreUsuario.Text,
                 Nombres = txtNombres.Text,
                 ApePaterno = txtApePaterno.Text,
@@ -194,9 +206,6 @@ namespace G1asistenciaEC.vista
         private void CargarDatosEnFormulario(DataGridViewRow row)
         {
             txtId.Text = row.Cells["id"].Value?.ToString();
-            txtIdEstudiante.Text = row.Cells["id_estudiante"].Value?.ToString();
-            txtIdProfesor.Text = row.Cells["id_profesor"].Value?.ToString();
-            txtIdApoderado.Text = row.Cells["id_apoderado"].Value?.ToString();
             txtNombreUsuario.Text = row.Cells["nombre_usuario"].Value?.ToString();
             txtNombres.Text = row.Cells["nombres"].Value?.ToString();
             txtApePaterno.Text = row.Cells["ape_paterno"].Value?.ToString();
@@ -204,17 +213,28 @@ namespace G1asistenciaEC.vista
             txtDni.Text = row.Cells["dni"].Value?.ToString();
             txtCorreo.Text = row.Cells["correo"].Value?.ToString();
             txtContrasena.Text = row.Cells["contrasena"].Value?.ToString();
-            cbRol.Text = row.Cells["rol"].Value?.ToString();
+            cbRol.Text = row.Cells["rol"].Value?.ToString(); // Esto debería funcionar si el DisplayMember es "Text"
             cbEstado.Text = row.Cells["estado"].Value?.ToString();
             txtTelefono.Text = row.Cells["telefono"].Value?.ToString();
+
+            string idEstudiante = row.Cells["id_estudiante"].Value?.ToString();
+            chkIdEstudiante.Checked = !string.IsNullOrEmpty(idEstudiante);
+            txtIdEstudiante.Text = idEstudiante;
+
+            string idProfesor = row.Cells["id_profesor"].Value?.ToString();
+            chkIdProfesor.Checked = !string.IsNullOrEmpty(idProfesor);
+            txtIdProfesor.Text = idProfesor;
+
+            string idApoderado = row.Cells["id_apoderado"].Value?.ToString();
+            chkIdApoderado.Checked = !string.IsNullOrEmpty(idApoderado);
+            txtIdApoderado.Text = idApoderado;
+
+            ActualizarEstadoCamposIDs(); // Asegura que los campos estén habilitados/deshabilitados correctamente
         }
 
         private void LimpiarCampos()
         {
             txtId.Text = "";
-            txtIdEstudiante.Text = "";
-            txtIdProfesor.Text = "";
-            txtIdApoderado.Text = "";
             txtNombreUsuario.Text = "";
             txtNombres.Text = "";
             txtApePaterno.Text = "";
@@ -225,6 +245,46 @@ namespace G1asistenciaEC.vista
             cbRol.SelectedIndex = -1;
             cbEstado.SelectedIndex = -1;
             txtTelefono.Text = "";
+
+            chkIdEstudiante.Checked = false;
+            chkIdProfesor.Checked = false;
+            chkIdApoderado.Checked = false;
+        }
+
+        private void ActualizarEstadoCamposIDs()
+        {
+            txtIdEstudiante.Enabled = txtIdEstudiante.Visible;
+            txtIdProfesor.Enabled = txtIdProfesor.Visible;
+            txtIdApoderado.Enabled = txtIdApoderado.Visible;
+        }
+
+        private void cbRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // No hacer nada aquí respecto a los checkboxes, el usuario los marca manualmente
+        }
+
+        private void chkIdEstudiante_CheckedChanged(object sender, EventArgs e)
+        {
+            lblIdEstudiante.Visible = chkIdEstudiante.Checked;
+            txtIdEstudiante.Visible = chkIdEstudiante.Checked;
+            txtIdEstudiante.Enabled = chkIdEstudiante.Checked;
+            if (!chkIdEstudiante.Checked) txtIdEstudiante.Text = "";
+        }
+
+        private void chkIdProfesor_CheckedChanged(object sender, EventArgs e)
+        {
+            lblIdProfesor.Visible = chkIdProfesor.Checked;
+            txtIdProfesor.Visible = chkIdProfesor.Checked;
+            txtIdProfesor.Enabled = chkIdProfesor.Checked;
+            if (!chkIdProfesor.Checked) txtIdProfesor.Text = "";
+        }
+
+        private void chkIdApoderado_CheckedChanged(object sender, EventArgs e)
+        {
+            lblIdApoderado.Visible = chkIdApoderado.Checked;
+            txtIdApoderado.Visible = chkIdApoderado.Checked;
+            txtIdApoderado.Enabled = chkIdApoderado.Checked;
+            if (!chkIdApoderado.Checked) txtIdApoderado.Text = "";
         }
 
         private class ComboBoxItem
