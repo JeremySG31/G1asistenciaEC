@@ -14,7 +14,7 @@ namespace G1asistenciaEC.dao
     public class Conexion
     {
         private static readonly string cadenaConexion =
-            "Data Source=DESKTOP-PRFS54I;Initial Catalog=G1asistenciaEC;Integrated Security=True;";
+            "Data Source=Jeremy;Initial Catalog=G1asistenciaEC;Integrated Security=True;Encrypt=False";
 
         public static SqlConnection ObtenerConexion()
         {
