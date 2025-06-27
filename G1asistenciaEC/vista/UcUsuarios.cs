@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using G1asistenciaEC.modelo;
 using G1asistenciaEC.negocio;
 
@@ -14,10 +15,11 @@ namespace G1asistenciaEC.vista
         {
             InitializeComponent();
             _usuariosNegocio = new UsuariosN();
+            ConfigurarRestricciones();
             ConfigurarEventos();
             CargarDatosIniciales();
-            // Llama a esta función para establecer el estado inicial de los campos ID
             ActualizarEstadoCamposIDs();
+
         }
 
         private void ConfigurarEventos()
@@ -31,9 +33,73 @@ namespace G1asistenciaEC.vista
             chkIdEstudiante.CheckedChanged += chkIdEstudiante_CheckedChanged;
             chkIdProfesor.CheckedChanged += chkIdProfesor_CheckedChanged;
             chkIdApoderado.CheckedChanged += chkIdApoderado_CheckedChanged;
+            txtDni.KeyPress += SoloNumeros_KeyPress;
+            txtTelefono.KeyPress += SoloNumeros_KeyPress;
+
         }
 
-        private void CargarDatosIniciales()
+        private bool ValidarCampos()
+        {
+            if (txtDni.Text.Length != 8)
+            {
+                MessageBox.Show("El DNI debe tener exactamente 8 dígitos.");
+                return false;
+            }
+
+            if (txtTelefono.Text.Length != 9)
+            {
+                MessageBox.Show("El teléfono debe tener exactamente 9 dígitos.");
+                return false;
+            }
+
+            if (txtContrasena.Text.Length > 12)
+            {
+                MessageBox.Show("La contraseña no debe exceder 12 caracteres.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNombreUsuario.Text))
+            {
+                MessageBox.Show("El nombre de usuario no puede estar vacío.");
+                return false;
+            }
+
+            return true;
+        }
+
+
+        private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
+
+
+        private void ValidarSoloNumeros(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void ValidarSoloLetras(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+
+      
+        private bool ValidarIdUsuario(string id)
+        {
+        return Regex.IsMatch(id, @"^U\d{1,4}$");
+        }
+
+
+
+
+
+
+    private void CargarDatosIniciales()
         {
             CargarUsuarios();
             CargarCombos();
@@ -84,7 +150,7 @@ namespace G1asistenciaEC.vista
                 cbEstado.Items.Add("inactivo");
                 if (cbEstado.Items.Count > 0)
                 {
-                    cbEstado.SelectedIndex = 0; // Seleccionar el primero por defecto
+                    cbEstado.SelectedIndex = 0; 
                 }
             }
             catch (Exception ex)
@@ -93,8 +159,38 @@ namespace G1asistenciaEC.vista
             }
         }
 
+
+        private void txtId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string texto = txtId.Text;
+
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            if (texto.Length == 0)
+            {
+                if (e.KeyChar != 'U')
+                    e.Handled = true;
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                    e.Handled = true;
+            }
+        }
+
+
         private void btnInsertar_Click(object sender, EventArgs e)
         {
+            if (!ValidarCampos())
+                return;
+
+            if (!ValidarIdUsuario(txtId.Text))
+            {
+                MessageBox.Show("El ID debe empezar con 'U' seguido de hasta 4 números. Ejemplo: U01, U1234");
+                return;
+            }
+
             try
             {
                 var usuario = ObtenerDatosFormulario();
@@ -111,6 +207,9 @@ namespace G1asistenciaEC.vista
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            if (!ValidarCampos())
+                return;
+
             try
             {
                 if (string.IsNullOrWhiteSpace(txtId.Text))
@@ -161,7 +260,6 @@ namespace G1asistenciaEC.vista
             if (dgvUsuarios.CurrentRow != null && dgvUsuarios.CurrentRow.Index >= 0)
             {
                 CargarDatosEnFormulario(dgvUsuarios.CurrentRow);
-                // Cuando se carga un usuario, también actualiza el estado de los campos ID
                 ActualizarEstadoCamposIDs();
             }
         }
@@ -213,7 +311,7 @@ namespace G1asistenciaEC.vista
             txtDni.Text = row.Cells["dni"].Value?.ToString();
             txtCorreo.Text = row.Cells["correo"].Value?.ToString();
             txtContrasena.Text = row.Cells["contrasena"].Value?.ToString();
-            cbRol.Text = row.Cells["rol"].Value?.ToString(); // Esto debería funcionar si el DisplayMember es "Text"
+            cbRol.Text = row.Cells["rol"].Value?.ToString(); 
             cbEstado.Text = row.Cells["estado"].Value?.ToString();
             txtTelefono.Text = row.Cells["telefono"].Value?.ToString();
 
@@ -229,7 +327,7 @@ namespace G1asistenciaEC.vista
             chkIdApoderado.Checked = !string.IsNullOrEmpty(idApoderado);
             txtIdApoderado.Text = idApoderado;
 
-            ActualizarEstadoCamposIDs(); // Asegura que los campos estén habilitados/deshabilitados correctamente
+            ActualizarEstadoCamposIDs(); 
         }
 
         private void LimpiarCampos()
@@ -260,7 +358,7 @@ namespace G1asistenciaEC.vista
 
         private void cbRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // No hacer nada aquí respecto a los checkboxes, el usuario los marca manualmente
+            
         }
 
         private void chkIdEstudiante_CheckedChanged(object sender, EventArgs e)

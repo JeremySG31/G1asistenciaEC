@@ -3,8 +3,6 @@
     partial class UcUsuarios
     {
         private System.ComponentModel.IContainer components = null;
-
-        // Declaraciones de controles (sin cambios significativos, excepto la eliminación de los CheckBoxes de ID)
         private System.Windows.Forms.DataGridView dgvUsuarios;
         private System.Windows.Forms.Button btnInsertar;
         private System.Windows.Forms.Button btnModificar;
@@ -36,16 +34,12 @@
         private System.Windows.Forms.TextBox txtIdEstudiante;
         private System.Windows.Forms.TextBox txtIdProfesor;
         private System.Windows.Forms.TextBox txtIdApoderado;
-        private System.Windows.Forms.Label lblIdEstudiante; // Estas etiquetas ahora serán visibles dinámicamente
+        private System.Windows.Forms.Label lblIdEstudiante; 
         private System.Windows.Forms.Label lblIdProfesor;
         private System.Windows.Forms.Label lblIdApoderado;
-
-        // Declaraciones de los nuevos CheckBoxes para identificadores específicos
         private System.Windows.Forms.CheckBox chkIdEstudiante;
         private System.Windows.Forms.CheckBox chkIdProfesor;
         private System.Windows.Forms.CheckBox chkIdApoderado;
-
-        // Declaraciones de GroupBoxes (sin cambios)
         private System.Windows.Forms.GroupBox grpDatosPrincipales;
         private System.Windows.Forms.GroupBox grpInformacionAdicional;
         private System.Windows.Forms.GroupBox grpIdentificadoresEspecificos;
@@ -62,9 +56,40 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+
+                txtId.MaxLength = 5;
+                txtNombreUsuario.MaxLength = 20;
+                txtDni.MaxLength = 8;
+                txtContrasena.MaxLength = 12;
+                txtTelefono.MaxLength = 9;
+
+
+
+
+
+
             }
             base.Dispose(disposing);
         }
+
+
+        private void ConfigurarRestricciones()
+        {
+            txtId.MaxLength = 5;                
+            txtNombreUsuario.MaxLength = 20;    
+            txtDni.MaxLength = 8;
+            txtContrasena.MaxLength = 12;
+            txtTelefono.MaxLength = 9;
+            txtDni.KeyPress += ValidarSoloNumeros;
+            txtTelefono.KeyPress += ValidarSoloNumeros;
+            txtNombres.KeyPress += ValidarSoloLetras;
+            txtApePaterno.KeyPress += ValidarSoloLetras;
+            txtApeMaterno.KeyPress += ValidarSoloLetras;
+            txtId.KeyPress += txtId_KeyPress;
+        }
+
+
+
 
         #region Código generado por el Diseñador de componentes
 
@@ -260,17 +285,17 @@
             // 
             // lblApePaterno
             // 
-            this.lblApePaterno.Location = new System.Drawing.Point(10, 104);
+            this.lblApePaterno.Location = new System.Drawing.Point(8, 104);
             this.lblApePaterno.Name = "lblApePaterno";
-            this.lblApePaterno.Size = new System.Drawing.Size(100, 23);
+            this.lblApePaterno.Size = new System.Drawing.Size(123, 23);
             this.lblApePaterno.TabIndex = 6;
             this.lblApePaterno.Text = "Apellido Paterno:";
             // 
             // lblApeMaterno
             // 
-            this.lblApeMaterno.Location = new System.Drawing.Point(10, 132);
+            this.lblApeMaterno.Location = new System.Drawing.Point(8, 132);
             this.lblApeMaterno.Name = "lblApeMaterno";
-            this.lblApeMaterno.Size = new System.Drawing.Size(100, 23);
+            this.lblApeMaterno.Size = new System.Drawing.Size(123, 23);
             this.lblApeMaterno.TabIndex = 8;
             this.lblApeMaterno.Text = "Apellido Materno:";
             // 
@@ -416,16 +441,16 @@
             // 
             // grpDatosPrincipales
             // 
+            this.grpDatosPrincipales.Controls.Add(this.txtApeMaterno);
+            this.grpDatosPrincipales.Controls.Add(this.lblApeMaterno);
+            this.grpDatosPrincipales.Controls.Add(this.txtApePaterno);
+            this.grpDatosPrincipales.Controls.Add(this.lblApePaterno);
             this.grpDatosPrincipales.Controls.Add(this.lblId);
             this.grpDatosPrincipales.Controls.Add(this.txtId);
             this.grpDatosPrincipales.Controls.Add(this.lblNombreUsuario);
             this.grpDatosPrincipales.Controls.Add(this.txtNombreUsuario);
             this.grpDatosPrincipales.Controls.Add(this.lblNombres);
             this.grpDatosPrincipales.Controls.Add(this.txtNombres);
-            this.grpDatosPrincipales.Controls.Add(this.lblApePaterno);
-            this.grpDatosPrincipales.Controls.Add(this.txtApePaterno);
-            this.grpDatosPrincipales.Controls.Add(this.lblApeMaterno);
-            this.grpDatosPrincipales.Controls.Add(this.txtApeMaterno);
             this.grpDatosPrincipales.Controls.Add(this.lblDni);
             this.grpDatosPrincipales.Controls.Add(this.txtDni);
             this.grpDatosPrincipales.Controls.Add(this.lblCorreo);
