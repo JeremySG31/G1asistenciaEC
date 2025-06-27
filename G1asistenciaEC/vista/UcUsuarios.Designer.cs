@@ -339,7 +339,7 @@
             // txtIdEstudiante
             // 
             this.txtIdEstudiante.Enabled = false;
-            this.txtIdEstudiante.Location = new System.Drawing.Point(315, 20);
+            this.txtIdEstudiante.Location = new System.Drawing.Point(315, 18);
             this.txtIdEstudiante.Name = "txtIdEstudiante";
             this.txtIdEstudiante.Size = new System.Drawing.Size(150, 22);
             this.txtIdEstudiante.TabIndex = 2;
@@ -348,7 +348,7 @@
             // txtIdProfesor
             // 
             this.txtIdProfesor.Enabled = false;
-            this.txtIdProfesor.Location = new System.Drawing.Point(315, 45);
+            this.txtIdProfesor.Location = new System.Drawing.Point(315, 43);
             this.txtIdProfesor.Name = "txtIdProfesor";
             this.txtIdProfesor.Size = new System.Drawing.Size(150, 22);
             this.txtIdProfesor.TabIndex = 5;
@@ -357,33 +357,33 @@
             // txtIdApoderado
             // 
             this.txtIdApoderado.Enabled = false;
-            this.txtIdApoderado.Location = new System.Drawing.Point(325, 71);
+            this.txtIdApoderado.Location = new System.Drawing.Point(315, 69);
             this.txtIdApoderado.Name = "txtIdApoderado";
-            this.txtIdApoderado.Size = new System.Drawing.Size(140, 22);
+            this.txtIdApoderado.Size = new System.Drawing.Size(150, 22);
             this.txtIdApoderado.TabIndex = 8;
             this.txtIdApoderado.Visible = false;
             // 
             // lblIdEstudiante
             // 
-            this.lblIdEstudiante.Location = new System.Drawing.Point(225, 20);
+            this.lblIdEstudiante.Location = new System.Drawing.Point(202, 20);
             this.lblIdEstudiante.Name = "lblIdEstudiante";
-            this.lblIdEstudiante.Size = new System.Drawing.Size(100, 23);
+            this.lblIdEstudiante.Size = new System.Drawing.Size(112, 23);
             this.lblIdEstudiante.TabIndex = 1;
             this.lblIdEstudiante.Text = "ID Estudiante:";
             this.lblIdEstudiante.Visible = false;
             // 
             // lblIdProfesor
             // 
-            this.lblIdProfesor.Location = new System.Drawing.Point(225, 45);
+            this.lblIdProfesor.Location = new System.Drawing.Point(202, 45);
             this.lblIdProfesor.Name = "lblIdProfesor";
-            this.lblIdProfesor.Size = new System.Drawing.Size(100, 23);
+            this.lblIdProfesor.Size = new System.Drawing.Size(84, 23);
             this.lblIdProfesor.TabIndex = 4;
             this.lblIdProfesor.Text = "ID Profesor:";
             this.lblIdProfesor.Visible = false;
             // 
             // lblIdApoderado
             // 
-            this.lblIdApoderado.Location = new System.Drawing.Point(225, 70);
+            this.lblIdApoderado.Location = new System.Drawing.Point(202, 71);
             this.lblIdApoderado.Name = "lblIdApoderado";
             this.lblIdApoderado.Size = new System.Drawing.Size(112, 23);
             this.lblIdApoderado.TabIndex = 7;
@@ -456,15 +456,15 @@
             // 
             // grpIdentificadoresEspecificos
             // 
-            this.grpIdentificadoresEspecificos.Controls.Add(this.chkIdEstudiante);
-            this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdEstudiante);
             this.grpIdentificadoresEspecificos.Controls.Add(this.txtIdEstudiante);
-            this.grpIdentificadoresEspecificos.Controls.Add(this.chkIdProfesor);
-            this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdProfesor);
-            this.grpIdentificadoresEspecificos.Controls.Add(this.txtIdProfesor);
-            this.grpIdentificadoresEspecificos.Controls.Add(this.chkIdApoderado);
             this.grpIdentificadoresEspecificos.Controls.Add(this.txtIdApoderado);
+            this.grpIdentificadoresEspecificos.Controls.Add(this.txtIdProfesor);
+            this.grpIdentificadoresEspecificos.Controls.Add(this.chkIdEstudiante);
+            this.grpIdentificadoresEspecificos.Controls.Add(this.chkIdProfesor);
+            this.grpIdentificadoresEspecificos.Controls.Add(this.chkIdApoderado);
             this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdApoderado);
+            this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdProfesor);
+            this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdEstudiante);
             this.grpIdentificadoresEspecificos.Location = new System.Drawing.Point(25, 388);
             this.grpIdentificadoresEspecificos.Name = "grpIdentificadoresEspecificos";
             this.grpIdentificadoresEspecificos.Size = new System.Drawing.Size(502, 105);
