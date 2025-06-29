@@ -19,7 +19,6 @@ namespace G1asistenciaEC.vista
             ConfigurarEventos();
             CargarDatosIniciales();
             ActualizarEstadoCamposIDs();
-
         }
 
         private void ConfigurarEventos()
@@ -33,48 +32,118 @@ namespace G1asistenciaEC.vista
             chkIdEstudiante.CheckedChanged += chkIdEstudiante_CheckedChanged;
             chkIdProfesor.CheckedChanged += chkIdProfesor_CheckedChanged;
             chkIdApoderado.CheckedChanged += chkIdApoderado_CheckedChanged;
-            txtDni.KeyPress += SoloNumeros_KeyPress;
-            txtTelefono.KeyPress += SoloNumeros_KeyPress;
+            txtDni.KeyPress += ValidarSoloNumeros;
+            txtTelefono.KeyPress += ValidarSoloNumeros;
+            txtNombres.KeyPress += ValidarSoloLetras;
+            txtApePaterno.KeyPress += ValidarSoloLetras;
+            txtApeMaterno.KeyPress += ValidarSoloLetras;
+            txtId.KeyPress += txtId_KeyPress;
+        }
 
+        private void ConfigurarRestricciones()
+        {
+            txtId.MaxLength = 5;
+            txtNombreUsuario.MaxLength = 20;
+            txtDni.MaxLength = 8;
+            txtContrasena.MaxLength = 12;
+            txtTelefono.MaxLength = 9;
+            txtNombres.MaxLength = 30;
+            txtApePaterno.MaxLength = 20;
+            txtApeMaterno.MaxLength = 20;
+            txtCorreo.MaxLength = 100;
         }
 
         private bool ValidarCampos()
         {
-            if (txtDni.Text.Length != 8)
-            {
-                MessageBox.Show("El DNI debe tener exactamente 8 dígitos.");
-                return false;
-            }
+            string errores = "";
 
-            if (txtTelefono.Text.Length != 9)
-            {
-                MessageBox.Show("El teléfono debe tener exactamente 9 dígitos.");
-                return false;
-            }
+            // ID Usuario
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+                errores += "- El campo ID Usuario es obligatorio.\n";
+            else if (!Regex.IsMatch(txtId.Text, @"^U\d{2,}$"))
+                errores += "- El ID Usuario debe tener el formato U## (ejemplo: U03).\n";
 
-            if (txtContrasena.Text.Length > 12)
-            {
-                MessageBox.Show("La contraseña no debe exceder 12 caracteres.");
-                return false;
-            }
+            // DNI
+            if (string.IsNullOrWhiteSpace(txtDni.Text))
+                errores += "- El campo DNI es obligatorio.\n";
+            else if (txtDni.Text.Length != 8 || !EsNumerico(txtDni.Text))
+                errores += "- El DNI debe tener 8 dígitos.\n";
 
+            // Nombres
+            if (string.IsNullOrWhiteSpace(txtNombres.Text))
+                errores += "- El campo Nombres es obligatorio.\n";
+            else if (txtNombres.Text.Length > 30)
+                errores += "- El campo Nombres no puede exceder 30 caracteres.\n";
+            else if (!EsSoloLetras(txtNombres.Text))
+                errores += "- El campo Nombres solo puede contener letras y espacios.\n";
+
+            // Apellido Paterno
+            if (string.IsNullOrWhiteSpace(txtApePaterno.Text))
+                errores += "- El campo Apellido Paterno es obligatorio.\n";
+            else if (txtApePaterno.Text.Length > 20)
+                errores += "- El campo Apellido Paterno no puede exceder 20 caracteres.\n";
+            else if (!EsSoloLetras(txtApePaterno.Text))
+                errores += "- El campo Apellido Paterno solo puede contener letras y espacios.\n";
+
+            // Apellido Materno
+            if (string.IsNullOrWhiteSpace(txtApeMaterno.Text))
+                errores += "- El campo Apellido Materno es obligatorio.\n";
+            else if (txtApeMaterno.Text.Length > 20)
+                errores += "- El campo Apellido Materno no puede exceder 20 caracteres.\n";
+            else if (!EsSoloLetras(txtApeMaterno.Text))
+                errores += "- El campo Apellido Materno solo puede contener letras y espacios.\n";
+
+            // Correo
+            if (string.IsNullOrWhiteSpace(txtCorreo.Text))
+                errores += "- El campo Correo es obligatorio.\n";
+            else if (txtCorreo.Text.Length > 100)
+                errores += "- El correo no puede exceder 100 caracteres.\n";
+            else if (!txtCorreo.Text.EndsWith("@cole.edu", StringComparison.OrdinalIgnoreCase))
+                errores += "- El correo debe terminar con @cole.edu.\n";
+
+            // Teléfono
+            if (!string.IsNullOrWhiteSpace(txtTelefono.Text) && (txtTelefono.Text.Length != 9 || !EsNumerico(txtTelefono.Text)))
+                errores += "- El teléfono debe tener 9 dígitos.\n";
+
+            // Usuario
             if (string.IsNullOrWhiteSpace(txtNombreUsuario.Text))
+                errores += "- El campo Usuario es obligatorio.\n";
+            else if (txtNombreUsuario.Text.Length > 20)
+                errores += "- El campo Usuario no puede exceder 20 caracteres.\n";
+
+            // Contraseña
+            if (txtContrasena.Text.Length > 12)
+                errores += "- La contraseña no debe exceder 12 caracteres.\n";
+
+            // Rol
+            if (cbRol.SelectedItem == null)
+                errores += "- Debe seleccionar un Rol.\n";
+
+            // Estado
+            if (cbEstado.SelectedItem == null)
+                errores += "- Debe seleccionar un Estado.\n";
+
+            if (!string.IsNullOrEmpty(errores))
             {
-                MessageBox.Show("El nombre de usuario no puede estar vacío.");
+                MessageBox.Show("Por favor corrija los siguientes errores:\n\n" + errores, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
             return true;
         }
 
-
-        private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        private bool EsNumerico(string texto)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                e.Handled = true;
+            foreach (char c in texto)
+                if (!char.IsDigit(c)) return false;
+            return true;
         }
 
-
+        private bool EsSoloLetras(string texto)
+        {
+            foreach (char c in texto)
+                if (!char.IsLetter(c) && !char.IsWhiteSpace(c)) return false;
+            return true;
+        }
 
         private void ValidarSoloNumeros(object sender, KeyPressEventArgs e)
         {
@@ -88,18 +157,12 @@ namespace G1asistenciaEC.vista
                 e.Handled = true;
         }
 
-      
         private bool ValidarIdUsuario(string id)
         {
-        return Regex.IsMatch(id, @"^U\d{1,4}$");
+            return Regex.IsMatch(id, @"^U\d{1,4}$");
         }
 
-
-
-
-
-
-    private void CargarDatosIniciales()
+        private void CargarDatosIniciales()
         {
             CargarUsuarios();
             CargarCombos();
@@ -150,7 +213,7 @@ namespace G1asistenciaEC.vista
                 cbEstado.Items.Add("inactivo");
                 if (cbEstado.Items.Count > 0)
                 {
-                    cbEstado.SelectedIndex = 0; 
+                    cbEstado.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
@@ -158,7 +221,6 @@ namespace G1asistenciaEC.vista
                 MessageBox.Show("Error al cargar datos de combos: " + ex.Message);
             }
         }
-
 
         private void txtId_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -178,7 +240,6 @@ namespace G1asistenciaEC.vista
                     e.Handled = true;
             }
         }
-
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
@@ -311,7 +372,7 @@ namespace G1asistenciaEC.vista
             txtDni.Text = row.Cells["dni"].Value?.ToString();
             txtCorreo.Text = row.Cells["correo"].Value?.ToString();
             txtContrasena.Text = row.Cells["contrasena"].Value?.ToString();
-            cbRol.Text = row.Cells["rol"].Value?.ToString(); 
+            cbRol.Text = row.Cells["rol"].Value?.ToString();
             cbEstado.Text = row.Cells["estado"].Value?.ToString();
             txtTelefono.Text = row.Cells["telefono"].Value?.ToString();
 
@@ -327,7 +388,7 @@ namespace G1asistenciaEC.vista
             chkIdApoderado.Checked = !string.IsNullOrEmpty(idApoderado);
             txtIdApoderado.Text = idApoderado;
 
-            ActualizarEstadoCamposIDs(); 
+            ActualizarEstadoCamposIDs();
         }
 
         private void LimpiarCampos()
@@ -358,7 +419,7 @@ namespace G1asistenciaEC.vista
 
         private void cbRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void chkIdEstudiante_CheckedChanged(object sender, EventArgs e)
