@@ -33,7 +33,6 @@ namespace G1asistenciaEC.vista
         private void CargarCombos()
         {
             cbIdEstudiante.Items.Clear();
-            // Agrega la opción "sin asignar" al inicio
             cbIdEstudiante.Items.Add(new ComboBoxItem("sin asignar", null));
             foreach (var est in _negocio.ObtenerEstudiantes())
                 cbIdEstudiante.Items.Add(new ComboBoxItem($"{est.Key} - {est.Value}", est.Key));
@@ -117,7 +116,7 @@ namespace G1asistenciaEC.vista
                 var estudianteApoderado = new EstudianteApoderadoM
                 {
                     Id = txtId.Text,
-                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value as string, // Esto será null si es "sin asignar"
+                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value as string, 
                     IdApoderado = ((ComboBoxItem)cbIdApoderado.SelectedItem).Value.ToString(),
                     Parentesco = txtParentesco.Text,
                     Prioridad = (int)((ComboBoxItem)cbPrioridad.SelectedItem).Value,
@@ -153,7 +152,7 @@ namespace G1asistenciaEC.vista
                 var estudianteApoderado = new EstudianteApoderadoM
                 {
                     Id = txtId.Text,
-                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value as string, // Esto será null si es "sin asignar"
+                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value as string, 
                     IdApoderado = ((ComboBoxItem)cbIdApoderado.SelectedItem).Value.ToString(),
                     Parentesco = txtParentesco.Text,
                     Prioridad = (int)((ComboBoxItem)cbPrioridad.SelectedItem).Value,
@@ -184,11 +183,9 @@ namespace G1asistenciaEC.vista
                 if (MessageBox.Show("¿Está seguro de eliminar este registro?", "Confirmar eliminación",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    // 1. Obtener el id_apoderado de la fila seleccionada
                     var ea = dgvUsuarios.CurrentRow?.DataBoundItem as EstudianteApoderadoM;
                     string idApoderado = ea?.IdApoderado;
 
-                    // 2. Obtener el id_usuario correspondiente al apoderado
                     string idUsuario = null;
                     if (!string.IsNullOrEmpty(idApoderado))
                     {
@@ -204,10 +201,8 @@ namespace G1asistenciaEC.vista
                         }
                     }
 
-                    // 3. Eliminar la asociación
                     _negocio.Eliminar(txtId.Text);
 
-                    // 4. Eliminar el usuario si existe
                     if (!string.IsNullOrEmpty(idUsuario))
                     {
                         var usuariosNegocio = new UsuariosN();
@@ -480,7 +475,6 @@ namespace G1asistenciaEC.vista
                         var usuariosNegocio = new UsuariosN();
                         usuariosNegocio.Insertar(usuario);
 
-                        // Registrar la asociación en la tabla estudiante_apoderados
                         var estudianteApoderado = new EstudianteApoderadoM
                         {
                             Id = idAsociacionManual,
@@ -578,7 +572,6 @@ namespace G1asistenciaEC.vista
             int textWidth = 200;
             int spacing = 35;
 
-            // ID Asociación
             var lblIdAsociacion = new Label { Text = "ID Asociación:", Left = 20, Top = y, Width = labelWidth };
             txtIdAsociacion = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 10, Text = idSugeridoAsociacion };
             y += spacing;
