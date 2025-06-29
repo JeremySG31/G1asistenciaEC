@@ -4,7 +4,6 @@
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.ComboBox cbIdEstudiante;
         private System.Windows.Forms.ComboBox cbIdApoderado;
         private System.Windows.Forms.TextBox txtParentesco;
@@ -26,6 +25,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnRegistrarApoderado;
 
         protected override void Dispose(bool disposing)
         {
@@ -39,7 +39,6 @@
         private void InitializeComponent()
         {
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.txtId = new System.Windows.Forms.TextBox();
             this.cbIdEstudiante = new System.Windows.Forms.ComboBox();
             this.cbIdApoderado = new System.Windows.Forms.ComboBox();
             this.txtParentesco = new System.Windows.Forms.TextBox();
@@ -56,16 +55,21 @@
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.grpDatosPrincipales = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtId = new System.Windows.Forms.TextBox();
             this.grpInformacionAdicional = new System.Windows.Forms.GroupBox();
             this.grpAcciones = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.btnRegistrarApoderado = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grpListadoBusqueda.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.grpDatosPrincipales.SuspendLayout();
             this.grpInformacionAdicional.SuspendLayout();
             this.grpAcciones.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -78,18 +82,10 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Asignar apoderado";
             // 
-            // txtId
-            // 
-            this.txtId.Location = new System.Drawing.Point(10, 120);
-            this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(310, 22);
-            this.txtId.TabIndex = 6;
-            this.txtId.Visible = false;
-            // 
             // cbIdEstudiante
             // 
             this.cbIdEstudiante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbIdEstudiante.Location = new System.Drawing.Point(120, 27);
+            this.cbIdEstudiante.Location = new System.Drawing.Point(120, 52);
             this.cbIdEstudiante.Name = "cbIdEstudiante";
             this.cbIdEstudiante.Size = new System.Drawing.Size(200, 24);
             this.cbIdEstudiante.TabIndex = 1;
@@ -97,14 +93,14 @@
             // cbIdApoderado
             // 
             this.cbIdApoderado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbIdApoderado.Location = new System.Drawing.Point(120, 57);
+            this.cbIdApoderado.Location = new System.Drawing.Point(120, 86);
             this.cbIdApoderado.Name = "cbIdApoderado";
             this.cbIdApoderado.Size = new System.Drawing.Size(200, 24);
             this.cbIdApoderado.TabIndex = 3;
             // 
             // txtParentesco
             // 
-            this.txtParentesco.Location = new System.Drawing.Point(120, 87);
+            this.txtParentesco.Location = new System.Drawing.Point(120, 119);
             this.txtParentesco.Name = "txtParentesco";
             this.txtParentesco.Size = new System.Drawing.Size(200, 22);
             this.txtParentesco.TabIndex = 5;
@@ -128,7 +124,7 @@
             // lblIdEstudiante
             // 
             this.lblIdEstudiante.AutoSize = true;
-            this.lblIdEstudiante.Location = new System.Drawing.Point(10, 30);
+            this.lblIdEstudiante.Location = new System.Drawing.Point(16, 55);
             this.lblIdEstudiante.Name = "lblIdEstudiante";
             this.lblIdEstudiante.Size = new System.Drawing.Size(89, 16);
             this.lblIdEstudiante.TabIndex = 0;
@@ -137,7 +133,7 @@
             // lblIdApoderado
             // 
             this.lblIdApoderado.AutoSize = true;
-            this.lblIdApoderado.Location = new System.Drawing.Point(10, 60);
+            this.lblIdApoderado.Location = new System.Drawing.Point(16, 89);
             this.lblIdApoderado.Name = "lblIdApoderado";
             this.lblIdApoderado.Size = new System.Drawing.Size(95, 16);
             this.lblIdApoderado.TabIndex = 2;
@@ -146,7 +142,7 @@
             // lblParentesco
             // 
             this.lblParentesco.AutoSize = true;
-            this.lblParentesco.Location = new System.Drawing.Point(10, 90);
+            this.lblParentesco.Location = new System.Drawing.Point(16, 122);
             this.lblParentesco.Name = "lblParentesco";
             this.lblParentesco.Size = new System.Drawing.Size(79, 16);
             this.lblParentesco.TabIndex = 4;
@@ -181,7 +177,7 @@
             this.grpListadoBusqueda.Size = new System.Drawing.Size(573, 450);
             this.grpListadoBusqueda.TabIndex = 4;
             this.grpListadoBusqueda.TabStop = false;
-            this.grpListadoBusqueda.Text = "Listado y búsqueda";
+            this.grpListadoBusqueda.Text = "LISTADO Y BUSQUEDA";
             // 
             // cbBuscarColumna
             // 
@@ -219,19 +215,37 @@
             // 
             // grpDatosPrincipales
             // 
+            this.grpDatosPrincipales.Controls.Add(this.label2);
+            this.grpDatosPrincipales.Controls.Add(this.txtId);
             this.grpDatosPrincipales.Controls.Add(this.lblIdEstudiante);
             this.grpDatosPrincipales.Controls.Add(this.cbIdEstudiante);
             this.grpDatosPrincipales.Controls.Add(this.lblIdApoderado);
             this.grpDatosPrincipales.Controls.Add(this.cbIdApoderado);
             this.grpDatosPrincipales.Controls.Add(this.lblParentesco);
             this.grpDatosPrincipales.Controls.Add(this.txtParentesco);
-            this.grpDatosPrincipales.Controls.Add(this.txtId);
-            this.grpDatosPrincipales.Location = new System.Drawing.Point(33, 57);
+            this.grpDatosPrincipales.Location = new System.Drawing.Point(33, 62);
             this.grpDatosPrincipales.Name = "grpDatosPrincipales";
-            this.grpDatosPrincipales.Size = new System.Drawing.Size(350, 150);
+            this.grpDatosPrincipales.Size = new System.Drawing.Size(350, 156);
             this.grpDatosPrincipales.TabIndex = 1;
             this.grpDatosPrincipales.TabStop = false;
-            this.grpDatosPrincipales.Text = "Datos principales";
+            this.grpDatosPrincipales.Text = "DATOS PRINCIPALES";
+            this.grpDatosPrincipales.Enter += new System.EventHandler(this.grpDatosPrincipales_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(23, 16);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "ID:";
+            // 
+            // txtId
+            // 
+            this.txtId.Location = new System.Drawing.Point(120, 21);
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(200, 22);
+            this.txtId.TabIndex = 0;
             // 
             // grpInformacionAdicional
             // 
@@ -239,24 +253,24 @@
             this.grpInformacionAdicional.Controls.Add(this.cbPrioridad);
             this.grpInformacionAdicional.Controls.Add(this.lblEstado);
             this.grpInformacionAdicional.Controls.Add(this.cbEstado);
-            this.grpInformacionAdicional.Location = new System.Drawing.Point(33, 220);
+            this.grpInformacionAdicional.Location = new System.Drawing.Point(33, 238);
             this.grpInformacionAdicional.Name = "grpInformacionAdicional";
             this.grpInformacionAdicional.Size = new System.Drawing.Size(350, 85);
             this.grpInformacionAdicional.TabIndex = 2;
             this.grpInformacionAdicional.TabStop = false;
-            this.grpInformacionAdicional.Text = "Información adicional";
+            this.grpInformacionAdicional.Text = "INFORMACION ADICIONAL";
             // 
             // grpAcciones
             // 
             this.grpAcciones.Controls.Add(this.button1);
             this.grpAcciones.Controls.Add(this.button2);
             this.grpAcciones.Controls.Add(this.button3);
-            this.grpAcciones.Location = new System.Drawing.Point(144, 329);
+            this.grpAcciones.Location = new System.Drawing.Point(52, 339);
             this.grpAcciones.Name = "grpAcciones";
-            this.grpAcciones.Size = new System.Drawing.Size(129, 110);
+            this.grpAcciones.Size = new System.Drawing.Size(136, 118);
             this.grpAcciones.TabIndex = 3;
             this.grpAcciones.TabStop = false;
-            this.grpAcciones.Text = "Acciones";
+            this.grpAcciones.Text = "ACCIONES";
             // 
             // button1
             // 
@@ -282,10 +296,29 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "ELIMINAR";
             // 
+            // btnRegistrarApoderado
+            // 
+            this.btnRegistrarApoderado.Location = new System.Drawing.Point(6, 10);
+            this.btnRegistrarApoderado.Name = "btnRegistrarApoderado";
+            this.btnRegistrarApoderado.Size = new System.Drawing.Size(177, 45);
+            this.btnRegistrarApoderado.TabIndex = 4;
+            this.btnRegistrarApoderado.Text = "REGISTRAR NUEVO APODERADO";
+            this.btnRegistrarApoderado.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnRegistrarApoderado);
+            this.groupBox1.Location = new System.Drawing.Point(194, 359);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(189, 60);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            // 
             // UcEstudianteApoderado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.grpInformacionAdicional);
             this.Controls.Add(this.grpDatosPrincipales);
@@ -301,9 +334,14 @@
             this.grpInformacionAdicional.ResumeLayout(false);
             this.grpInformacionAdicional.PerformLayout();
             this.grpAcciones.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+        private System.Windows.Forms.TextBox txtId;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

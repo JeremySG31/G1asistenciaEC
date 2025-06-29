@@ -25,6 +25,7 @@ namespace G1asistenciaEC.vista
             button1.Click += btnInsertar_Click;
             button2.Click += btnModificar_Click;
             button3.Click += btnEliminar_Click;
+            btnRegistrarApoderado.Click += btnRegistrarApoderado_Click;
             dgvUsuarios.SelectionChanged += dgvUsuarios_SelectionChanged;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
         }
@@ -296,6 +297,259 @@ namespace G1asistenciaEC.vista
                 Value = value;
             }
             public override string ToString() => Text;
+        }
+
+        private void txtId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRegistrarApoderado_Click(object sender, EventArgs e)
+        {
+            using (var form = new FormNuevoApoderado())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    string dni = form.Dni;
+                    string nombres = form.Nombres;
+                    string apePaterno = form.ApePaterno;
+                    string apeMaterno = form.ApeMaterno;
+                    string correo = form.Correo;
+                    string telefono = form.Telefono;
+                    string nombreUsuario = form.NombreUsuario;
+                    string contrasena = form.Contrasena;
+                    string estado = "activo";
+
+                    try
+                    {
+                        string idUsuario = "U" + DateTime.Now.Ticks.ToString().Substring(8, 6);
+                        string idApoderado = "A" + DateTime.Now.Ticks.ToString().Substring(8, 6);
+
+                        var usuario = new UsuariosM
+                        {
+                            Id = idUsuario,
+                            IdApoderado = idApoderado,
+                            NombreUsuario = nombreUsuario,
+                            Nombres = nombres,
+                            ApePaterno = apePaterno,
+                            ApeMaterno = apeMaterno,
+                            Dni = dni,
+                            Correo = correo,
+                            Contrasena = contrasena,
+                            Rol = "apoderado",
+                            Estado = estado,
+                            Telefono = telefono
+                        };
+
+                        var usuariosNegocio = new UsuariosN();
+                        usuariosNegocio.Insertar(usuario);
+
+                        CargarCombos();
+
+                        foreach (ComboBoxItem item in cbIdApoderado.Items)
+                        {
+                            if (item.Text.Contains(nombres) && item.Text.Contains(apePaterno))
+                            {
+                                cbIdApoderado.SelectedItem = item;
+                                break;
+                            }
+                        }
+
+                        MessageBox.Show(
+                            $"Apoderado registrado:\n\n" +
+                            $"DNI: {dni}\n" +
+                            $"Nombres: {nombres}\n" +
+                            $"Apellido Paterno: {apePaterno}\n" +
+                            $"Apellido Materno: {apeMaterno}\n" +
+                            $"Usuario: {nombreUsuario}\n" +
+                            $"Rol: apoderado\n" +
+                            $"Estado: {estado}",
+                            "Nuevo Apoderado Registrado",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al registrar apoderado: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void grpDatosPrincipales_Enter(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+    public class FormNuevoApoderado : Form
+    {
+        public string Dni => txtDni.Text.Trim();
+        public string Nombres => txtNombres.Text.Trim();
+        public string ApePaterno => txtApePaterno.Text.Trim();
+        public string ApeMaterno => txtApeMaterno.Text.Trim();
+        public string Correo => txtCorreo.Text.Trim();
+        public string Telefono => txtTelefono.Text.Trim();
+        public string NombreUsuario => txtUsuario.Text.Trim();
+        public string Contrasena => txtContrasena.Text;
+
+        private TextBox txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena;
+        private CheckBox chkMostrarContrasena;
+
+        public FormNuevoApoderado()
+        {
+            this.Text = "Nuevo Apoderado";
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.StartPosition = FormStartPosition.CenterParent;
+            this.Width = 400;
+            this.Height = 440;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+
+            var lblDni = new Label { Text = "DNI (8 dígitos):", Left = 20, Top = 20, Width = 120 };
+            txtDni = new TextBox { Left = 150, Top = 20, Width = 200, MaxLength = 8 };
+            txtDni.KeyPress += SoloNumeros_KeyPress;
+
+            var lblNombres = new Label { Text = "Nombres:", Left = 20, Top = 55, Width = 120 };
+            txtNombres = new TextBox { Left = 150, Top = 55, Width = 200, MaxLength = 30 };
+            txtNombres.KeyPress += SoloLetras_KeyPress;
+
+            var lblApePaterno = new Label { Text = "Apellido paterno:", Left = 20, Top = 90, Width = 120 };
+            txtApePaterno = new TextBox { Left = 150, Top = 90, Width = 200, MaxLength = 20 };
+            txtApePaterno.KeyPress += SoloLetras_KeyPress;
+
+            var lblApeMaterno = new Label { Text = "Apellido materno:", Left = 20, Top = 125, Width = 120 };
+            txtApeMaterno = new TextBox { Left = 150, Top = 125, Width = 200, MaxLength = 20 };
+            txtApeMaterno.KeyPress += SoloLetras_KeyPress;
+
+            var lblCorreo = new Label { Text = "Correo:", Left = 20, Top = 160, Width = 120 };
+            txtCorreo = new TextBox { Left = 150, Top = 160, Width = 200, MaxLength = 100 };
+
+            var lblTelefono = new Label { Text = "Teléfono (9 dígitos):", Left = 20, Top = 195, Width = 120 };
+            txtTelefono = new TextBox { Left = 150, Top = 195, Width = 200, MaxLength = 9 };
+            txtTelefono.KeyPress += SoloNumeros_KeyPress;
+
+            var lblUsuario = new Label { Text = "Usuario:", Left = 20, Top = 230, Width = 120 };
+            txtUsuario = new TextBox { Left = 150, Top = 230, Width = 200, MaxLength = 20 };
+
+            var lblContrasena = new Label { Text = "Contraseña (máx 12):", Left = 20, Top = 265, Width = 120 };
+            txtContrasena = new TextBox { Left = 150, Top = 265, Width = 200, MaxLength = 12, UseSystemPasswordChar = true };
+
+            chkMostrarContrasena = new CheckBox { Text = "Mostrar contraseña", Left = 150, Top = 295, Width = 200 };
+            chkMostrarContrasena.CheckedChanged += (s, e) =>
+            {
+                txtContrasena.UseSystemPasswordChar = !chkMostrarContrasena.Checked;
+            };
+
+            var btnAceptar = new Button { Text = "Registrar", Left = 150, Top = 330, Width = 90, DialogResult = DialogResult.OK };
+            var btnCancelar = new Button { Text = "Cancelar", Left = 260, Top = 330, Width = 90, DialogResult = DialogResult.Cancel };
+
+            btnAceptar.Click += (s, e) =>
+            {
+                var errores = "";
+
+                if (string.IsNullOrWhiteSpace(Dni))
+                    errores += "- El campo DNI es obligatorio.\n";
+                else if (Dni.Length != 8 || !EsNumerico(Dni))
+                    errores += "- El DNI debe tener 8 dígitos.\n";
+
+                if (string.IsNullOrWhiteSpace(Nombres))
+                    errores += "- El campo Nombres es obligatorio.\n";
+                else if (Nombres.Length > 30)
+                    errores += "- El campo Nombres no puede exceder 30 caracteres.\n";
+                else if (!EsSoloLetras(Nombres))
+                    errores += "- El campo Nombres solo puede contener letras y espacios.\n";
+
+                if (string.IsNullOrWhiteSpace(ApePaterno))
+                    errores += "- El campo Apellido Paterno es obligatorio.\n";
+                else if (ApePaterno.Length > 20)
+                    errores += "- El campo Apellido Paterno no puede exceder 20 caracteres.\n";
+                else if (!EsSoloLetras(ApePaterno))
+                    errores += "- El campo Apellido Paterno solo puede contener letras y espacios.\n";
+
+                if (string.IsNullOrWhiteSpace(ApeMaterno))
+                    errores += "- El campo Apellido Materno es obligatorio.\n";
+                else if (ApeMaterno.Length > 20)
+                    errores += "- El campo Apellido Materno no puede exceder 20 caracteres.\n";
+                else if (!EsSoloLetras(ApeMaterno))
+                    errores += "- El campo Apellido Materno solo puede contener letras y espacios.\n";
+
+                if (string.IsNullOrWhiteSpace(Correo))
+                    errores += "- El campo Correo es obligatorio.\n";
+                else if (Correo.Length > 100)
+                    errores += "- El correo no puede exceder 100 caracteres.\n";
+                else if (!Correo.EndsWith("@cole.edu", StringComparison.OrdinalIgnoreCase))
+                    errores += "- El correo debe terminar con @cole.edu.\n";
+
+                if (!string.IsNullOrWhiteSpace(Telefono) && (Telefono.Length != 9 || !EsNumerico(Telefono)))
+                    errores += "- El teléfono debe contener solo números y tener 9 dígitos.\n";
+
+                if (string.IsNullOrWhiteSpace(NombreUsuario))
+                    errores += "- El campo Usuario es obligatorio.\n";
+                else if (NombreUsuario.Length > 20)
+                    errores += "- El campo Usuario no puede exceder 20 caracteres.\n";
+
+                if (Contrasena.Length > 12)
+                    errores += "- La contraseña no debe exceder 12 caracteres.\n";
+
+                if (!string.IsNullOrEmpty(errores))
+                {
+                    MessageBox.Show("Por favor corrija los siguientes errores:\n\n" + errores, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.DialogResult = DialogResult.None;
+                    return;
+                }
+            };
+
+            this.Controls.AddRange(new Control[] {
+                lblDni, txtDni, lblNombres, txtNombres, lblApePaterno, txtApePaterno, lblApeMaterno, txtApeMaterno,
+                lblCorreo, txtCorreo, lblTelefono, txtTelefono, lblUsuario, txtUsuario, lblContrasena, txtContrasena,
+                chkMostrarContrasena, btnAceptar, btnCancelar
+            });
+
+            this.AcceptButton = btnAceptar;
+            this.CancelButton = btnCancelar;
+        }
+
+        private void LimpiarCampos()
+        {
+            txtDni.Text = "";
+            txtNombres.Text = "";
+            txtApePaterno.Text = "";
+            txtApeMaterno.Text = "";
+            txtCorreo.Text = "";
+            txtTelefono.Text = "";
+            txtUsuario.Text = "";
+            txtContrasena.Text = "";
+            chkMostrarContrasena.Checked = false;
+        }
+
+        private bool EsNumerico(string texto)
+        {
+            foreach (char c in texto)
+                if (!char.IsDigit(c))
+                    return false;
+            return true;
+        }
+
+        private bool EsSoloLetras(string texto)
+        {
+            foreach (char c in texto)
+                if (!char.IsLetter(c) && !char.IsWhiteSpace(c))
+                    return false;
+            return true;
+        }
+
+        private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void SoloLetras_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+                e.Handled = true;
         }
     }
 }
