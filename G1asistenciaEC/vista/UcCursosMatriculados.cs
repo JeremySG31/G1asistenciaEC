@@ -27,6 +27,8 @@ namespace G1asistenciaEC.vista
             btnEliminar.Click += btnEliminar_Click;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             txtIdCM.Leave += txtIdCM_Leave;
+            txtIdCM.MaxLength = 10;
+            txtIdCM.KeyPress += TxtIdCM_KeyPress;
             this.Load += UcCursosMatriculados_Load;
         }
 
@@ -231,6 +233,12 @@ namespace G1asistenciaEC.vista
                 txtIdCM.Text = controlador.ObtenerSiguienteIdCM();
                 txtIdCM.Focus();
             }
+        }
+
+        private void TxtIdCM_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
         }
 
         private class ComboBoxItem

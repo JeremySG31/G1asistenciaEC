@@ -16,6 +16,8 @@ namespace G1asistenciaEC.vista
             InitializeComponent();
             ConfigurarDataGridView();
             ConfigurarEventos();
+            ConfigurarRestricciones();
+            ConfigurarComboTurnos();
             CargarEstudiantes();
             CargarTurnos();
         }
@@ -39,6 +41,27 @@ namespace G1asistenciaEC.vista
             btnInsertar.Click += btnInsertar_Click;
             btnModificar.Click += btnModificar_Click;
             btnEliminar.Click += btnEliminar_Click;
+        }
+
+        private void ConfigurarRestricciones()
+        {
+            txtId.MaxLength = 10;
+            txtId.KeyPress += TxtId_KeyPress;
+        }
+
+        private void ConfigurarComboTurnos()
+        {
+            cbNombreTurno.Items.Clear();
+            cbNombreTurno.Items.Add("Mañana");
+            cbNombreTurno.Items.Add("Tarde");
+            cbNombreTurno.Items.Add("Noche");
+            cbNombreTurno.SelectedIndex = 0;
+        }
+
+        private void TxtId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
         }
 
         private void CargarEstudiantes()
@@ -104,7 +127,6 @@ namespace G1asistenciaEC.vista
                     dgvTurnos.Columns["NombreEstudiante"].Width = 250;
                 }
 
-      
                 if (dgvTurnos.Columns.Contains("Id") &&
                     dgvTurnos.Columns.Contains("Nombre") &&
                     dgvTurnos.Columns.Contains("NombreEstudiante"))
@@ -127,9 +149,9 @@ namespace G1asistenciaEC.vista
                 MessageBox.Show("Debe ingresar el ID del turno.");
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            if (cbNombreTurno.SelectedItem == null)
             {
-                MessageBox.Show("Debe ingresar el nombre del turno.");
+                MessageBox.Show("Debe seleccionar el nombre del turno.");
                 return false;
             }
             if (cbEstudiante.SelectedItem == null)
@@ -150,7 +172,7 @@ namespace G1asistenciaEC.vista
                 var turno = new TurnoM
                 {
                     Id = txtId.Text,
-                    Nombre = txtNombre.Text,
+                    Nombre = cbNombreTurno.SelectedItem.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudiante.SelectedItem).Value.ToString()
                 };
 
@@ -175,7 +197,7 @@ namespace G1asistenciaEC.vista
                 var turno = new TurnoM
                 {
                     Id = txtId.Text,
-                    Nombre = txtNombre.Text,
+                    Nombre = cbNombreTurno.SelectedItem.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudiante.SelectedItem).Value.ToString()
                 };
 
@@ -223,7 +245,7 @@ namespace G1asistenciaEC.vista
                 if (turno != null)
                 {
                     txtId.Text = turno.Id;
-                    txtNombre.Text = turno.Nombre;
+                    cbNombreTurno.SelectedItem = turno.Nombre;
                     SeleccionarComboBoxPorValor(cbEstudiante, turno.IdEstudiante);
                 }
             }
@@ -249,11 +271,9 @@ namespace G1asistenciaEC.vista
         private void LimpiarCampos()
         {
             txtId.Text = "";
-            txtNombre.Text = "";
+            cbNombreTurno.SelectedIndex = 0;
             cbEstudiante.SelectedIndex = 0;
         }
-
-
 
         private class ComboBoxItem
         {

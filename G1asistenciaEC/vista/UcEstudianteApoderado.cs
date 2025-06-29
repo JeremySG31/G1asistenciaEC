@@ -18,6 +18,7 @@ namespace G1asistenciaEC.vista
             CargarEstudianteApoderados();
             ConfigurarEventos();
             PoblarColumnasBusqueda();
+            ConfigurarRestricciones();
         }
 
         private void ConfigurarEventos()
@@ -28,6 +29,37 @@ namespace G1asistenciaEC.vista
             btnRegistrarApoderado.Click += btnRegistrarApoderado_Click;
             dgvUsuarios.SelectionChanged += dgvUsuarios_SelectionChanged;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
+        }
+
+        private void ConfigurarRestricciones()
+        {
+            txtId.MaxLength = 5;
+            txtId.KeyPress += TxtId_KeyPress;
+            txtParentesco.MaxLength = 20;
+            txtParentesco.KeyPress += TxtParentesco_KeyPress;
+        }
+
+        private void TxtId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string texto = txtId.Text;
+            if (char.IsControl(e.KeyChar))
+                return;
+            if (texto.Length == 0)
+            {
+                if (e.KeyChar != 'B') // Asumiendo formato B## para asociaciones
+                    e.Handled = true;
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                    e.Handled = true;
+            }
+        }
+
+        private void TxtParentesco_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+                e.Handled = true;
         }
 
         private void CargarCombos()

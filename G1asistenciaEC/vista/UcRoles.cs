@@ -32,8 +32,26 @@ namespace G1asistenciaEC.vista
         private void ConfigurarRestricciones()
         {
             txtId.MaxLength = 5;
+            txtId.KeyPress += TxtId_KeyPress;
             txtNombreRol.MaxLength = 20;
             txtNombreRol.KeyPress += TxtNombreRol_KeyPress;
+        }
+
+        private void TxtId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string texto = txtId.Text;
+            if (char.IsControl(e.KeyChar))
+                return;
+            if (texto.Length == 0)
+            {
+                if (e.KeyChar != 'R')
+                    e.Handled = true;
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                    e.Handled = true;
+            }
         }
 
         private void TxtNombreRol_KeyPress(object sender, KeyPressEventArgs e)
