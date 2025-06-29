@@ -391,5 +391,10 @@ namespace G1asistenciaEC.vista
             public string Value { get; set; }
             public override string ToString() => Text;
         }
+
+        private void lblTitulo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

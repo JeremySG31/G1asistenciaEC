@@ -138,6 +138,7 @@
             this.grpAcciones = new System.Windows.Forms.GroupBox();
             this.grpListadoBusqueda = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.grpDatosPrincipales.SuspendLayout();
             this.grpInformacionAdicional.SuspendLayout();
@@ -459,7 +460,7 @@
             this.grpDatosPrincipales.Controls.Add(this.txtContrasena);
             this.grpDatosPrincipales.Controls.Add(this.lblTelefono);
             this.grpDatosPrincipales.Controls.Add(this.txtTelefono);
-            this.grpDatosPrincipales.Location = new System.Drawing.Point(12, 17);
+            this.grpDatosPrincipales.Location = new System.Drawing.Point(12, 53);
             this.grpDatosPrincipales.Name = "grpDatosPrincipales";
             this.grpDatosPrincipales.Size = new System.Drawing.Size(350, 275);
             this.grpDatosPrincipales.TabIndex = 0;
@@ -472,7 +473,7 @@
             this.grpInformacionAdicional.Controls.Add(this.cbRol);
             this.grpInformacionAdicional.Controls.Add(this.lblEstado);
             this.grpInformacionAdicional.Controls.Add(this.cbEstado);
-            this.grpInformacionAdicional.Location = new System.Drawing.Point(25, 298);
+            this.grpInformacionAdicional.Location = new System.Drawing.Point(25, 332);
             this.grpInformacionAdicional.Name = "grpInformacionAdicional";
             this.grpInformacionAdicional.Size = new System.Drawing.Size(283, 80);
             this.grpInformacionAdicional.TabIndex = 1;
@@ -490,7 +491,7 @@
             this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdApoderado);
             this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdProfesor);
             this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdEstudiante);
-            this.grpIdentificadoresEspecificos.Location = new System.Drawing.Point(25, 388);
+            this.grpIdentificadoresEspecificos.Location = new System.Drawing.Point(25, 417);
             this.grpIdentificadoresEspecificos.Name = "grpIdentificadoresEspecificos";
             this.grpIdentificadoresEspecificos.Size = new System.Drawing.Size(502, 105);
             this.grpIdentificadoresEspecificos.TabIndex = 2;
@@ -502,7 +503,7 @@
             this.grpAcciones.Controls.Add(this.btnInsertar);
             this.grpAcciones.Controls.Add(this.btnModificar);
             this.grpAcciones.Controls.Add(this.btnEliminar);
-            this.grpAcciones.Location = new System.Drawing.Point(413, 182);
+            this.grpAcciones.Location = new System.Drawing.Point(413, 218);
             this.grpAcciones.Name = "grpAcciones";
             this.grpAcciones.Size = new System.Drawing.Size(129, 110);
             this.grpAcciones.TabIndex = 3;
@@ -530,10 +531,22 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Buscar:";
             // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.Location = new System.Drawing.Point(18, 12);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(250, 29);
+            this.lblTitulo.TabIndex = 5;
+            this.lblTitulo.Text = "Gestion de Usuarios";
+            this.lblTitulo.Click += new System.EventHandler(this.lblTitulo_Click);
+            // 
             // UcUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.grpInformacionAdicional);
             this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.grpListadoBusqueda);
@@ -551,11 +564,13 @@
             this.grpListadoBusqueda.ResumeLayout(false);
             this.grpListadoBusqueda.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitulo;
     }
 }
