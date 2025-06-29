@@ -127,9 +127,7 @@
             this.grpAcciones.SuspendLayout();
             this.grpListadoBusqueda.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dgvUsuarios
-            // 
+
             this.dgvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -139,290 +137,216 @@
             this.dgvUsuarios.RowHeadersWidth = 51;
             this.dgvUsuarios.Size = new System.Drawing.Size(521, 395);
             this.dgvUsuarios.TabIndex = 3;
-            // 
-            // btnInsertar
-            // 
+  
             this.btnInsertar.Location = new System.Drawing.Point(15, 20);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(108, 25);
             this.btnInsertar.TabIndex = 0;
             this.btnInsertar.Text = "INSERTAR";
-            // 
-            // btnModificar
-            // 
+
             this.btnModificar.Location = new System.Drawing.Point(15, 48);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(108, 25);
             this.btnModificar.TabIndex = 1;
             this.btnModificar.Text = "MODIFICAR";
-            // 
-            // btnEliminar
-            // 
+
             this.btnEliminar.Location = new System.Drawing.Point(15, 76);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(108, 25);
             this.btnEliminar.TabIndex = 2;
             this.btnEliminar.Text = "ELIMINAR";
-            // 
-            // txtId
-            // 
+
             this.txtId.Location = new System.Drawing.Point(120, 20);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(200, 22);
             this.txtId.TabIndex = 1;
-            // 
-            // txtNombreUsuario
-            // 
+
             this.txtNombreUsuario.Location = new System.Drawing.Point(120, 48);
             this.txtNombreUsuario.Name = "txtNombreUsuario";
             this.txtNombreUsuario.Size = new System.Drawing.Size(200, 22);
             this.txtNombreUsuario.TabIndex = 3;
-            // 
-            // txtNombres
-            // 
+
             this.txtNombres.Location = new System.Drawing.Point(120, 76);
             this.txtNombres.Name = "txtNombres";
             this.txtNombres.Size = new System.Drawing.Size(200, 22);
             this.txtNombres.TabIndex = 5;
-            // 
-            // txtApePaterno
-            // 
+ 
             this.txtApePaterno.Location = new System.Drawing.Point(120, 104);
             this.txtApePaterno.Name = "txtApePaterno";
             this.txtApePaterno.Size = new System.Drawing.Size(200, 22);
             this.txtApePaterno.TabIndex = 7;
-            // 
-            // txtApeMaterno
-            // 
+
             this.txtApeMaterno.Location = new System.Drawing.Point(120, 132);
             this.txtApeMaterno.Name = "txtApeMaterno";
             this.txtApeMaterno.Size = new System.Drawing.Size(200, 22);
             this.txtApeMaterno.TabIndex = 9;
-            // 
-            // txtDni
-            // 
+
             this.txtDni.Location = new System.Drawing.Point(120, 160);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(200, 22);
             this.txtDni.TabIndex = 11;
-            // 
-            // txtCorreo
-            // 
+
             this.txtCorreo.Location = new System.Drawing.Point(120, 188);
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(200, 22);
             this.txtCorreo.TabIndex = 13;
-            // 
-            // txtContrasena
-            // 
+
             this.txtContrasena.Location = new System.Drawing.Point(120, 216);
             this.txtContrasena.Name = "txtContrasena";
             this.txtContrasena.Size = new System.Drawing.Size(200, 22);
             this.txtContrasena.TabIndex = 15;
-            // 
-            // cbRol
-            // 
+ 
             this.cbRol.Location = new System.Drawing.Point(70, 20);
             this.cbRol.Name = "cbRol";
             this.cbRol.Size = new System.Drawing.Size(200, 24);
             this.cbRol.TabIndex = 1;
-            // 
-            // cbEstado
-            // 
+
             this.cbEstado.Location = new System.Drawing.Point(70, 48);
             this.cbEstado.Name = "cbEstado";
             this.cbEstado.Size = new System.Drawing.Size(200, 24);
             this.cbEstado.TabIndex = 3;
-            // 
-            // txtTelefono
-            // 
+
             this.txtTelefono.Location = new System.Drawing.Point(120, 244);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(200, 22);
             this.txtTelefono.TabIndex = 17;
-            // 
-            // lblId
-            // 
+ 
             this.lblId.Location = new System.Drawing.Point(10, 20);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(100, 23);
             this.lblId.TabIndex = 0;
             this.lblId.Text = "ID:";
-            // 
-            // lblNombreUsuario
-            // 
+
             this.lblNombreUsuario.Location = new System.Drawing.Point(10, 48);
             this.lblNombreUsuario.Name = "lblNombreUsuario";
             this.lblNombreUsuario.Size = new System.Drawing.Size(100, 23);
             this.lblNombreUsuario.TabIndex = 2;
             this.lblNombreUsuario.Text = "Usuario:";
-            // 
-            // lblNombres
-            // 
+
             this.lblNombres.Location = new System.Drawing.Point(10, 76);
             this.lblNombres.Name = "lblNombres";
             this.lblNombres.Size = new System.Drawing.Size(100, 23);
             this.lblNombres.TabIndex = 4;
             this.lblNombres.Text = "Nombres:";
-            // 
-            // lblApePaterno
-            // 
+
             this.lblApePaterno.Location = new System.Drawing.Point(8, 104);
             this.lblApePaterno.Name = "lblApePaterno";
             this.lblApePaterno.Size = new System.Drawing.Size(123, 23);
             this.lblApePaterno.TabIndex = 6;
             this.lblApePaterno.Text = "Apellido Paterno:";
-            // 
-            // lblApeMaterno
-            // 
+
             this.lblApeMaterno.Location = new System.Drawing.Point(8, 132);
             this.lblApeMaterno.Name = "lblApeMaterno";
             this.lblApeMaterno.Size = new System.Drawing.Size(123, 23);
             this.lblApeMaterno.TabIndex = 8;
             this.lblApeMaterno.Text = "Apellido Materno:";
-            // 
-            // lblDni
-            // 
+
             this.lblDni.Location = new System.Drawing.Point(10, 160);
             this.lblDni.Name = "lblDni";
             this.lblDni.Size = new System.Drawing.Size(100, 23);
             this.lblDni.TabIndex = 10;
             this.lblDni.Text = "DNI:";
-            // 
-            // lblCorreo
-            // 
+
             this.lblCorreo.Location = new System.Drawing.Point(10, 188);
             this.lblCorreo.Name = "lblCorreo";
             this.lblCorreo.Size = new System.Drawing.Size(100, 23);
             this.lblCorreo.TabIndex = 12;
             this.lblCorreo.Text = "Correo:";
-            // 
-            // lblContrasena
-            // 
+
             this.lblContrasena.Location = new System.Drawing.Point(10, 216);
             this.lblContrasena.Name = "lblContrasena";
             this.lblContrasena.Size = new System.Drawing.Size(100, 23);
             this.lblContrasena.TabIndex = 14;
             this.lblContrasena.Text = "Contraseña:";
-            // 
-            // lblRol
-            // 
+
             this.lblRol.Location = new System.Drawing.Point(10, 20);
             this.lblRol.Name = "lblRol";
             this.lblRol.Size = new System.Drawing.Size(54, 23);
             this.lblRol.TabIndex = 0;
             this.lblRol.Text = "Rol:";
-            // 
-            // lblEstado
-            // 
+
             this.lblEstado.Location = new System.Drawing.Point(10, 48);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(54, 23);
             this.lblEstado.TabIndex = 2;
             this.lblEstado.Text = "Estado:";
-            // 
-            // lblTelefono
-            // 
+
             this.lblTelefono.Location = new System.Drawing.Point(10, 244);
             this.lblTelefono.Name = "lblTelefono";
             this.lblTelefono.Size = new System.Drawing.Size(100, 23);
             this.lblTelefono.TabIndex = 16;
             this.lblTelefono.Text = "Teléfono:";
-            // 
-            // txtBuscar
-            // 
+
             this.txtBuscar.Location = new System.Drawing.Point(247, 19);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(230, 22);
             this.txtBuscar.TabIndex = 2;
-            // 
-            // cbBuscarColumna
-            // 
+
             this.cbBuscarColumna.Location = new System.Drawing.Point(70, 17);
             this.cbBuscarColumna.Name = "cbBuscarColumna";
             this.cbBuscarColumna.Size = new System.Drawing.Size(140, 24);
             this.cbBuscarColumna.TabIndex = 1;
-            // 
-            // txtIdEstudiante
-            // 
+
             this.txtIdEstudiante.Enabled = false;
             this.txtIdEstudiante.Location = new System.Drawing.Point(315, 18);
             this.txtIdEstudiante.Name = "txtIdEstudiante";
             this.txtIdEstudiante.Size = new System.Drawing.Size(150, 22);
             this.txtIdEstudiante.TabIndex = 2;
             this.txtIdEstudiante.Visible = false;
-            // 
-            // txtIdProfesor
-            // 
+
             this.txtIdProfesor.Enabled = false;
             this.txtIdProfesor.Location = new System.Drawing.Point(315, 43);
             this.txtIdProfesor.Name = "txtIdProfesor";
             this.txtIdProfesor.Size = new System.Drawing.Size(150, 22);
             this.txtIdProfesor.TabIndex = 5;
             this.txtIdProfesor.Visible = false;
-            // 
-            // txtIdApoderado
-            // 
+
             this.txtIdApoderado.Enabled = false;
             this.txtIdApoderado.Location = new System.Drawing.Point(315, 69);
             this.txtIdApoderado.Name = "txtIdApoderado";
             this.txtIdApoderado.Size = new System.Drawing.Size(150, 22);
             this.txtIdApoderado.TabIndex = 8;
             this.txtIdApoderado.Visible = false;
-            // 
-            // lblIdEstudiante
-            // 
+
             this.lblIdEstudiante.Location = new System.Drawing.Point(202, 20);
             this.lblIdEstudiante.Name = "lblIdEstudiante";
             this.lblIdEstudiante.Size = new System.Drawing.Size(112, 23);
             this.lblIdEstudiante.TabIndex = 1;
             this.lblIdEstudiante.Text = "ID Estudiante:";
             this.lblIdEstudiante.Visible = false;
-            // 
-            // lblIdProfesor
-            // 
+
             this.lblIdProfesor.Location = new System.Drawing.Point(202, 45);
             this.lblIdProfesor.Name = "lblIdProfesor";
             this.lblIdProfesor.Size = new System.Drawing.Size(84, 23);
             this.lblIdProfesor.TabIndex = 4;
             this.lblIdProfesor.Text = "ID Profesor:";
             this.lblIdProfesor.Visible = false;
-            // 
-            // lblIdApoderado
-            // 
+
             this.lblIdApoderado.Location = new System.Drawing.Point(202, 71);
             this.lblIdApoderado.Name = "lblIdApoderado";
             this.lblIdApoderado.Size = new System.Drawing.Size(112, 23);
             this.lblIdApoderado.TabIndex = 7;
             this.lblIdApoderado.Text = "ID Apoderado:";
             this.lblIdApoderado.Visible = false;
-            // 
-            // chkIdEstudiante
-            // 
+
             this.chkIdEstudiante.Location = new System.Drawing.Point(10, 20);
             this.chkIdEstudiante.Name = "chkIdEstudiante";
             this.chkIdEstudiante.Size = new System.Drawing.Size(148, 23);
             this.chkIdEstudiante.TabIndex = 0;
             this.chkIdEstudiante.Text = "ID Estudiante";
-            // 
-            // chkIdProfesor
-            // 
+
             this.chkIdProfesor.Location = new System.Drawing.Point(10, 45);
             this.chkIdProfesor.Name = "chkIdProfesor";
             this.chkIdProfesor.Size = new System.Drawing.Size(148, 23);
             this.chkIdProfesor.TabIndex = 3;
             this.chkIdProfesor.Text = "ID Profesor";
-            // 
-            // chkIdApoderado
-            // 
+
             this.chkIdApoderado.Location = new System.Drawing.Point(10, 70);
             this.chkIdApoderado.Name = "chkIdApoderado";
             this.chkIdApoderado.Size = new System.Drawing.Size(148, 23);
             this.chkIdApoderado.TabIndex = 6;
             this.chkIdApoderado.Text = "ID Apoderado";
-            // 
-            // grpDatosPrincipales
-            // 
+
             this.grpDatosPrincipales.Controls.Add(this.txtApeMaterno);
             this.grpDatosPrincipales.Controls.Add(this.lblApeMaterno);
             this.grpDatosPrincipales.Controls.Add(this.txtApePaterno);
@@ -447,9 +371,7 @@
             this.grpDatosPrincipales.TabIndex = 0;
             this.grpDatosPrincipales.TabStop = false;
             this.grpDatosPrincipales.Text = "DATOS PRINCIPALES";
-            // 
-            // grpInformacionAdicional
-            // 
+
             this.grpInformacionAdicional.Controls.Add(this.lblRol);
             this.grpInformacionAdicional.Controls.Add(this.cbRol);
             this.grpInformacionAdicional.Controls.Add(this.lblEstado);
@@ -460,9 +382,7 @@
             this.grpInformacionAdicional.TabIndex = 1;
             this.grpInformacionAdicional.TabStop = false;
             this.grpInformacionAdicional.Text = "INFO. ADICIONAL";
-            // 
-            // grpIdentificadoresEspecificos
-            // 
+
             this.grpIdentificadoresEspecificos.Controls.Add(this.txtIdEstudiante);
             this.grpIdentificadoresEspecificos.Controls.Add(this.txtIdApoderado);
             this.grpIdentificadoresEspecificos.Controls.Add(this.txtIdProfesor);
@@ -478,9 +398,7 @@
             this.grpIdentificadoresEspecificos.TabIndex = 2;
             this.grpIdentificadoresEspecificos.TabStop = false;
             this.grpIdentificadoresEspecificos.Text = "IDENTIFICADOR ESPECÍFICO";
-            // 
-            // grpAcciones
-            // 
+
             this.grpAcciones.Controls.Add(this.btnInsertar);
             this.grpAcciones.Controls.Add(this.btnModificar);
             this.grpAcciones.Controls.Add(this.btnEliminar);
@@ -490,9 +408,7 @@
             this.grpAcciones.TabIndex = 3;
             this.grpAcciones.TabStop = false;
             this.grpAcciones.Text = "ACCIONES";
-            // 
-            // grpListadoBusqueda
-            // 
+
             this.grpListadoBusqueda.Controls.Add(this.cbBuscarColumna);
             this.grpListadoBusqueda.Controls.Add(this.txtBuscar);
             this.grpListadoBusqueda.Controls.Add(this.dgvUsuarios);
@@ -503,17 +419,13 @@
             this.grpListadoBusqueda.TabIndex = 4;
             this.grpListadoBusqueda.TabStop = false;
             this.grpListadoBusqueda.Text = "LISTADO Y BÚSQUEDA";
-            // 
-            // label1
-            // 
+
             this.label1.Location = new System.Drawing.Point(10, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 23);
             this.label1.TabIndex = 4;
             this.label1.Text = "Buscar:";
-            // 
-            // lblTitulo
-            // 
+
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.Location = new System.Drawing.Point(18, 12);
@@ -522,9 +434,7 @@
             this.lblTitulo.TabIndex = 5;
             this.lblTitulo.Text = "Gestion de Usuarios";
             this.lblTitulo.Click += new System.EventHandler(this.lblTitulo_Click);
-            // 
-            // UcUsuarios
-            // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTitulo);
