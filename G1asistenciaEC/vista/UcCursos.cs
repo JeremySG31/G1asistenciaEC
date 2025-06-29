@@ -14,10 +14,33 @@ namespace G1asistenciaEC.vista
         {
             InitializeComponent();
             CargarCursos();
+            ConfigurarRestricciones();
             dgvCursos.SelectionChanged += dgvCursos_SelectionChanged;
             btnInsertarCurso.Click += btnInsertarCurso_Click;
             btnModificarCurso.Click += btnModificarCurso_Click;
             btnEliminarCurso.Click += btnEliminarCurso_Click;
+        }
+
+        private void ConfigurarRestricciones()
+        {
+            txtIdCurso.MaxLength = 10;
+            txtIdCurso.KeyPress += TxtIdCurso_KeyPress;
+            txtNombreCurso.MaxLength = 30;
+            txtNombreCurso.KeyPress += TxtNombreCurso_KeyPress;
+        }
+
+        private void TxtIdCurso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir letras y dígitos, pero no espacios ni símbolos
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void TxtNombreCurso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Solo letras y espacios
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+                e.Handled = true;
         }
 
         private void CargarCursos()

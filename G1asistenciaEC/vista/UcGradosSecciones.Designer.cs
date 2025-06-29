@@ -6,13 +6,13 @@
         private System.Windows.Forms.DataGridView dgvGrados;
         private System.Windows.Forms.DataGridView dgvSecciones;
         private System.Windows.Forms.TextBox txtIdGrado;
-        private System.Windows.Forms.TextBox txtNombreGrado;
+        private System.Windows.Forms.ComboBox cbNombreGrado;
         private System.Windows.Forms.ComboBox cbEstudianteGrado;
         private System.Windows.Forms.Button btnInsertarGrado;
         private System.Windows.Forms.Button btnModificarGrado;
         private System.Windows.Forms.Button btnEliminarGrado;
         private System.Windows.Forms.TextBox txtIdSeccion;
-        private System.Windows.Forms.TextBox txtNombreSeccion;
+        private System.Windows.Forms.ComboBox cbNombreSeccion;
         private System.Windows.Forms.ComboBox cbEstudianteSeccion;
         private System.Windows.Forms.Button btnInsertarSeccion;
         private System.Windows.Forms.Button btnModificarSeccion;
@@ -50,13 +50,13 @@
             this.dgvGrados = new System.Windows.Forms.DataGridView();
             this.dgvSecciones = new System.Windows.Forms.DataGridView();
             this.txtIdGrado = new System.Windows.Forms.TextBox();
-            this.txtNombreGrado = new System.Windows.Forms.TextBox();
+            this.cbNombreGrado = new System.Windows.Forms.ComboBox();
             this.cbEstudianteGrado = new System.Windows.Forms.ComboBox();
             this.btnInsertarGrado = new System.Windows.Forms.Button();
             this.btnModificarGrado = new System.Windows.Forms.Button();
             this.btnEliminarGrado = new System.Windows.Forms.Button();
             this.txtIdSeccion = new System.Windows.Forms.TextBox();
-            this.txtNombreSeccion = new System.Windows.Forms.TextBox();
+            this.cbNombreSeccion = new System.Windows.Forms.ComboBox();
             this.cbEstudianteSeccion = new System.Windows.Forms.ComboBox();
             this.btnInsertarSeccion = new System.Windows.Forms.Button();
             this.btnModificarSeccion = new System.Windows.Forms.Button();
@@ -97,10 +97,11 @@
             this.txtIdGrado.Size = new System.Drawing.Size(100, 22);
             this.txtIdGrado.TabIndex = 2;
  
-            this.txtNombreGrado.Location = new System.Drawing.Point(135, 272);
-            this.txtNombreGrado.Name = "txtNombreGrado";
-            this.txtNombreGrado.Size = new System.Drawing.Size(150, 22);
-            this.txtNombreGrado.TabIndex = 4;
+            this.cbNombreGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNombreGrado.Location = new System.Drawing.Point(135, 272);
+            this.cbNombreGrado.Name = "cbNombreGrado";
+            this.cbNombreGrado.Size = new System.Drawing.Size(150, 24);
+            this.cbNombreGrado.TabIndex = 4;
 
             this.cbEstudianteGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstudianteGrado.Location = new System.Drawing.Point(135, 338);
@@ -131,10 +132,11 @@
             this.txtIdSeccion.Size = new System.Drawing.Size(100, 22);
             this.txtIdSeccion.TabIndex = 18;
 
-            this.txtNombreSeccion.Location = new System.Drawing.Point(651, 287);
-            this.txtNombreSeccion.Name = "txtNombreSeccion";
-            this.txtNombreSeccion.Size = new System.Drawing.Size(150, 22);
-            this.txtNombreSeccion.TabIndex = 20;
+            this.cbNombreSeccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNombreSeccion.Location = new System.Drawing.Point(651, 287);
+            this.cbNombreSeccion.Name = "cbNombreSeccion";
+            this.cbNombreSeccion.Size = new System.Drawing.Size(150, 24);
+            this.cbNombreSeccion.TabIndex = 20;
 
             this.cbEstudianteSeccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstudianteSeccion.Location = new System.Drawing.Point(651, 333);
@@ -245,7 +247,7 @@
             this.Controls.Add(this.lblIdGrado);
             this.Controls.Add(this.txtIdGrado);
             this.Controls.Add(this.lblNombreGrado);
-            this.Controls.Add(this.txtNombreGrado);
+            this.Controls.Add(this.cbNombreGrado);
             this.Controls.Add(this.lblNivelGrado);
             this.Controls.Add(this.cbNivelGrado);
             this.Controls.Add(this.lblEstudianteGrado);
@@ -257,7 +259,7 @@
             this.Controls.Add(this.lblIdSeccion);
             this.Controls.Add(this.txtIdSeccion);
             this.Controls.Add(this.lblNombreSeccion);
-            this.Controls.Add(this.txtNombreSeccion);
+            this.Controls.Add(this.cbNombreSeccion);
             this.Controls.Add(this.lblEstudianteSeccion);
             this.Controls.Add(this.cbEstudianteSeccion);
             this.Controls.Add(this.btnInsertarSeccion);

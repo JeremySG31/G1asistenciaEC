@@ -53,32 +53,42 @@
             this.lblEstado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAniosLectivos)).BeginInit();
             this.SuspendLayout();
-
+            // 
+            // dgvAniosLectivos
+            // 
             this.dgvAniosLectivos.ColumnHeadersHeight = 29;
             this.dgvAniosLectivos.Location = new System.Drawing.Point(338, 36);
             this.dgvAniosLectivos.Name = "dgvAniosLectivos";
             this.dgvAniosLectivos.RowHeadersWidth = 51;
             this.dgvAniosLectivos.Size = new System.Drawing.Size(567, 200);
             this.dgvAniosLectivos.TabIndex = 10;
-
-            this.btnInsertar.Location = new System.Drawing.Point(53, 196);
+            // 
+            // btnInsertar
+            // 
+            this.btnInsertar.Location = new System.Drawing.Point(47, 239);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(76, 26);
             this.btnInsertar.TabIndex = 7;
             this.btnInsertar.Text = "Insertar";
-
-            this.btnModificar.Location = new System.Drawing.Point(135, 196);
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(129, 239);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(82, 26);
             this.btnModificar.TabIndex = 8;
             this.btnModificar.Text = "Modificar";
-
-            this.btnEliminar.Location = new System.Drawing.Point(223, 196);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(217, 239);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(78, 26);
             this.btnEliminar.TabIndex = 9;
             this.btnEliminar.Text = "Eliminar";
-
+            // 
+            // lblTitulo
+            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.Location = new System.Drawing.Point(46, 22);
@@ -86,56 +96,75 @@
             this.lblTitulo.Size = new System.Drawing.Size(148, 25);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Años Lectivos";
- 
+            // 
+            // txtId
+            // 
             this.txtId.Location = new System.Drawing.Point(138, 59);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(120, 22);
             this.txtId.TabIndex = 2;
-
+            // 
+            // txtNombre
+            // 
             this.txtNombre.Location = new System.Drawing.Point(138, 89);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(120, 22);
             this.txtNombre.TabIndex = 4;
-
+            // 
+            // txtDescripcion
+            // 
             this.txtDescripcion.Location = new System.Drawing.Point(138, 119);
+            this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(120, 22);
+            this.txtDescripcion.Size = new System.Drawing.Size(120, 71);
             this.txtDescripcion.TabIndex = 6;
-
+            // 
+            // cbEstado
+            // 
             this.cbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEstado.Location = new System.Drawing.Point(138, 149);
+            this.cbEstado.Location = new System.Drawing.Point(138, 196);
             this.cbEstado.Name = "cbEstado";
             this.cbEstado.Size = new System.Drawing.Size(120, 24);
             this.cbEstado.TabIndex = 8;
-
+            // 
+            // lblId
+            // 
             this.lblId.AutoSize = true;
             this.lblId.Location = new System.Drawing.Point(46, 62);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(20, 16);
             this.lblId.TabIndex = 1;
             this.lblId.Text = "ID";
- 
+            // 
+            // lblNombre
+            // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Location = new System.Drawing.Point(46, 92);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(56, 16);
             this.lblNombre.TabIndex = 3;
             this.lblNombre.Text = "Nombre";
-
+            // 
+            // lblDescripcion
+            // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(46, 122);
+            this.lblDescripcion.Location = new System.Drawing.Point(48, 122);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(79, 16);
             this.lblDescripcion.TabIndex = 5;
             this.lblDescripcion.Text = "Descripción";
-
+            // 
+            // lblEstado
+            // 
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(46, 152);
+            this.lblEstado.Location = new System.Drawing.Point(48, 199);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(50, 16);
             this.lblEstado.TabIndex = 7;
             this.lblEstado.Text = "Estado";
-
+            // 
+            // UcAniosLectivos
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTitulo);

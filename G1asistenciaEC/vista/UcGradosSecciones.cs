@@ -20,6 +20,8 @@ namespace G1asistenciaEC.vista
             CargarSecciones();
             ConfigurarEventos();
             ConfigurarNiveles();
+            ConfigurarCombosGradoSeccion();
+            ConfigurarRestricciones();
         }
 
         private void ConfigurarEventos()
@@ -40,6 +42,56 @@ namespace G1asistenciaEC.vista
             cbNivelGrado.Items.Add("Primaria");
             cbNivelGrado.Items.Add("Secundaria");
             cbNivelGrado.SelectedIndex = 0;
+        }
+
+        private void ConfigurarCombosGradoSeccion()
+        {
+            cbNombreGrado.Items.Clear();
+            cbNombreSeccion.Items.Clear();
+            ActualizarComboGrados();
+            for (char c = 'A'; c <= 'Z'; c++)
+                cbNombreSeccion.Items.Add(c.ToString());
+            if (cbNombreSeccion.Items.Count > 0)
+                cbNombreSeccion.SelectedIndex = 0;
+            cbNivelGrado.SelectedIndexChanged += (s, e) => ActualizarComboGrados();
+        }
+
+        private void ActualizarComboGrados()
+        {
+            cbNombreGrado.Items.Clear();
+            string[] primaria = { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" };
+            string[] secundaria = { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto" };
+            var nivel = cbNivelGrado.SelectedItem?.ToString();
+            if (nivel == "Secundaria")
+            {
+                cbNombreGrado.Items.AddRange(secundaria);
+            }
+            else
+            {
+                cbNombreGrado.Items.AddRange(primaria);
+            }
+            if (cbNombreGrado.Items.Count > 0)
+                cbNombreGrado.SelectedIndex = 0;
+        }
+
+        private void ConfigurarRestricciones()
+        {
+            txtIdGrado.MaxLength = 10;
+            txtIdGrado.KeyPress += TxtIdGrado_KeyPress;
+            txtIdSeccion.MaxLength = 10;
+            txtIdSeccion.KeyPress += TxtIdSeccion_KeyPress;
+        }
+
+        private void TxtIdGrado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void TxtIdSeccion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
         }
 
         private void CargarEstudiantes()
@@ -128,9 +180,9 @@ namespace G1asistenciaEC.vista
                 MessageBox.Show("Debe ingresar el ID del grado.");
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(txtNombreGrado.Text))
+            if (cbNombreGrado.SelectedItem == null)
             {
-                MessageBox.Show("Debe ingresar el nombre del grado.");
+                MessageBox.Show("Debe seleccionar el nombre del grado.");
                 return false;
             }
             if (cbEstudianteGrado.SelectedItem == null)
@@ -153,9 +205,9 @@ namespace G1asistenciaEC.vista
                 MessageBox.Show("Debe ingresar el ID de la sección.");
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(txtNombreSeccion.Text))
+            if (cbNombreSeccion.SelectedItem == null)
             {
-                MessageBox.Show("Debe ingresar el nombre de la sección.");
+                MessageBox.Show("Debe seleccionar el nombre de la sección.");
                 return false;
             }
             if (cbEstudianteSeccion.SelectedItem == null)
@@ -176,7 +228,7 @@ namespace G1asistenciaEC.vista
                 var grado = new GradoM
                 {
                     Id = txtIdGrado.Text,
-                    Nombres = txtNombreGrado.Text,
+                    Nombres = cbNombreGrado.SelectedItem.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudianteGrado.SelectedItem).Value.ToString(),
                     Nivel = cbNivelGrado.SelectedItem.ToString()
                 };
@@ -201,7 +253,7 @@ namespace G1asistenciaEC.vista
                 var grado = new GradoM
                 {
                     Id = txtIdGrado.Text,
-                    Nombres = txtNombreGrado.Text,
+                    Nombres = cbNombreGrado.SelectedItem.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudianteGrado.SelectedItem).Value.ToString(),
                     Nivel = cbNivelGrado.SelectedItem.ToString()
                 };
@@ -251,7 +303,7 @@ namespace G1asistenciaEC.vista
                 var seccion = new SeccionM
                 {
                     Id = txtIdSeccion.Text,
-                    Nombre = txtNombreSeccion.Text,
+                    Nombre = cbNombreSeccion.SelectedItem.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudianteSeccion.SelectedItem).Value.ToString()
                 };
                 _negocio.InsertarSeccion(seccion);
@@ -275,7 +327,7 @@ namespace G1asistenciaEC.vista
                 var seccion = new SeccionM
                 {
                     Id = txtIdSeccion.Text,
-                    Nombre = txtNombreSeccion.Text,
+                    Nombre = cbNombreSeccion.SelectedItem.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudianteSeccion.SelectedItem).Value.ToString()
                 };
                 _negocio.ModificarSeccion(seccion);
@@ -322,7 +374,7 @@ namespace G1asistenciaEC.vista
                 if (grado != null)
                 {
                     txtIdGrado.Text = grado.Id;
-                    txtNombreGrado.Text = grado.Nombres;
+                    cbNombreGrado.SelectedItem = grado.Nombres;
                     SeleccionarComboBoxPorValor(cbEstudianteGrado, grado.IdEstudiante);
                     cbNivelGrado.SelectedItem = grado.Nivel;
                 }
@@ -337,7 +389,7 @@ namespace G1asistenciaEC.vista
                 if (seccion != null)
                 {
                     txtIdSeccion.Text = seccion.Id;
-                    txtNombreSeccion.Text = seccion.Nombre;
+                    cbNombreSeccion.SelectedItem = seccion.Nombre;
                     SeleccionarComboBoxPorValor(cbEstudianteSeccion, seccion.IdEstudiante);
                 }
             }
@@ -359,7 +411,7 @@ namespace G1asistenciaEC.vista
         private void LimpiarCamposGrado()
         {
             txtIdGrado.Text = "";
-            txtNombreGrado.Text = "";
+            if (cbNombreGrado.Items.Count > 0) cbNombreGrado.SelectedIndex = 0;
             cbEstudianteGrado.SelectedIndex = 0;
             cbNivelGrado.SelectedIndex = 0;
         }
@@ -367,7 +419,7 @@ namespace G1asistenciaEC.vista
         private void LimpiarCamposSeccion()
         {
             txtIdSeccion.Text = "";
-            txtNombreSeccion.Text = "";
+            if (cbNombreSeccion.Items.Count > 0) cbNombreSeccion.SelectedIndex = 0;
             cbEstudianteSeccion.SelectedIndex = 0;
         }
 

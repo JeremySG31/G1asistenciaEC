@@ -13,6 +13,7 @@ namespace G1asistenciaEC.vista
         {
             InitializeComponent();
             ConfigurarEventos();
+            ConfigurarRestricciones();
             CargarCombos();
             CargarMatriculas();
         }
@@ -23,6 +24,18 @@ namespace G1asistenciaEC.vista
             btnInsertar.Click += btnInsertar_Click;
             btnModificar.Click += btnModificar_Click;
             btnEliminar.Click += btnEliminar_Click;
+        }
+
+        private void ConfigurarRestricciones()
+        {
+            txtId.MaxLength = 5;
+            txtId.KeyPress += TxtId_KeyPress;
+        }
+
+        private void TxtId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
         }
 
         private void CargarCombos()

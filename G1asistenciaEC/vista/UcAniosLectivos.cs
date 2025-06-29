@@ -15,10 +15,34 @@ namespace G1asistenciaEC.vista
             InitializeComponent();
             CargarAniosLectivos();
             CargarEstados();
+            ConfigurarRestricciones();
             dgvAniosLectivos.SelectionChanged += dgvAniosLectivos_SelectionChanged;
             btnInsertar.Click += btnInsertar_Click;
             btnModificar.Click += btnModificar_Click;
             btnEliminar.Click += btnEliminar_Click;
+        }
+
+        private void ConfigurarRestricciones()
+        {
+            txtId.MaxLength = 6;
+            txtId.KeyPress += TxtId_KeyPress;
+            txtNombre.MaxLength = 4;
+            txtNombre.KeyPress += TxtNombre_KeyPress;
+            txtDescripcion.MaxLength = 100;
+        }
+
+        private void TxtId_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir letras y dígitos, pero no espacios ni símbolos
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void TxtNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Solo números para el año
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                e.Handled = true;
         }
 
         private void CargarEstados()
