@@ -72,25 +72,6 @@
             base.Dispose(disposing);
         }
 
-
-        private void ConfigurarRestricciones()
-        {
-            txtId.MaxLength = 5;                
-            txtNombreUsuario.MaxLength = 20;    
-            txtDni.MaxLength = 8;
-            txtContrasena.MaxLength = 12;
-            txtTelefono.MaxLength = 9;
-            txtDni.KeyPress += ValidarSoloNumeros;
-            txtTelefono.KeyPress += ValidarSoloNumeros;
-            txtNombres.KeyPress += ValidarSoloLetras;
-            txtApePaterno.KeyPress += ValidarSoloLetras;
-            txtApeMaterno.KeyPress += ValidarSoloLetras;
-            txtId.KeyPress += txtId_KeyPress;
-        }
-
-
-
-
         #region Código generado por el Diseñador de componentes
 
         private void InitializeComponent()
