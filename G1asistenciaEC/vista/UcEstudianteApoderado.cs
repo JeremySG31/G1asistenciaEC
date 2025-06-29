@@ -33,6 +33,8 @@ namespace G1asistenciaEC.vista
         private void CargarCombos()
         {
             cbIdEstudiante.Items.Clear();
+            // Agrega la opción "sin asignar" al inicio
+            cbIdEstudiante.Items.Add(new ComboBoxItem("sin asignar", null));
             foreach (var est in _negocio.ObtenerEstudiantes())
                 cbIdEstudiante.Items.Add(new ComboBoxItem($"{est.Key} - {est.Value}", est.Key));
 
@@ -115,7 +117,7 @@ namespace G1asistenciaEC.vista
                 var estudianteApoderado = new EstudianteApoderadoM
                 {
                     Id = txtId.Text,
-                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value.ToString(),
+                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value as string, // Esto será null si es "sin asignar"
                     IdApoderado = ((ComboBoxItem)cbIdApoderado.SelectedItem).Value.ToString(),
                     Parentesco = txtParentesco.Text,
                     Prioridad = (int)((ComboBoxItem)cbPrioridad.SelectedItem).Value,
@@ -151,7 +153,7 @@ namespace G1asistenciaEC.vista
                 var estudianteApoderado = new EstudianteApoderadoM
                 {
                     Id = txtId.Text,
-                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value.ToString(),
+                    IdEstudiante = ((ComboBoxItem)cbIdEstudiante.SelectedItem).Value as string, // Esto será null si es "sin asignar"
                     IdApoderado = ((ComboBoxItem)cbIdApoderado.SelectedItem).Value.ToString(),
                     Parentesco = txtParentesco.Text,
                     Prioridad = (int)((ComboBoxItem)cbPrioridad.SelectedItem).Value,
@@ -182,7 +184,36 @@ namespace G1asistenciaEC.vista
                 if (MessageBox.Show("¿Está seguro de eliminar este registro?", "Confirmar eliminación",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    // 1. Obtener el id_apoderado de la fila seleccionada
+                    var ea = dgvUsuarios.CurrentRow?.DataBoundItem as EstudianteApoderadoM;
+                    string idApoderado = ea?.IdApoderado;
+
+                    // 2. Obtener el id_usuario correspondiente al apoderado
+                    string idUsuario = null;
+                    if (!string.IsNullOrEmpty(idApoderado))
+                    {
+                        var usuariosNegocio = new UsuariosN();
+                        var dtUsuarios = usuariosNegocio.ObtenerTodos();
+                        foreach (System.Data.DataRow row in dtUsuarios.Rows)
+                        {
+                            if (row["id_apoderado"] != DBNull.Value && row["id_apoderado"].ToString() == idApoderado)
+                            {
+                                idUsuario = row["id"].ToString();
+                                break;
+                            }
+                        }
+                    }
+
+                    // 3. Eliminar la asociación
                     _negocio.Eliminar(txtId.Text);
+
+                    // 4. Eliminar el usuario si existe
+                    if (!string.IsNullOrEmpty(idUsuario))
+                    {
+                        var usuariosNegocio = new UsuariosN();
+                        usuariosNegocio.Eliminar(idUsuario);
+                    }
+
                     CargarEstudianteApoderados();
                     LimpiarCampos();
                     MessageBox.Show("Registro eliminado correctamente.");
@@ -211,7 +242,7 @@ namespace G1asistenciaEC.vista
         {
             foreach (ComboBoxItem item in combo.Items)
             {
-                if (item.Value.ToString() == valor?.ToString())
+                if (item.Value?.ToString() == valor?.ToString())
                 {
                     combo.SelectedItem = item;
                     break;
@@ -232,7 +263,6 @@ namespace G1asistenciaEC.vista
         private bool ValidarCampos()
         {
             if (string.IsNullOrWhiteSpace(txtId.Text)) return false;
-            if (cbIdEstudiante.SelectedItem == null) return false;
             if (cbIdApoderado.SelectedItem == null) return false;
             if (string.IsNullOrWhiteSpace(txtParentesco.Text)) return false;
             if (cbPrioridad.SelectedItem == null) return false;
@@ -306,7 +336,6 @@ namespace G1asistenciaEC.vista
 
         private bool ApoderadoIdExiste(string idApoderado)
         {
-            // Busca en la lista de apoderados existentes
             foreach (ComboBoxItem item in cbIdApoderado.Items)
             {
                 if (item.Value.ToString().Equals(idApoderado, StringComparison.OrdinalIgnoreCase))
@@ -322,6 +351,17 @@ namespace G1asistenciaEC.vista
             foreach (System.Data.DataRow row in dt.Rows)
             {
                 if (row["id"].ToString().Equals(idUsuario, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
+        private bool AsociacionIdExiste(string idAsociacion)
+        {
+            var lista = _negocio.ObtenerTodos();
+            foreach (var ea in lista)
+            {
+                if (ea.Id.Equals(idAsociacion, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
             return false;
@@ -343,9 +383,8 @@ namespace G1asistenciaEC.vista
 
         private string SiguienteIdUsuario()
         {
-            // Obtener todos los usuarios desde la base de datos
             var usuariosNegocio = new UsuariosN();
-            var dt = usuariosNegocio.ObtenerTodos(); // DataTable con columna "id"
+            var dt = usuariosNegocio.ObtenerTodos();
             int max = 0;
             foreach (System.Data.DataRow row in dt.Rows)
             {
@@ -363,17 +402,33 @@ namespace G1asistenciaEC.vista
             var rolesC = new G1asistenciaEC.controlador.RolesC();
             var roles = rolesC.ObtenerTodos();
             var rol = roles.Find(r => r.NombreRol.Equals("apoderado", StringComparison.OrdinalIgnoreCase));
-            return rol?.Id ?? "R03"; // Usa el id correcto o un valor por defecto si no lo encuentra
+            return rol?.Id ?? "R03";
+        }
+
+        private string SiguienteIdAsociacion()
+        {
+            int max = 0;
+            var lista = _negocio.ObtenerTodos();
+            foreach (var ea in lista)
+            {
+                if (ea.Id != null && ea.Id.StartsWith("B") && int.TryParse(ea.Id.Substring(1), out int num))
+                {
+                    if (num > max) max = num;
+                }
+            }
+            return $"B{(max + 1):D2}";
         }
 
         private void btnRegistrarApoderado_Click(object sender, EventArgs e)
         {
+            string sugeridoAsociacion = SiguienteIdAsociacion();
             string sugeridoApoderado = SiguienteIdApoderado();
             string sugeridoUsuario = SiguienteIdUsuario();
-            using (var form = new FormNuevoApoderado(sugeridoApoderado, sugeridoUsuario))
+            using (var form = new FormNuevoApoderado(sugeridoAsociacion, sugeridoApoderado, sugeridoUsuario, AsociacionIdExiste))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    string idAsociacionManual = form.IdAsociacionManual;
                     string idApoderadoManual = form.IdApoderadoManual;
                     string idUsuarioManual = form.IdUsuarioManual;
                     string dni = form.Dni;
@@ -398,6 +453,11 @@ namespace G1asistenciaEC.vista
                         MessageBox.Show("El ID de usuario ya existe. Por favor, ingrese otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                    if (AsociacionIdExiste(idAsociacionManual))
+                    {
+                        MessageBox.Show("El ID de asociación ya existe. Por favor, ingrese otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     try
                     {
@@ -420,6 +480,18 @@ namespace G1asistenciaEC.vista
                         var usuariosNegocio = new UsuariosN();
                         usuariosNegocio.Insertar(usuario);
 
+                        // Registrar la asociación en la tabla estudiante_apoderados
+                        var estudianteApoderado = new EstudianteApoderadoM
+                        {
+                            Id = idAsociacionManual,
+                            IdEstudiante = null, // o ""
+                            IdApoderado = idApoderadoManual,
+                            Parentesco = parentesco,
+                            Prioridad = prioridad,
+                            Estado = estado
+                        };
+                        _negocio.Insertar(estudianteApoderado);
+
                         CargarCombos();
 
                         foreach (ComboBoxItem item in cbIdApoderado.Items)
@@ -441,7 +513,8 @@ namespace G1asistenciaEC.vista
                             $"Rol: apoderado\n" +
                             $"Estado: {estado}\n" +
                             $"Parentesco: {parentesco}\n" +
-                            $"Prioridad: {prioridad}",
+                            $"Prioridad: {prioridad}\n" +
+                            $"ID Asociación: {idAsociacionManual}",
                             "Nuevo Apoderado Registrado",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information
@@ -463,6 +536,7 @@ namespace G1asistenciaEC.vista
 
     public class FormNuevoApoderado : Form
     {
+        public string IdAsociacionManual => txtIdAsociacion.Text.Trim();
         public string IdApoderadoManual => txtIdApoderado.Text.Trim();
         public string IdUsuarioManual => txtIdUsuario.Text.Trim();
         public string Dni => txtDni.Text.Trim();
@@ -477,17 +551,24 @@ namespace G1asistenciaEC.vista
         public int Prioridad => cbPrioridad.SelectedItem is ComboBoxItem item ? (int)item.Value : 3;
         public string Estado => cbEstado.SelectedItem?.ToString() ?? "activo";
 
-        private TextBox txtIdApoderado, txtIdUsuario, txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena, txtParentesco;
+        private TextBox txtIdAsociacion, txtIdApoderado, txtIdUsuario, txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena, txtParentesco;
         private CheckBox chkMostrarContrasena;
         private ComboBox cbPrioridad, cbEstado;
+        private readonly Func<string, bool> _asociacionIdExiste;
 
-        public FormNuevoApoderado(string idSugeridoApoderado = "", string idSugeridoUsuario = "")
+        public FormNuevoApoderado(
+            string idSugeridoAsociacion = "",
+            string idSugeridoApoderado = "",
+            string idSugeridoUsuario = "",
+            Func<string, bool> asociacionIdExiste = null)
         {
+            _asociacionIdExiste = asociacionIdExiste ?? (_ => false);
+
             this.Text = "Nuevo Apoderado";
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.StartPosition = FormStartPosition.CenterParent;
             this.Width = 400;
-            this.Height = 650; // Aumenta el alto para más espacio
+            this.Height = 700;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
@@ -496,6 +577,11 @@ namespace G1asistenciaEC.vista
             int textLeft = 150;
             int textWidth = 200;
             int spacing = 35;
+
+            // ID Asociación
+            var lblIdAsociacion = new Label { Text = "ID Asociación:", Left = 20, Top = y, Width = labelWidth };
+            txtIdAsociacion = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 10, Text = idSugeridoAsociacion };
+            y += spacing;
 
             var lblIdApoderado = new Label { Text = "ID Apoderado:", Left = 20, Top = y, Width = labelWidth };
             txtIdApoderado = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 10, Text = idSugeridoApoderado };
@@ -542,12 +628,10 @@ namespace G1asistenciaEC.vista
             txtContrasena = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 12, UseSystemPasswordChar = true };
             y += spacing;
 
-            // Parentesco
             var lblParentesco = new Label { Text = "Parentesco:", Left = 20, Top = y, Width = labelWidth };
             txtParentesco = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 20 };
             y += spacing;
 
-            // Prioridad (ComboBox)
             var lblPrioridad = new Label { Text = "Prioridad:", Left = 20, Top = y, Width = labelWidth };
             cbPrioridad = new ComboBox { Left = textLeft, Top = y, Width = textWidth, DropDownStyle = ComboBoxStyle.DropDownList };
             cbPrioridad.Items.Add(new ComboBoxItem("1 - Muy baja", 1));
@@ -558,7 +642,6 @@ namespace G1asistenciaEC.vista
             cbPrioridad.SelectedIndex = 2;
             y += spacing;
 
-            // Estado (ComboBox)
             var lblEstado = new Label { Text = "Estado:", Left = 20, Top = y, Width = labelWidth };
             cbEstado = new ComboBox { Left = textLeft, Top = y, Width = textWidth, DropDownStyle = ComboBoxStyle.DropDownList };
             cbEstado.Items.Add("activo");
@@ -579,6 +662,13 @@ namespace G1asistenciaEC.vista
             btnAceptar.Click += (s, e) =>
             {
                 var errores = "";
+
+                if (string.IsNullOrWhiteSpace(IdAsociacionManual))
+                    errores += "- El campo ID Asociación es obligatorio.\n";
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(IdAsociacionManual, @"^B\d{2,}$"))
+                    errores += "- El ID Asociación debe tener el formato B## (ejemplo: B03).\n";
+                else if (_asociacionIdExiste(IdAsociacionManual))
+                    errores += "- El ID de asociación ya existe. Por favor, ingrese otro.\n";
 
                 if (string.IsNullOrWhiteSpace(IdApoderadoManual))
                     errores += "- El campo ID Apoderado es obligatorio.\n";
@@ -650,6 +740,7 @@ namespace G1asistenciaEC.vista
             };
 
             this.Controls.AddRange(new Control[] {
+                lblIdAsociacion, txtIdAsociacion,
                 lblIdApoderado, txtIdApoderado,
                 lblIdUsuario, txtIdUsuario,
                 lblDni, txtDni, lblNombres, txtNombres, lblApePaterno, txtApePaterno, lblApeMaterno, txtApeMaterno,
@@ -666,6 +757,7 @@ namespace G1asistenciaEC.vista
 
         private void LimpiarCampos()
         {
+            txtIdAsociacion.Text = "";
             txtIdApoderado.Text = "";
             txtIdUsuario.Text = "";
             txtDni.Text = "";
