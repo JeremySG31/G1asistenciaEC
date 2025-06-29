@@ -491,9 +491,9 @@
             this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdApoderado);
             this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdProfesor);
             this.grpIdentificadoresEspecificos.Controls.Add(this.lblIdEstudiante);
-            this.grpIdentificadoresEspecificos.Location = new System.Drawing.Point(25, 417);
+            this.grpIdentificadoresEspecificos.Location = new System.Drawing.Point(25, 413);
             this.grpIdentificadoresEspecificos.Name = "grpIdentificadoresEspecificos";
-            this.grpIdentificadoresEspecificos.Size = new System.Drawing.Size(502, 105);
+            this.grpIdentificadoresEspecificos.Size = new System.Drawing.Size(502, 100);
             this.grpIdentificadoresEspecificos.TabIndex = 2;
             this.grpIdentificadoresEspecificos.TabStop = false;
             this.grpIdentificadoresEspecificos.Text = "IDENTIFICADOR ESPECÍFICO";
