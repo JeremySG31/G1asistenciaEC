@@ -5,12 +5,14 @@ using System.Linq;
 using System.Windows.Forms;
 using G1asistenciaEC.negocio;
 using G1asistenciaEC.modelo;
+using G1asistenciaEC.controlador;
 
 namespace G1asistenciaEC.vista
 {
     public partial class UcCursosMatriculados : UserControl
     {
         private CursosMatriculadosN negocio = new CursosMatriculadosN();
+        private CursosMatriculadosC controlador = new CursosMatriculadosC();
 
         public UcCursosMatriculados()
         {
@@ -19,13 +21,13 @@ namespace G1asistenciaEC.vista
             CargarCursos();
             CargarEstudiantes();
             CargarCursosMatriculados();
-            CargarIdsCursosMatriculados();
-            cbIdCursosMatriculados.SelectedIndexChanged += cbIdCursosMatriculados_SelectedIndexChanged;
             dgvCursosMatriculados.SelectionChanged += dgvCursosMatriculados_SelectionChanged;
             btnInsertar.Click += btnInsertar_Click;
             btnModificar.Click += btnModificar_Click;
             btnEliminar.Click += btnEliminar_Click;
-            txtBuscar.TextChanged += txtBuscar_TextChanged; 
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
+            txtIdCM.Leave += txtIdCM_Leave;
+            this.Load += UcCursosMatriculados_Load;
         }
 
         private void CargarMatriculas()
@@ -71,34 +73,33 @@ namespace G1asistenciaEC.vista
             }
         }
 
-        private void CargarIdsCursosMatriculados()
-        {
-            cbIdCursosMatriculados.Items.Clear();
-            var lista = negocio.ObtenerTodos();
-            foreach (var item in lista)
-            {
-                cbIdCursosMatriculados.Items.Add(item.Id);
-            }
-            if (cbIdCursosMatriculados.Items.Count > 0)
-                cbIdCursosMatriculados.SelectedIndex = 0;
-        }
-
         private void btnInsertar_Click(object sender, EventArgs e)
         {
             try
             {
-                var nuevoId = GenerarNuevoId();
+                if (string.IsNullOrWhiteSpace(txtIdCM.Text))
+                {
+                    MessageBox.Show("Debe ingresar el ID de registro.");
+                    return;
+                }
+                if (controlador.ExisteIdCM(txtIdCM.Text))
+                {
+                    MessageBox.Show("El ID ya existe. Se recomienda usar: " + controlador.ObtenerSiguienteIdCM(), "ID Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtIdCM.Text = controlador.ObtenerSiguienteIdCM();
+                    txtIdCM.Focus();
+                    return;
+                }
                 var cursoMat = new CursosMatriculadosM
                 {
-                    Id = nuevoId,
+                    Id = txtIdCM.Text,
                     IdMatricula = ((ComboBoxItem)cbMatricula.SelectedItem).Value.ToString(),
                     IdCursos = ((ComboBoxItem)cbCurso.SelectedItem).Value.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudiante.SelectedItem).Value.ToString()
                 };
                 negocio.Insertar(cursoMat);
                 CargarCursosMatriculados();
-                CargarIdsCursosMatriculados();
                 LimpiarCampos();
+                txtIdCM.Text = controlador.ObtenerSiguienteIdCM();
                 MessageBox.Show("Curso matriculado correctamente.");
             }
             catch (Exception ex)
@@ -109,23 +110,22 @@ namespace G1asistenciaEC.vista
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (cbIdCursosMatriculados.SelectedItem == null)
+            if (string.IsNullOrWhiteSpace(txtIdCM.Text))
             {
-                MessageBox.Show("Seleccione un ID de registro a modificar.");
+                MessageBox.Show("Debe ingresar el ID de registro a modificar.");
                 return;
             }
             try
             {
                 var cursoMat = new CursosMatriculadosM
                 {
-                    Id = cbIdCursosMatriculados.SelectedItem.ToString(),
+                    Id = txtIdCM.Text,
                     IdMatricula = ((ComboBoxItem)cbMatricula.SelectedItem).Value.ToString(),
                     IdCursos = ((ComboBoxItem)cbCurso.SelectedItem).Value.ToString(),
                     IdEstudiante = ((ComboBoxItem)cbEstudiante.SelectedItem).Value.ToString()
                 };
                 negocio.Modificar(cursoMat);
                 CargarCursosMatriculados();
-                CargarIdsCursosMatriculados();
                 LimpiarCampos();
                 MessageBox.Show("Registro modificado correctamente.");
             }
@@ -137,35 +137,21 @@ namespace G1asistenciaEC.vista
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (cbIdCursosMatriculados.SelectedItem == null)
+            if (string.IsNullOrWhiteSpace(txtIdCM.Text))
             {
-                MessageBox.Show("Seleccione un ID de registro a eliminar.");
+                MessageBox.Show("Debe ingresar el ID de registro a eliminar.");
                 return;
             }
             try
             {
-                negocio.Eliminar(cbIdCursosMatriculados.SelectedItem.ToString());
+                negocio.Eliminar(txtIdCM.Text);
                 CargarCursosMatriculados();
-                CargarIdsCursosMatriculados();
                 LimpiarCampos();
                 MessageBox.Show("Registro eliminado correctamente.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al eliminar: " + ex.Message);
-            }
-        }
-
-        private void cbIdCursosMatriculados_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbIdCursosMatriculados.SelectedItem == null) return;
-            var lista = negocio.ObtenerTodos();
-            var seleccionado = lista.FirstOrDefault(x => x.Id == cbIdCursosMatriculados.SelectedItem.ToString());
-            if (seleccionado != null)
-            {
-                SeleccionarComboBoxPorValor(cbMatricula, seleccionado.IdMatricula);
-                SeleccionarComboBoxPorValor(cbCurso, seleccionado.IdCursos);
-                SeleccionarComboBoxPorValor(cbEstudiante, seleccionado.IdEstudiante);
             }
         }
 
@@ -176,7 +162,10 @@ namespace G1asistenciaEC.vista
                 var row = dgvCursosMatriculados.CurrentRow.DataBoundItem as CursosMatriculadosM;
                 if (row != null)
                 {
-                    cbIdCursosMatriculados.SelectedItem = row.Id;
+                    txtIdCM.Text = row.Id;
+                    SeleccionarComboBoxPorValor(cbMatricula, row.IdMatricula);
+                    SeleccionarComboBoxPorValor(cbCurso, row.IdCursos);
+                    SeleccionarComboBoxPorValor(cbEstudiante, row.IdEstudiante);
                 }
             }
         }
@@ -227,12 +216,21 @@ namespace G1asistenciaEC.vista
             if (cbMatricula.Items.Count > 0) cbMatricula.SelectedIndex = 0;
             if (cbCurso.Items.Count > 0) cbCurso.SelectedIndex = 0;
             if (cbEstudiante.Items.Count > 0) cbEstudiante.SelectedIndex = 0;
-            cbIdCursosMatriculados.SelectedIndex = -1;
         }
 
-        private string GenerarNuevoId()
+        private void UcCursosMatriculados_Load(object sender, EventArgs e)
         {
-            return "CM01"; 
+            txtIdCM.Text = controlador.ObtenerSiguienteIdCM();
+        }
+
+        private void txtIdCM_Leave(object sender, EventArgs e)
+        {
+            if (controlador.ExisteIdCM(txtIdCM.Text))
+            {
+                MessageBox.Show("El ID ya existe. Se recomienda usar: " + controlador.ObtenerSiguienteIdCM(), "ID Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtIdCM.Text = controlador.ObtenerSiguienteIdCM();
+                txtIdCM.Focus();
+            }
         }
 
         private class ComboBoxItem
@@ -245,6 +243,11 @@ namespace G1asistenciaEC.vista
                 Value = value;
             }
             public override string ToString() => Text;
+        }
+
+        private void txtIdCM_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

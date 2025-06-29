@@ -142,5 +142,35 @@ namespace G1asistenciaEC.controlador
             }
             return lista;
         }
+
+        public string ObtenerSiguienteIdCM()
+        {
+            using (SqlConnection conn = Conexion.ObtenerConexion())
+            {
+                conn.Open();
+                string query = "SELECT MAX(CAST(SUBSTRING(id, 3, LEN(id)-2) AS INT)) FROM cursos_matriculados WHERE id LIKE 'CM%'";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    var result = cmd.ExecuteScalar();
+                    int ultimo = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                    return $"CM{(ultimo + 1).ToString("D2")}";
+                }
+            }
+        }
+
+        public bool ExisteIdCM(string id)
+        {
+            using (SqlConnection conn = Conexion.ObtenerConexion())
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM cursos_matriculados WHERE id = @id";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    int count = (int)cmd.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
     }
 }
