@@ -9,7 +9,7 @@ namespace G1asistenciaEC.modelo
     public class EstudianteApoderadoM
     {
         public string Id { get; set; }
-        public string IdEstudiante { get; set; } = null; // o "";
+        public string IdEstudiante { get; set; } = null; 
         public string IdApoderado { get; set; }
         public string Parentesco { get; set; }
         public int Prioridad { get; set; }

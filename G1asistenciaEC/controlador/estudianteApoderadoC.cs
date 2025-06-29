@@ -32,7 +32,6 @@ namespace G1asistenciaEC.controlador
                     while (reader.Read())
                     {
                         string nombreEstudiante = reader["nombre_estudiante"].ToString();
-                        // Si no hay estudiante asociado, mostrar "sin asignar"
                         if (string.IsNullOrWhiteSpace(nombreEstudiante))
                             nombreEstudiante = "sin asignar";
 
