@@ -304,12 +304,39 @@ namespace G1asistenciaEC.vista
 
         }
 
+        private bool ApoderadoIdExiste(string idApoderado)
+        {
+            // Busca en la lista de apoderados existentes
+            foreach (ComboBoxItem item in cbIdApoderado.Items)
+            {
+                if (item.Value.ToString().Equals(idApoderado, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
+        private string SiguienteIdApoderado()
+        {
+            int max = 0;
+            foreach (ComboBoxItem item in cbIdApoderado.Items)
+            {
+                string value = item.Value.ToString();
+                if (value.StartsWith("A") && int.TryParse(value.Substring(1), out int num))
+                {
+                    if (num > max) max = num;
+                }
+            }
+            return $"A{(max + 1):D2}";
+        }
+
         private void btnRegistrarApoderado_Click(object sender, EventArgs e)
         {
-            using (var form = new FormNuevoApoderado())
+            string sugerido = SiguienteIdApoderado();
+            using (var form = new FormNuevoApoderado(sugerido))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    string idApoderadoManual = form.IdApoderadoManual;
                     string dni = form.Dni;
                     string nombres = form.Nombres;
                     string apePaterno = form.ApePaterno;
@@ -320,15 +347,20 @@ namespace G1asistenciaEC.vista
                     string contrasena = form.Contrasena;
                     string estado = "activo";
 
+                    if (ApoderadoIdExiste(idApoderadoManual))
+                    {
+                        MessageBox.Show("El ID de apoderado ya existe. Por favor, ingrese otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     try
                     {
                         string idUsuario = "U" + DateTime.Now.Ticks.ToString().Substring(8, 6);
-                        string idApoderado = "A" + DateTime.Now.Ticks.ToString().Substring(8, 6);
 
                         var usuario = new UsuariosM
                         {
                             Id = idUsuario,
-                            IdApoderado = idApoderado,
+                            IdApoderado = idApoderadoManual,
                             NombreUsuario = nombreUsuario,
                             Nombres = nombres,
                             ApePaterno = apePaterno,
@@ -385,6 +417,7 @@ namespace G1asistenciaEC.vista
 
     public class FormNuevoApoderado : Form
     {
+        public string IdApoderadoManual => txtIdApoderado.Text.Trim();
         public string Dni => txtDni.Text.Trim();
         public string Nombres => txtNombres.Text.Trim();
         public string ApePaterno => txtApePaterno.Text.Trim();
@@ -394,60 +427,84 @@ namespace G1asistenciaEC.vista
         public string NombreUsuario => txtUsuario.Text.Trim();
         public string Contrasena => txtContrasena.Text;
 
-        private TextBox txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena;
+        private TextBox txtIdApoderado, txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena;
         private CheckBox chkMostrarContrasena;
 
-        public FormNuevoApoderado()
+        public FormNuevoApoderado(string idSugerido = "")
         {
             this.Text = "Nuevo Apoderado";
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.StartPosition = FormStartPosition.CenterParent;
             this.Width = 400;
-            this.Height = 440;
+            this.Height = 500; // Aumenta el alto para más espacio
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
-            var lblDni = new Label { Text = "DNI (8 dígitos):", Left = 20, Top = 20, Width = 120 };
-            txtDni = new TextBox { Left = 150, Top = 20, Width = 200, MaxLength = 8 };
+            int y = 20;
+            int labelWidth = 120;
+            int textLeft = 150;
+            int textWidth = 200;
+            int spacing = 35;
+
+            var lblIdApoderado = new Label { Text = "ID Apoderado:", Left = 20, Top = y, Width = labelWidth };
+            txtIdApoderado = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 10, Text = idSugerido };
+            y += spacing;
+
+            var lblDni = new Label { Text = "DNI (8 dígitos):", Left = 20, Top = y, Width = labelWidth };
+            txtDni = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 8 };
             txtDni.KeyPress += SoloNumeros_KeyPress;
+            y += spacing;
 
-            var lblNombres = new Label { Text = "Nombres:", Left = 20, Top = 55, Width = 120 };
-            txtNombres = new TextBox { Left = 150, Top = 55, Width = 200, MaxLength = 30 };
+            var lblNombres = new Label { Text = "Nombres:", Left = 20, Top = y, Width = labelWidth };
+            txtNombres = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 30 };
             txtNombres.KeyPress += SoloLetras_KeyPress;
+            y += spacing;
 
-            var lblApePaterno = new Label { Text = "Apellido paterno:", Left = 20, Top = 90, Width = 120 };
-            txtApePaterno = new TextBox { Left = 150, Top = 90, Width = 200, MaxLength = 20 };
+            var lblApePaterno = new Label { Text = "Apellido paterno:", Left = 20, Top = y, Width = labelWidth };
+            txtApePaterno = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 20 };
             txtApePaterno.KeyPress += SoloLetras_KeyPress;
+            y += spacing;
 
-            var lblApeMaterno = new Label { Text = "Apellido materno:", Left = 20, Top = 125, Width = 120 };
-            txtApeMaterno = new TextBox { Left = 150, Top = 125, Width = 200, MaxLength = 20 };
+            var lblApeMaterno = new Label { Text = "Apellido materno:", Left = 20, Top = y, Width = labelWidth };
+            txtApeMaterno = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 20 };
             txtApeMaterno.KeyPress += SoloLetras_KeyPress;
+            y += spacing;
 
-            var lblCorreo = new Label { Text = "Correo:", Left = 20, Top = 160, Width = 120 };
-            txtCorreo = new TextBox { Left = 150, Top = 160, Width = 200, MaxLength = 100 };
+            var lblCorreo = new Label { Text = "Correo:", Left = 20, Top = y, Width = labelWidth };
+            txtCorreo = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 100 };
+            y += spacing;
 
-            var lblTelefono = new Label { Text = "Teléfono (9 dígitos):", Left = 20, Top = 195, Width = 120 };
-            txtTelefono = new TextBox { Left = 150, Top = 195, Width = 200, MaxLength = 9 };
+            var lblTelefono = new Label { Text = "Teléfono (9 dígitos):", Left = 20, Top = y, Width = labelWidth };
+            txtTelefono = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 9 };
             txtTelefono.KeyPress += SoloNumeros_KeyPress;
+            y += spacing;
 
-            var lblUsuario = new Label { Text = "Usuario:", Left = 20, Top = 230, Width = 120 };
-            txtUsuario = new TextBox { Left = 150, Top = 230, Width = 200, MaxLength = 20 };
+            var lblUsuario = new Label { Text = "Usuario:", Left = 20, Top = y, Width = labelWidth };
+            txtUsuario = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 20 };
+            y += spacing;
 
-            var lblContrasena = new Label { Text = "Contraseña (máx 12):", Left = 20, Top = 265, Width = 120 };
-            txtContrasena = new TextBox { Left = 150, Top = 265, Width = 200, MaxLength = 12, UseSystemPasswordChar = true };
+            var lblContrasena = new Label { Text = "Contraseña (máx 12):", Left = 20, Top = y, Width = labelWidth };
+            txtContrasena = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 12, UseSystemPasswordChar = true };
+            y += spacing;
 
-            chkMostrarContrasena = new CheckBox { Text = "Mostrar contraseña", Left = 150, Top = 295, Width = 200 };
+            chkMostrarContrasena = new CheckBox { Text = "Mostrar contraseña", Left = textLeft, Top = y, Width = textWidth };
             chkMostrarContrasena.CheckedChanged += (s, e) =>
             {
                 txtContrasena.UseSystemPasswordChar = !chkMostrarContrasena.Checked;
             };
+            y += spacing;
 
-            var btnAceptar = new Button { Text = "Registrar", Left = 150, Top = 330, Width = 90, DialogResult = DialogResult.OK };
-            var btnCancelar = new Button { Text = "Cancelar", Left = 260, Top = 330, Width = 90, DialogResult = DialogResult.Cancel };
+            var btnAceptar = new Button { Text = "Registrar", Left = textLeft, Top = y, Width = 90, DialogResult = DialogResult.OK };
+            var btnCancelar = new Button { Text = "Cancelar", Left = textLeft + 110, Top = y, Width = 90, DialogResult = DialogResult.Cancel };
 
             btnAceptar.Click += (s, e) =>
             {
                 var errores = "";
+
+                if (string.IsNullOrWhiteSpace(IdApoderadoManual))
+                    errores += "- El campo ID Apoderado es obligatorio.\n";
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(IdApoderadoManual, @"^A\d{2,}$"))
+                    errores += "- El ID Apoderado debe tener el formato A## (ejemplo: A03).\n";
 
                 if (string.IsNullOrWhiteSpace(Dni))
                     errores += "- El campo DNI es obligatorio.\n";
@@ -483,7 +540,7 @@ namespace G1asistenciaEC.vista
                     errores += "- El correo debe terminar con @cole.edu.\n";
 
                 if (!string.IsNullOrWhiteSpace(Telefono) && (Telefono.Length != 9 || !EsNumerico(Telefono)))
-                    errores += "- El teléfono debe contener solo números y tener 9 dígitos.\n";
+                    errores += "- El teléfono debe tener 9 dígitos.\n";
 
                 if (string.IsNullOrWhiteSpace(NombreUsuario))
                     errores += "- El campo Usuario es obligatorio.\n";
@@ -502,6 +559,7 @@ namespace G1asistenciaEC.vista
             };
 
             this.Controls.AddRange(new Control[] {
+                lblIdApoderado, txtIdApoderado,
                 lblDni, txtDni, lblNombres, txtNombres, lblApePaterno, txtApePaterno, lblApeMaterno, txtApeMaterno,
                 lblCorreo, txtCorreo, lblTelefono, txtTelefono, lblUsuario, txtUsuario, lblContrasena, txtContrasena,
                 chkMostrarContrasena, btnAceptar, btnCancelar
@@ -513,6 +571,7 @@ namespace G1asistenciaEC.vista
 
         private void LimpiarCampos()
         {
+            txtIdApoderado.Text = "";
             txtDni.Text = "";
             txtNombres.Text = "";
             txtApePaterno.Text = "";
