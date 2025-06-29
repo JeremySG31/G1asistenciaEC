@@ -358,6 +358,14 @@ namespace G1asistenciaEC.vista
             return $"U{(max + 1):D2}";
         }
 
+        private string ObtenerIdRolApoderado()
+        {
+            var rolesC = new G1asistenciaEC.controlador.RolesC();
+            var roles = rolesC.ObtenerTodos();
+            var rol = roles.Find(r => r.NombreRol.Equals("apoderado", StringComparison.OrdinalIgnoreCase));
+            return rol?.Id ?? "R03"; // Usa el id correcto o un valor por defecto si no lo encuentra
+        }
+
         private void btnRegistrarApoderado_Click(object sender, EventArgs e)
         {
             string sugeridoApoderado = SiguienteIdApoderado();
@@ -376,7 +384,9 @@ namespace G1asistenciaEC.vista
                     string telefono = form.Telefono;
                     string nombreUsuario = form.NombreUsuario;
                     string contrasena = form.Contrasena;
-                    string estado = "activo";
+                    string parentesco = form.Parentesco;
+                    int prioridad = form.Prioridad;
+                    string estado = form.Estado;
 
                     if (ApoderadoIdExiste(idApoderadoManual))
                     {
@@ -402,7 +412,7 @@ namespace G1asistenciaEC.vista
                             Dni = dni,
                             Correo = correo,
                             Contrasena = contrasena,
-                            Rol = "apoderado",
+                            Rol = ObtenerIdRolApoderado(),
                             Estado = estado,
                             Telefono = telefono
                         };
@@ -429,7 +439,9 @@ namespace G1asistenciaEC.vista
                             $"Apellido Materno: {apeMaterno}\n" +
                             $"Usuario: {nombreUsuario}\n" +
                             $"Rol: apoderado\n" +
-                            $"Estado: {estado}",
+                            $"Estado: {estado}\n" +
+                            $"Parentesco: {parentesco}\n" +
+                            $"Prioridad: {prioridad}",
                             "Nuevo Apoderado Registrado",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information
@@ -461,9 +473,13 @@ namespace G1asistenciaEC.vista
         public string Telefono => txtTelefono.Text.Trim();
         public string NombreUsuario => txtUsuario.Text.Trim();
         public string Contrasena => txtContrasena.Text;
+        public string Parentesco => txtParentesco.Text.Trim();
+        public int Prioridad => cbPrioridad.SelectedItem is ComboBoxItem item ? (int)item.Value : 3;
+        public string Estado => cbEstado.SelectedItem?.ToString() ?? "activo";
 
-        private TextBox txtIdApoderado, txtIdUsuario, txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena;
+        private TextBox txtIdApoderado, txtIdUsuario, txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena, txtParentesco;
         private CheckBox chkMostrarContrasena;
+        private ComboBox cbPrioridad, cbEstado;
 
         public FormNuevoApoderado(string idSugeridoApoderado = "", string idSugeridoUsuario = "")
         {
@@ -471,7 +487,7 @@ namespace G1asistenciaEC.vista
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.StartPosition = FormStartPosition.CenterParent;
             this.Width = 400;
-            this.Height = 500; // Aumenta el alto para más espacio
+            this.Height = 650; // Aumenta el alto para más espacio
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
@@ -524,6 +540,30 @@ namespace G1asistenciaEC.vista
 
             var lblContrasena = new Label { Text = "Contraseña (máx 12):", Left = 20, Top = y, Width = labelWidth };
             txtContrasena = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 12, UseSystemPasswordChar = true };
+            y += spacing;
+
+            // Parentesco
+            var lblParentesco = new Label { Text = "Parentesco:", Left = 20, Top = y, Width = labelWidth };
+            txtParentesco = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 20 };
+            y += spacing;
+
+            // Prioridad (ComboBox)
+            var lblPrioridad = new Label { Text = "Prioridad:", Left = 20, Top = y, Width = labelWidth };
+            cbPrioridad = new ComboBox { Left = textLeft, Top = y, Width = textWidth, DropDownStyle = ComboBoxStyle.DropDownList };
+            cbPrioridad.Items.Add(new ComboBoxItem("1 - Muy baja", 1));
+            cbPrioridad.Items.Add(new ComboBoxItem("2 - Baja", 2));
+            cbPrioridad.Items.Add(new ComboBoxItem("3 - Media", 3));
+            cbPrioridad.Items.Add(new ComboBoxItem("4 - Alta", 4));
+            cbPrioridad.Items.Add(new ComboBoxItem("5 - Muy alta", 5));
+            cbPrioridad.SelectedIndex = 2;
+            y += spacing;
+
+            // Estado (ComboBox)
+            var lblEstado = new Label { Text = "Estado:", Left = 20, Top = y, Width = labelWidth };
+            cbEstado = new ComboBox { Left = textLeft, Top = y, Width = textWidth, DropDownStyle = ComboBoxStyle.DropDownList };
+            cbEstado.Items.Add("activo");
+            cbEstado.Items.Add("inactivo");
+            cbEstado.SelectedIndex = 0;
             y += spacing;
 
             chkMostrarContrasena = new CheckBox { Text = "Mostrar contraseña", Left = textLeft, Top = y, Width = textWidth };
@@ -594,6 +634,13 @@ namespace G1asistenciaEC.vista
                 if (Contrasena.Length > 12)
                     errores += "- La contraseña no debe exceder 12 caracteres.\n";
 
+                if (string.IsNullOrWhiteSpace(Parentesco))
+                    errores += "- El campo Parentesco es obligatorio.\n";
+                if (cbPrioridad.SelectedItem == null)
+                    errores += "- Debe seleccionar una Prioridad.\n";
+                if (cbEstado.SelectedItem == null)
+                    errores += "- Debe seleccionar un Estado.\n";
+
                 if (!string.IsNullOrEmpty(errores))
                 {
                     MessageBox.Show("Por favor corrija los siguientes errores:\n\n" + errores, "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -607,6 +654,9 @@ namespace G1asistenciaEC.vista
                 lblIdUsuario, txtIdUsuario,
                 lblDni, txtDni, lblNombres, txtNombres, lblApePaterno, txtApePaterno, lblApeMaterno, txtApeMaterno,
                 lblCorreo, txtCorreo, lblTelefono, txtTelefono, lblUsuario, txtUsuario, lblContrasena, txtContrasena,
+                lblParentesco, txtParentesco,
+                lblPrioridad, cbPrioridad,
+                lblEstado, cbEstado,
                 chkMostrarContrasena, btnAceptar, btnCancelar
             });
 
@@ -626,6 +676,9 @@ namespace G1asistenciaEC.vista
             txtTelefono.Text = "";
             txtUsuario.Text = "";
             txtContrasena.Text = "";
+            txtParentesco.Text = "";
+            cbPrioridad.SelectedIndex = 2;
+            cbEstado.SelectedIndex = 0;
             chkMostrarContrasena.Checked = false;
         }
 
@@ -655,6 +708,18 @@ namespace G1asistenciaEC.vista
         {
             if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
                 e.Handled = true;
+        }
+
+        private class ComboBoxItem
+        {
+            public string Text { get; set; }
+            public object Value { get; set; }
+            public ComboBoxItem(string text, object value)
+            {
+                Text = text;
+                Value = value;
+            }
+            public override string ToString() => Text;
         }
     }
 }

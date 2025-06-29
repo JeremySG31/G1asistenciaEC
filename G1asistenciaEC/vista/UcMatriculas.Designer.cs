@@ -67,139 +67,211 @@
             this.lblEstado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatriculas)).BeginInit();
             this.SuspendLayout();
-
+            // 
+            // dgvMatriculas
+            // 
             this.dgvMatriculas.ColumnHeadersHeight = 29;
             this.dgvMatriculas.Location = new System.Drawing.Point(350, 24);
             this.dgvMatriculas.Name = "dgvMatriculas";
             this.dgvMatriculas.RowHeadersWidth = 51;
             this.dgvMatriculas.Size = new System.Drawing.Size(700, 320);
             this.dgvMatriculas.TabIndex = 20;
-
+            // 
+            // btnInsertar
+            // 
             this.btnInsertar.Location = new System.Drawing.Point(50, 420);
             this.btnInsertar.Name = "btnInsertar";
             this.btnInsertar.Size = new System.Drawing.Size(76, 26);
             this.btnInsertar.TabIndex = 15;
             this.btnInsertar.Text = "Insertar";
-
+            // 
+            // btnModificar
+            // 
             this.btnModificar.Location = new System.Drawing.Point(140, 420);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(82, 26);
             this.btnModificar.TabIndex = 16;
             this.btnModificar.Text = "Modificar";
-
+            // 
+            // btnEliminar
+            // 
             this.btnEliminar.Location = new System.Drawing.Point(230, 420);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(78, 26);
             this.btnEliminar.TabIndex = 17;
             this.btnEliminar.Text = "Eliminar";
- 
+            // 
+            // lblTitulo
+            // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.Location = new System.Drawing.Point(46, 22);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(110, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(111, 25);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Matrículas";
-
+            // 
+            // txtId
+            // 
             this.txtId.Location = new System.Drawing.Point(150, 59);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(150, 22);
             this.txtId.TabIndex = 1;
-   
+            // 
+            // cbEstudiante
+            // 
             this.cbEstudiante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstudiante.Location = new System.Drawing.Point(150, 89);
             this.cbEstudiante.Name = "cbEstudiante";
-            this.cbEstudiante.Size = new System.Drawing.Size(150, 22);
+            this.cbEstudiante.Size = new System.Drawing.Size(150, 24);
             this.cbEstudiante.TabIndex = 2;
-
+            // 
+            // cbGrado
+            // 
             this.cbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbGrado.Location = new System.Drawing.Point(150, 119);
             this.cbGrado.Name = "cbGrado";
-            this.cbGrado.Size = new System.Drawing.Size(150, 22);
+            this.cbGrado.Size = new System.Drawing.Size(150, 24);
             this.cbGrado.TabIndex = 3;
-
+            // 
+            // cbNivel
+            // 
             this.cbNivel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNivel.Location = new System.Drawing.Point(150, 149);
             this.cbNivel.Name = "cbNivel";
-            this.cbNivel.Size = new System.Drawing.Size(150, 22);
+            this.cbNivel.Size = new System.Drawing.Size(150, 24);
             this.cbNivel.TabIndex = 4;
-
+            // 
+            // cbSeccion
+            // 
             this.cbSeccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSeccion.Location = new System.Drawing.Point(150, 179);
             this.cbSeccion.Name = "cbSeccion";
-            this.cbSeccion.Size = new System.Drawing.Size(150, 22);
+            this.cbSeccion.Size = new System.Drawing.Size(150, 24);
             this.cbSeccion.TabIndex = 5;
-
+            // 
+            // cbTurno
+            // 
             this.cbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTurno.Location = new System.Drawing.Point(150, 209);
             this.cbTurno.Name = "cbTurno";
-            this.cbTurno.Size = new System.Drawing.Size(150, 22);
+            this.cbTurno.Size = new System.Drawing.Size(150, 24);
             this.cbTurno.TabIndex = 6;
-
+            // 
+            // cbAnioLectivo
+            // 
             this.cbAnioLectivo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAnioLectivo.Location = new System.Drawing.Point(150, 239);
             this.cbAnioLectivo.Name = "cbAnioLectivo";
-            this.cbAnioLectivo.Size = new System.Drawing.Size(150, 22);
+            this.cbAnioLectivo.Size = new System.Drawing.Size(150, 24);
             this.cbAnioLectivo.TabIndex = 7;
-
+            // 
+            // cbApoderado
+            // 
             this.cbApoderado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbApoderado.Location = new System.Drawing.Point(150, 269);
             this.cbApoderado.Name = "cbApoderado";
-            this.cbApoderado.Size = new System.Drawing.Size(150, 22);
+            this.cbApoderado.Size = new System.Drawing.Size(150, 24);
             this.cbApoderado.TabIndex = 8;
-
+            // 
+            // dtpFechaMatricula
+            // 
+            this.dtpFechaMatricula.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaMatricula.Location = new System.Drawing.Point(150, 299);
             this.dtpFechaMatricula.Name = "dtpFechaMatricula";
             this.dtpFechaMatricula.Size = new System.Drawing.Size(150, 22);
             this.dtpFechaMatricula.TabIndex = 9;
-
+            // 
+            // cbEstado
+            // 
             this.cbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstado.Location = new System.Drawing.Point(150, 329);
             this.cbEstado.Name = "cbEstado";
-            this.cbEstado.Size = new System.Drawing.Size(150, 22);
+            this.cbEstado.Size = new System.Drawing.Size(150, 24);
             this.cbEstado.TabIndex = 10;
-
+            // 
+            // lblId
+            // 
             this.lblId.Location = new System.Drawing.Point(46, 62);
             this.lblId.Name = "lblId";
             this.lblId.Size = new System.Drawing.Size(100, 16);
+            this.lblId.TabIndex = 1;
             this.lblId.Text = "ID";
+            // 
+            // lblEstudiante
+            // 
             this.lblEstudiante.Location = new System.Drawing.Point(46, 92);
             this.lblEstudiante.Name = "lblEstudiante";
             this.lblEstudiante.Size = new System.Drawing.Size(100, 16);
+            this.lblEstudiante.TabIndex = 2;
             this.lblEstudiante.Text = "Estudiante";
+            // 
+            // lblGrado
+            // 
             this.lblGrado.Location = new System.Drawing.Point(46, 122);
             this.lblGrado.Name = "lblGrado";
             this.lblGrado.Size = new System.Drawing.Size(100, 16);
+            this.lblGrado.TabIndex = 3;
             this.lblGrado.Text = "Grado";
+            // 
+            // lblNivel
+            // 
             this.lblNivel.Location = new System.Drawing.Point(46, 152);
             this.lblNivel.Name = "lblNivel";
             this.lblNivel.Size = new System.Drawing.Size(100, 16);
+            this.lblNivel.TabIndex = 4;
             this.lblNivel.Text = "Nivel";
+            // 
+            // lblSeccion
+            // 
             this.lblSeccion.Location = new System.Drawing.Point(46, 182);
             this.lblSeccion.Name = "lblSeccion";
             this.lblSeccion.Size = new System.Drawing.Size(100, 16);
+            this.lblSeccion.TabIndex = 5;
             this.lblSeccion.Text = "Sección";
+            // 
+            // lblTurno
+            // 
             this.lblTurno.Location = new System.Drawing.Point(46, 212);
             this.lblTurno.Name = "lblTurno";
             this.lblTurno.Size = new System.Drawing.Size(100, 16);
+            this.lblTurno.TabIndex = 6;
             this.lblTurno.Text = "Turno";
+            // 
+            // lblAnioLectivo
+            // 
             this.lblAnioLectivo.Location = new System.Drawing.Point(46, 242);
             this.lblAnioLectivo.Name = "lblAnioLectivo";
             this.lblAnioLectivo.Size = new System.Drawing.Size(100, 16);
+            this.lblAnioLectivo.TabIndex = 7;
             this.lblAnioLectivo.Text = "Año Lectivo";
+            // 
+            // lblApoderado
+            // 
             this.lblApoderado.Location = new System.Drawing.Point(46, 272);
             this.lblApoderado.Name = "lblApoderado";
             this.lblApoderado.Size = new System.Drawing.Size(100, 16);
+            this.lblApoderado.TabIndex = 8;
             this.lblApoderado.Text = "Apoderado";
+            // 
+            // lblFechaMatricula
+            // 
             this.lblFechaMatricula.Location = new System.Drawing.Point(46, 302);
             this.lblFechaMatricula.Name = "lblFechaMatricula";
             this.lblFechaMatricula.Size = new System.Drawing.Size(100, 16);
+            this.lblFechaMatricula.TabIndex = 9;
             this.lblFechaMatricula.Text = "Fecha Matrícula";
+            // 
+            // lblEstado
+            // 
             this.lblEstado.Location = new System.Drawing.Point(46, 332);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(100, 16);
+            this.lblEstado.TabIndex = 10;
             this.lblEstado.Text = "Estado";
-
+            // 
+            // UcMatriculas
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTitulo);
@@ -232,6 +304,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatriculas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }
