@@ -315,6 +315,18 @@ namespace G1asistenciaEC.vista
             return false;
         }
 
+        private bool UsuarioIdExiste(string idUsuario)
+        {
+            var usuariosNegocio = new UsuariosN();
+            var dt = usuariosNegocio.ObtenerTodos();
+            foreach (System.Data.DataRow row in dt.Rows)
+            {
+                if (row["id"].ToString().Equals(idUsuario, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
         private string SiguienteIdApoderado()
         {
             int max = 0;
@@ -329,14 +341,33 @@ namespace G1asistenciaEC.vista
             return $"A{(max + 1):D2}";
         }
 
+        private string SiguienteIdUsuario()
+        {
+            // Obtener todos los usuarios desde la base de datos
+            var usuariosNegocio = new UsuariosN();
+            var dt = usuariosNegocio.ObtenerTodos(); // DataTable con columna "id"
+            int max = 0;
+            foreach (System.Data.DataRow row in dt.Rows)
+            {
+                string value = row["id"].ToString();
+                if (value.StartsWith("U") && int.TryParse(value.Substring(1), out int num))
+                {
+                    if (num > max) max = num;
+                }
+            }
+            return $"U{(max + 1):D2}";
+        }
+
         private void btnRegistrarApoderado_Click(object sender, EventArgs e)
         {
-            string sugerido = SiguienteIdApoderado();
-            using (var form = new FormNuevoApoderado(sugerido))
+            string sugeridoApoderado = SiguienteIdApoderado();
+            string sugeridoUsuario = SiguienteIdUsuario();
+            using (var form = new FormNuevoApoderado(sugeridoApoderado, sugeridoUsuario))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     string idApoderadoManual = form.IdApoderadoManual;
+                    string idUsuarioManual = form.IdUsuarioManual;
                     string dni = form.Dni;
                     string nombres = form.Nombres;
                     string apePaterno = form.ApePaterno;
@@ -352,14 +383,17 @@ namespace G1asistenciaEC.vista
                         MessageBox.Show("El ID de apoderado ya existe. Por favor, ingrese otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                    if (UsuarioIdExiste(idUsuarioManual))
+                    {
+                        MessageBox.Show("El ID de usuario ya existe. Por favor, ingrese otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     try
                     {
-                        string idUsuario = "U" + DateTime.Now.Ticks.ToString().Substring(8, 6);
-
                         var usuario = new UsuariosM
                         {
-                            Id = idUsuario,
+                            Id = idUsuarioManual,
                             IdApoderado = idApoderadoManual,
                             NombreUsuario = nombreUsuario,
                             Nombres = nombres,
@@ -418,6 +452,7 @@ namespace G1asistenciaEC.vista
     public class FormNuevoApoderado : Form
     {
         public string IdApoderadoManual => txtIdApoderado.Text.Trim();
+        public string IdUsuarioManual => txtIdUsuario.Text.Trim();
         public string Dni => txtDni.Text.Trim();
         public string Nombres => txtNombres.Text.Trim();
         public string ApePaterno => txtApePaterno.Text.Trim();
@@ -427,10 +462,10 @@ namespace G1asistenciaEC.vista
         public string NombreUsuario => txtUsuario.Text.Trim();
         public string Contrasena => txtContrasena.Text;
 
-        private TextBox txtIdApoderado, txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena;
+        private TextBox txtIdApoderado, txtIdUsuario, txtDni, txtNombres, txtApePaterno, txtApeMaterno, txtCorreo, txtTelefono, txtUsuario, txtContrasena;
         private CheckBox chkMostrarContrasena;
 
-        public FormNuevoApoderado(string idSugerido = "")
+        public FormNuevoApoderado(string idSugeridoApoderado = "", string idSugeridoUsuario = "")
         {
             this.Text = "Nuevo Apoderado";
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -447,7 +482,11 @@ namespace G1asistenciaEC.vista
             int spacing = 35;
 
             var lblIdApoderado = new Label { Text = "ID Apoderado:", Left = 20, Top = y, Width = labelWidth };
-            txtIdApoderado = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 10, Text = idSugerido };
+            txtIdApoderado = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 10, Text = idSugeridoApoderado };
+            y += spacing;
+
+            var lblIdUsuario = new Label { Text = "ID Usuario:", Left = 20, Top = y, Width = labelWidth };
+            txtIdUsuario = new TextBox { Left = textLeft, Top = y, Width = textWidth, MaxLength = 10, Text = idSugeridoUsuario };
             y += spacing;
 
             var lblDni = new Label { Text = "DNI (8 dígitos):", Left = 20, Top = y, Width = labelWidth };
@@ -506,6 +545,11 @@ namespace G1asistenciaEC.vista
                 else if (!System.Text.RegularExpressions.Regex.IsMatch(IdApoderadoManual, @"^A\d{2,}$"))
                     errores += "- El ID Apoderado debe tener el formato A## (ejemplo: A03).\n";
 
+                if (string.IsNullOrWhiteSpace(IdUsuarioManual))
+                    errores += "- El campo ID Usuario es obligatorio.\n";
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(IdUsuarioManual, @"^U\d{2,}$"))
+                    errores += "- El ID Usuario debe tener el formato U## (ejemplo: U03).\n";
+
                 if (string.IsNullOrWhiteSpace(Dni))
                     errores += "- El campo DNI es obligatorio.\n";
                 else if (Dni.Length != 8 || !EsNumerico(Dni))
@@ -560,6 +604,7 @@ namespace G1asistenciaEC.vista
 
             this.Controls.AddRange(new Control[] {
                 lblIdApoderado, txtIdApoderado,
+                lblIdUsuario, txtIdUsuario,
                 lblDni, txtDni, lblNombres, txtNombres, lblApePaterno, txtApePaterno, lblApeMaterno, txtApeMaterno,
                 lblCorreo, txtCorreo, lblTelefono, txtTelefono, lblUsuario, txtUsuario, lblContrasena, txtContrasena,
                 chkMostrarContrasena, btnAceptar, btnCancelar
@@ -572,6 +617,7 @@ namespace G1asistenciaEC.vista
         private void LimpiarCampos()
         {
             txtIdApoderado.Text = "";
+            txtIdUsuario.Text = "";
             txtDni.Text = "";
             txtNombres.Text = "";
             txtApePaterno.Text = "";
