@@ -65,7 +65,9 @@
             this.lblApoderado = new System.Windows.Forms.Label();
             this.lblFechaMatricula = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
+            this.grpAcciones = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatriculas)).BeginInit();
+            this.grpAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvMatriculas
@@ -79,27 +81,27 @@
             // 
             // btnInsertar
             // 
-            this.btnInsertar.Location = new System.Drawing.Point(50, 420);
+            this.btnInsertar.Location = new System.Drawing.Point(23, 21);
             this.btnInsertar.Name = "btnInsertar";
-            this.btnInsertar.Size = new System.Drawing.Size(76, 26);
+            this.btnInsertar.Size = new System.Drawing.Size(95, 26);
             this.btnInsertar.TabIndex = 15;
-            this.btnInsertar.Text = "Insertar";
+            this.btnInsertar.Text = "INSERTAR";
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(140, 420);
+            this.btnModificar.Location = new System.Drawing.Point(121, 21);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(82, 26);
+            this.btnModificar.Size = new System.Drawing.Size(100, 26);
             this.btnModificar.TabIndex = 16;
-            this.btnModificar.Text = "Modificar";
+            this.btnModificar.Text = "MODIFICAR";
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(230, 420);
+            this.btnEliminar.Location = new System.Drawing.Point(224, 21);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(78, 26);
+            this.btnEliminar.Size = new System.Drawing.Size(89, 26);
             this.btnEliminar.TabIndex = 17;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "ELIMINAR";
             // 
             // lblTitulo
             // 
@@ -270,10 +272,23 @@
             this.lblEstado.TabIndex = 10;
             this.lblEstado.Text = "Estado";
             // 
+            // grpAcciones
+            // 
+            this.grpAcciones.Controls.Add(this.btnEliminar);
+            this.grpAcciones.Controls.Add(this.btnModificar);
+            this.grpAcciones.Controls.Add(this.btnInsertar);
+            this.grpAcciones.Location = new System.Drawing.Point(39, 370);
+            this.grpAcciones.Name = "grpAcciones";
+            this.grpAcciones.Size = new System.Drawing.Size(323, 65);
+            this.grpAcciones.TabIndex = 21;
+            this.grpAcciones.TabStop = false;
+            this.grpAcciones.Text = "ACCIONES";
+            // 
             // UcMatriculas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.txtId);
@@ -295,16 +310,16 @@
             this.Controls.Add(this.dtpFechaMatricula);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.cbEstado);
-            this.Controls.Add(this.btnInsertar);
-            this.Controls.Add(this.btnModificar);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.dgvMatriculas);
             this.Name = "UcMatriculas";
             this.Size = new System.Drawing.Size(1100, 470);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMatriculas)).EndInit();
+            this.grpAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+        private System.Windows.Forms.GroupBox grpAcciones;
     }
 }
