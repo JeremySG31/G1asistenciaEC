@@ -91,7 +91,7 @@
             // 
             this.txtId.Location = new System.Drawing.Point(97, 26);
             this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(120, 22);
+            this.txtId.Size = new System.Drawing.Size(91, 22);
             this.txtId.TabIndex = 2;
             // 
             // cbNombreTurno
@@ -99,7 +99,7 @@
             this.cbNombreTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNombreTurno.Location = new System.Drawing.Point(97, 56);
             this.cbNombreTurno.Name = "cbNombreTurno";
-            this.cbNombreTurno.Size = new System.Drawing.Size(120, 24);
+            this.cbNombreTurno.Size = new System.Drawing.Size(200, 24);
             this.cbNombreTurno.TabIndex = 4;
             // 
             // cbEstudiante
@@ -107,7 +107,7 @@
             this.cbEstudiante.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbEstudiante.Location = new System.Drawing.Point(97, 86);
             this.cbEstudiante.Name = "cbEstudiante";
-            this.cbEstudiante.Size = new System.Drawing.Size(120, 24);
+            this.cbEstudiante.Size = new System.Drawing.Size(200, 24);
             this.cbEstudiante.TabIndex = 6;
             // 
             // lblId
@@ -159,7 +159,7 @@
             this.grpInformacionAdicional.Controls.Add(this.txtId);
             this.grpInformacionAdicional.Location = new System.Drawing.Point(11, 47);
             this.grpInformacionAdicional.Name = "grpInformacionAdicional";
-            this.grpInformacionAdicional.Size = new System.Drawing.Size(233, 128);
+            this.grpInformacionAdicional.Size = new System.Drawing.Size(303, 128);
             this.grpInformacionAdicional.TabIndex = 12;
             this.grpInformacionAdicional.TabStop = false;
             // 

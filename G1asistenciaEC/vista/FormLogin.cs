@@ -20,6 +20,10 @@ namespace G1asistenciaEC
             this.MaximizeBox = false;
             campo_contrasenia.UseSystemPasswordChar = true;
             checkBoxMostrar.CheckedChanged += checkBoxMostrar_CheckedChanged;
+            campo_contrasenia.KeyPress += campo_contrasenia_KeyPress;
+            this.AcceptButton = login; 
+            campo_contrasenia.KeyDown += CampoContrasenia_KeyDown; 
+            campo_usuario.KeyDown += CampoContrasenia_KeyDown; 
         }
 
         protected override void OnShown(EventArgs e)
@@ -89,6 +93,23 @@ namespace G1asistenciaEC
             catch (Exception ex)
             {
                 MessageBox.Show("Error al conectar a la base de datos: " + ex.Message);
+            }
+        }
+
+        private void campo_contrasenia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void CampoContrasenia_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                button1_Click(login, EventArgs.Empty);
+                e.Handled = true;
             }
         }
 
