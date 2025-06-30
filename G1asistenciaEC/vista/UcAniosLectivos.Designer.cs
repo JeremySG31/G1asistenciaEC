@@ -51,13 +51,15 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
+            this.grpAcciones = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAniosLectivos)).BeginInit();
+            this.grpAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvAniosLectivos
             // 
             this.dgvAniosLectivos.ColumnHeadersHeight = 29;
-            this.dgvAniosLectivos.Location = new System.Drawing.Point(338, 36);
+            this.dgvAniosLectivos.Location = new System.Drawing.Point(355, 35);
             this.dgvAniosLectivos.Name = "dgvAniosLectivos";
             this.dgvAniosLectivos.RowHeadersWidth = 51;
             this.dgvAniosLectivos.Size = new System.Drawing.Size(567, 200);
@@ -65,27 +67,27 @@
             // 
             // btnInsertar
             // 
-            this.btnInsertar.Location = new System.Drawing.Point(47, 239);
+            this.btnInsertar.Location = new System.Drawing.Point(10, 21);
             this.btnInsertar.Name = "btnInsertar";
-            this.btnInsertar.Size = new System.Drawing.Size(76, 26);
+            this.btnInsertar.Size = new System.Drawing.Size(103, 26);
             this.btnInsertar.TabIndex = 7;
-            this.btnInsertar.Text = "Insertar";
+            this.btnInsertar.Text = "INSERTAR";
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(129, 239);
+            this.btnModificar.Location = new System.Drawing.Point(122, 21);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(82, 26);
+            this.btnModificar.Size = new System.Drawing.Size(105, 26);
             this.btnModificar.TabIndex = 8;
-            this.btnModificar.Text = "Modificar";
+            this.btnModificar.Text = "MODIFICAR";
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(217, 239);
+            this.btnEliminar.Location = new System.Drawing.Point(234, 21);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(78, 26);
+            this.btnEliminar.Size = new System.Drawing.Size(93, 26);
             this.btnEliminar.TabIndex = 9;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "ELIMINAR";
             // 
             // lblTitulo
             // 
@@ -163,10 +165,23 @@
             this.lblEstado.TabIndex = 7;
             this.lblEstado.Text = "Estado";
             // 
+            // grpAcciones
+            // 
+            this.grpAcciones.Controls.Add(this.btnEliminar);
+            this.grpAcciones.Controls.Add(this.btnModificar);
+            this.grpAcciones.Controls.Add(this.btnInsertar);
+            this.grpAcciones.Location = new System.Drawing.Point(8, 225);
+            this.grpAcciones.Name = "grpAcciones";
+            this.grpAcciones.Size = new System.Drawing.Size(339, 65);
+            this.grpAcciones.TabIndex = 22;
+            this.grpAcciones.TabStop = false;
+            this.grpAcciones.Text = "ACCIONES";
+            // 
             // UcAniosLectivos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.lblId);
             this.Controls.Add(this.txtId);
@@ -176,18 +191,18 @@
             this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.cbEstado);
-            this.Controls.Add(this.btnInsertar);
-            this.Controls.Add(this.btnModificar);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.dgvAniosLectivos);
             this.Name = "UcAniosLectivos";
             this.Size = new System.Drawing.Size(1000, 300);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAniosLectivos)).EndInit();
+            this.grpAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.GroupBox grpAcciones;
     }
 }

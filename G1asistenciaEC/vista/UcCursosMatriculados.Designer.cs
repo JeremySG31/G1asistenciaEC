@@ -55,7 +55,9 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
             this.txtIdCM = new System.Windows.Forms.TextBox();
+            this.grpAcciones = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursosMatriculados)).BeginInit();
+            this.grpAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvCursosMatriculados
@@ -93,27 +95,27 @@
             // 
             // btnInsertar
             // 
-            this.btnInsertar.Location = new System.Drawing.Point(30, 240);
+            this.btnInsertar.Location = new System.Drawing.Point(17, 21);
             this.btnInsertar.Name = "btnInsertar";
-            this.btnInsertar.Size = new System.Drawing.Size(85, 29);
+            this.btnInsertar.Size = new System.Drawing.Size(89, 29);
             this.btnInsertar.TabIndex = 6;
-            this.btnInsertar.Text = "Insertar";
+            this.btnInsertar.Text = "INSERTAR";
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(130, 240);
+            this.btnModificar.Location = new System.Drawing.Point(112, 21);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(85, 29);
+            this.btnModificar.Size = new System.Drawing.Size(95, 29);
             this.btnModificar.TabIndex = 7;
-            this.btnModificar.Text = "Modificar";
+            this.btnModificar.Text = "MODIFICAR";
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(230, 240);
+            this.btnEliminar.Location = new System.Drawing.Point(224, 21);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(85, 29);
             this.btnEliminar.TabIndex = 8;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "ELIMINAR";
             // 
             // lblIdCursosMatriculados
             // 
@@ -186,8 +188,21 @@
             this.txtIdCM.TextChanged += new System.EventHandler(this.txtIdCM_TextChanged);
             this.txtIdCM.Leave += new System.EventHandler(this.txtIdCM_Leave);
             // 
+            // grpAcciones
+            // 
+            this.grpAcciones.Controls.Add(this.btnInsertar);
+            this.grpAcciones.Controls.Add(this.btnModificar);
+            this.grpAcciones.Controls.Add(this.btnEliminar);
+            this.grpAcciones.Location = new System.Drawing.Point(25, 239);
+            this.grpAcciones.Name = "grpAcciones";
+            this.grpAcciones.Size = new System.Drawing.Size(315, 65);
+            this.grpAcciones.TabIndex = 22;
+            this.grpAcciones.TabStop = false;
+            this.grpAcciones.Text = "ACCIONES";
+            // 
             // UcCursosMatriculados
             // 
+            this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.txtIdCM);
             this.Controls.Add(this.labelTitulo);
             this.Controls.Add(this.dgvCursosMatriculados);
@@ -198,19 +213,19 @@
             this.Controls.Add(this.cbCurso);
             this.Controls.Add(this.lblEstudiante);
             this.Controls.Add(this.cbEstudiante);
-            this.Controls.Add(this.btnInsertar);
-            this.Controls.Add(this.btnModificar);
-            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
             this.Name = "UcCursosMatriculados";
             this.Size = new System.Drawing.Size(874, 371);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursosMatriculados)).EndInit();
+            this.grpAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.GroupBox grpAcciones;
     }
 }

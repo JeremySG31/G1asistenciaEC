@@ -440,5 +440,10 @@ namespace G1asistenciaEC.vista
         private void cbNivelGrado_SelectedIndexChanged(object sender, EventArgs e) { }
         private void label2_Click(object sender, EventArgs e) { }
         private void dgvGrados_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+
+        private void lblNombreSeccion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

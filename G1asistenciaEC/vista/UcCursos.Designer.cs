@@ -49,72 +49,96 @@ namespace G1asistenciaEC.vista
             this.lblNombreCurso = new System.Windows.Forms.Label();
             this.lblDescripcionCurso = new System.Windows.Forms.Label();
             this.labelTitulo = new System.Windows.Forms.Label();
+            this.grpAcciones = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursos)).BeginInit();
+            this.grpAcciones.SuspendLayout();
             this.SuspendLayout();
-
+            // 
+            // dgvCursos
+            // 
+            this.dgvCursos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCursos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCursos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCursos.Location = new System.Drawing.Point(386, 77);
             this.dgvCursos.Name = "dgvCursos";
             this.dgvCursos.RowHeadersWidth = 51;
             this.dgvCursos.Size = new System.Drawing.Size(446, 205);
             this.dgvCursos.TabIndex = 0;
-
+            // 
+            // txtIdCurso
+            // 
             this.txtIdCurso.Location = new System.Drawing.Point(120, 77);
             this.txtIdCurso.Name = "txtIdCurso";
             this.txtIdCurso.Size = new System.Drawing.Size(100, 22);
             this.txtIdCurso.TabIndex = 2;
- 
+            // 
+            // txtNombreCurso
+            // 
             this.txtNombreCurso.Location = new System.Drawing.Point(120, 107);
             this.txtNombreCurso.Name = "txtNombreCurso";
             this.txtNombreCurso.Size = new System.Drawing.Size(200, 22);
             this.txtNombreCurso.TabIndex = 4;
-
+            // 
+            // txtDescripcionCurso
+            // 
             this.txtDescripcionCurso.Location = new System.Drawing.Point(23, 162);
             this.txtDescripcionCurso.Multiline = true;
             this.txtDescripcionCurso.Name = "txtDescripcionCurso";
             this.txtDescripcionCurso.Size = new System.Drawing.Size(347, 72);
             this.txtDescripcionCurso.TabIndex = 6;
-
-            this.btnInsertarCurso.Location = new System.Drawing.Point(36, 253);
+            // 
+            // btnInsertarCurso
+            // 
+            this.btnInsertarCurso.Location = new System.Drawing.Point(6, 21);
             this.btnInsertarCurso.Name = "btnInsertarCurso";
-            this.btnInsertarCurso.Size = new System.Drawing.Size(85, 29);
+            this.btnInsertarCurso.Size = new System.Drawing.Size(89, 29);
             this.btnInsertarCurso.TabIndex = 7;
-            this.btnInsertarCurso.Text = "Insertar";
-
-            this.btnModificarCurso.Location = new System.Drawing.Point(155, 253);
+            this.btnInsertarCurso.Text = "INSERTAR";
+            // 
+            // btnModificarCurso
+            // 
+            this.btnModificarCurso.Location = new System.Drawing.Point(111, 21);
             this.btnModificarCurso.Name = "btnModificarCurso";
-            this.btnModificarCurso.Size = new System.Drawing.Size(85, 29);
+            this.btnModificarCurso.Size = new System.Drawing.Size(95, 29);
             this.btnModificarCurso.TabIndex = 8;
-            this.btnModificarCurso.Text = "Modificar";
-
-            this.btnEliminarCurso.Location = new System.Drawing.Point(275, 253);
+            this.btnModificarCurso.Text = "MODIFICAR";
+            // 
+            // btnEliminarCurso
+            // 
+            this.btnEliminarCurso.Location = new System.Drawing.Point(224, 21);
             this.btnEliminarCurso.Name = "btnEliminarCurso";
             this.btnEliminarCurso.Size = new System.Drawing.Size(85, 29);
             this.btnEliminarCurso.TabIndex = 9;
-            this.btnEliminarCurso.Text = "Eliminar";
-
+            this.btnEliminarCurso.Text = "ELIMINAR";
+            // 
+            // lblIdCurso
+            // 
             this.lblIdCurso.AutoSize = true;
             this.lblIdCurso.Location = new System.Drawing.Point(20, 80);
             this.lblIdCurso.Name = "lblIdCurso";
             this.lblIdCurso.Size = new System.Drawing.Size(18, 16);
             this.lblIdCurso.TabIndex = 1;
             this.lblIdCurso.Text = "Id";
-
+            // 
+            // lblNombreCurso
+            // 
             this.lblNombreCurso.AutoSize = true;
             this.lblNombreCurso.Location = new System.Drawing.Point(20, 110);
             this.lblNombreCurso.Name = "lblNombreCurso";
             this.lblNombreCurso.Size = new System.Drawing.Size(56, 16);
             this.lblNombreCurso.TabIndex = 3;
             this.lblNombreCurso.Text = "Nombre";
-    
+            // 
+            // lblDescripcionCurso
+            // 
             this.lblDescripcionCurso.AutoSize = true;
             this.lblDescripcionCurso.Location = new System.Drawing.Point(20, 143);
             this.lblDescripcionCurso.Name = "lblDescripcionCurso";
             this.lblDescripcionCurso.Size = new System.Drawing.Size(79, 16);
             this.lblDescripcionCurso.TabIndex = 5;
             this.lblDescripcionCurso.Text = "Descripción";
-
+            // 
+            // labelTitulo
+            // 
             this.labelTitulo.AutoSize = true;
             this.labelTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.labelTitulo.Location = new System.Drawing.Point(20, 20);
@@ -122,7 +146,22 @@ namespace G1asistenciaEC.vista
             this.labelTitulo.Size = new System.Drawing.Size(81, 25);
             this.labelTitulo.TabIndex = 0;
             this.labelTitulo.Text = "Cursos";
-
+            // 
+            // grpAcciones
+            // 
+            this.grpAcciones.Controls.Add(this.btnInsertarCurso);
+            this.grpAcciones.Controls.Add(this.btnModificarCurso);
+            this.grpAcciones.Controls.Add(this.btnEliminarCurso);
+            this.grpAcciones.Location = new System.Drawing.Point(25, 251);
+            this.grpAcciones.Name = "grpAcciones";
+            this.grpAcciones.Size = new System.Drawing.Size(315, 65);
+            this.grpAcciones.TabIndex = 22;
+            this.grpAcciones.TabStop = false;
+            this.grpAcciones.Text = "ACCIONES";
+            // 
+            // UcCursos
+            // 
+            this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.labelTitulo);
             this.Controls.Add(this.dgvCursos);
             this.Controls.Add(this.lblIdCurso);
@@ -131,17 +170,17 @@ namespace G1asistenciaEC.vista
             this.Controls.Add(this.txtNombreCurso);
             this.Controls.Add(this.lblDescripcionCurso);
             this.Controls.Add(this.txtDescripcionCurso);
-            this.Controls.Add(this.btnInsertarCurso);
-            this.Controls.Add(this.btnModificarCurso);
-            this.Controls.Add(this.btnEliminarCurso);
             this.Name = "UcCursos";
             this.Size = new System.Drawing.Size(865, 384);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursos)).EndInit();
+            this.grpAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
+
+        private GroupBox grpAcciones;
     }
 }

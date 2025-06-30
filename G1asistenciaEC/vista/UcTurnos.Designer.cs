@@ -47,7 +47,7 @@
             // dgvTurnos
             // 
             this.dgvTurnos.ColumnHeadersHeight = 29;
-            this.dgvTurnos.Location = new System.Drawing.Point(320, 24);
+            this.dgvTurnos.Location = new System.Drawing.Point(335, 24);
             this.dgvTurnos.Name = "dgvTurnos";
             this.dgvTurnos.RowHeadersWidth = 51;
             this.dgvTurnos.Size = new System.Drawing.Size(527, 228);
@@ -55,27 +55,27 @@
             // 
             // btnInsertar
             // 
-            this.btnInsertar.Location = new System.Drawing.Point(6, 21);
+            this.btnInsertar.Location = new System.Drawing.Point(3, 21);
             this.btnInsertar.Name = "btnInsertar";
-            this.btnInsertar.Size = new System.Drawing.Size(76, 26);
+            this.btnInsertar.Size = new System.Drawing.Size(95, 26);
             this.btnInsertar.TabIndex = 7;
-            this.btnInsertar.Text = "Insertar";
+            this.btnInsertar.Text = "INSERTAR";
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(90, 21);
+            this.btnModificar.Location = new System.Drawing.Point(103, 21);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(82, 26);
+            this.btnModificar.Size = new System.Drawing.Size(101, 26);
             this.btnModificar.TabIndex = 8;
-            this.btnModificar.Text = "Modificar";
+            this.btnModificar.Text = "MODIFICAR";
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(182, 21);
+            this.btnEliminar.Location = new System.Drawing.Point(207, 21);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(78, 26);
+            this.btnEliminar.Size = new System.Drawing.Size(96, 26);
             this.btnEliminar.TabIndex = 9;
-            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Text = "ELIMINAR";
             // 
             // lblTitulo
             // 
@@ -144,7 +144,7 @@
             this.grpAcciones.Controls.Add(this.btnEliminar);
             this.grpAcciones.Location = new System.Drawing.Point(11, 193);
             this.grpAcciones.Name = "grpAcciones";
-            this.grpAcciones.Size = new System.Drawing.Size(266, 59);
+            this.grpAcciones.Size = new System.Drawing.Size(310, 59);
             this.grpAcciones.TabIndex = 11;
             this.grpAcciones.TabStop = false;
             this.grpAcciones.Text = "ACCIONES";
