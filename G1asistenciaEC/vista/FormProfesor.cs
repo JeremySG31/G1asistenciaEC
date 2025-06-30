@@ -38,6 +38,15 @@ namespace G1asistenciaEC
             btnBuscar.Click -= btnBuscar_Click;
             ConfigurarEventos();
             CargarFiltros();
+            CargarNiveles();
+        }
+
+        private void CargarNiveles()
+        {
+            cbNivel.Items.Clear();
+            cbNivel.Items.Add("Primaria");
+            cbNivel.Items.Add("Secundaria");
+            cbNivel.SelectedIndex = 0;
         }
 
         private void ConfigurarDataGridView()
@@ -130,6 +139,7 @@ namespace G1asistenciaEC
 
         private void ConfigurarEventos()
         {
+            cbNivel.SelectedIndexChanged += cbNivel_Changed;
             cbGrado.SelectedIndexChanged += cbGrado_Seccion_Changed;
             cbSeccion.SelectedIndexChanged += cbGrado_Seccion_Changed;
             chkA.CheckedChanged += chkA_CheckedChanged;
@@ -142,25 +152,65 @@ namespace G1asistenciaEC
 
         private void CargarFiltros()
         {
+            // Guardar selección previa
+            string gradoPrevio = cbGrado.SelectedItem?.ToString();
+            string seccionPrevia = cbSeccion.SelectedItem?.ToString();
+
             cbGrado.Items.Clear();
-            cbGrado.Items.AddRange(new[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" });
+            string nivel = cbNivel.SelectedItem?.ToString();
+            if (nivel == "Secundaria")
+            {
+                cbGrado.Items.AddRange(new[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto" });
+            }
+            else
+            {
+                cbGrado.Items.AddRange(new[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" });
+            }
+
+            // Restaurar selección previa si existe
+            if (!string.IsNullOrEmpty(gradoPrevio) && cbGrado.Items.Contains(gradoPrevio))
+                cbGrado.SelectedItem = gradoPrevio;
+            else if (cbGrado.Items.Count > 0)
+                cbGrado.SelectedIndex = 0;
 
             cbSeccion.Items.Clear();
             cbSeccion.Items.AddRange(Enumerable.Range('A', 26).Select(c => ((char)c).ToString()).ToArray());
+            // Restaurar selección previa si existe
+            if (!string.IsNullOrEmpty(seccionPrevia) && cbSeccion.Items.Contains(seccionPrevia))
+                cbSeccion.SelectedItem = seccionPrevia;
+            else if (cbSeccion.Items.Count > 0)
+                cbSeccion.SelectedIndex = 0;
+        }
+
+        private void cbNivel_Changed(object sender, EventArgs e)
+        {
+            string gradoPrevio = cbGrado.SelectedItem?.ToString();
+            string seccionPrevia = cbSeccion.SelectedItem?.ToString();
+            CargarFiltros();
+            // Restaurar selección previa si existe
+            if (!string.IsNullOrEmpty(gradoPrevio) && cbGrado.Items.Contains(gradoPrevio))
+                cbGrado.SelectedItem = gradoPrevio;
+            if (!string.IsNullOrEmpty(seccionPrevia) && cbSeccion.Items.Contains(seccionPrevia))
+                cbSeccion.SelectedItem = seccionPrevia;
+            if (cbGrado.SelectedItem != null && cbSeccion.SelectedItem != null)
+            {
+                cbGrado_Seccion_Changed(sender, e);
+            }
         }
 
         private void cbGrado_Seccion_Changed(object sender, EventArgs e)
         {
-            if (cbGrado.SelectedItem == null || cbSeccion.SelectedItem == null) return;
+            if (cbGrado.SelectedItem == null || cbSeccion.SelectedItem == null || cbNivel.SelectedItem == null) return;
 
             var gradoSeleccionado = cbGrado.SelectedItem.ToString();
             var seccionSeleccionada = cbSeccion.SelectedItem.ToString();
+            var nivelSeleccionado = cbNivel.SelectedItem.ToString();
             var fecha = dtpFecha.Value.Date;
 
-            ActualizarGrilla(gradoSeleccionado, seccionSeleccionada, fecha);
+            ActualizarGrilla(gradoSeleccionado, seccionSeleccionada, nivelSeleccionado, fecha);
         }
 
-        private void ActualizarGrilla(string grado, string seccion, DateTime fecha)
+        private void ActualizarGrilla(string grado, string seccion, string nivel, DateTime fecha)
         {
             try
             {
@@ -168,10 +218,19 @@ namespace G1asistenciaEC
                 var asistenciasDB = asistenciasN.ObtenerPorGradoYSeccionYFecha(grado, seccion, fecha);
                 var asistenciasPorMatriculaDB = asistenciasDB.ToDictionary(a => a.IdMatricula);
 
+                // Obtener grados con su nivel real (por IdGrado)
+                var grados = new GradosSeccionesN().ObtenerGrados();
+                var gradosPorId = grados.ToDictionary(g => g.Id);
+
+                // Filtrar alumnos por grado, seccion y nivel real usando IdGrado
                 var alumnos = new MatriculasN().ObtenerTodos()
-                    .Where(m => m.NombreGrado.Equals(grado, StringComparison.OrdinalIgnoreCase) &&
-                                 m.NombreSeccion.Equals(seccion, StringComparison.OrdinalIgnoreCase) &&
-                                 m.Estado.Equals("activo", StringComparison.OrdinalIgnoreCase))
+                    .Where(m => m.NombreGrado.Equals(grado, StringComparison.OrdinalIgnoreCase)
+                                && m.NombreSeccion.Equals(seccion, StringComparison.OrdinalIgnoreCase)
+                                && m.Estado.Equals("activo", StringComparison.OrdinalIgnoreCase)
+                                && m.IdGrado != null
+                                && gradosPorId.ContainsKey(m.IdGrado)
+                                && gradosPorId[m.IdGrado].Nivel.Equals(nivel, StringComparison.OrdinalIgnoreCase)
+                         )
                     .ToList();
 
                 var source = alumnos.Select(a =>
@@ -181,7 +240,6 @@ namespace G1asistenciaEC
                     if (asistenciasPorMatriculaDB.TryGetValue(a.Id, out var asistenciaDB))
                     {
                         estadoActual = asistenciaDB.Estado;
-                        
                         if (!_asistenciasCache.ContainsKey(a.Id))
                         {
                             _asistenciasCache[a.Id] = new Dictionary<DateTime, string>();
@@ -403,6 +461,9 @@ namespace G1asistenciaEC
             public string Estado { get; set; }
         }
 
-  
+        private void groupBoxFiltros_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
