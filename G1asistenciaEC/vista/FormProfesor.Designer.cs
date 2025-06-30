@@ -22,6 +22,8 @@ namespace G1asistenciaEC
         private System.Windows.Forms.Label lblNombreProfesor;
         private System.Windows.Forms.Button btnCerrarSesion;
         private System.Windows.Forms.Button btnInfoPersonal;
+        private System.Windows.Forms.ComboBox cbNivel;
+        private System.Windows.Forms.Label lblNivel;
 
         private void InitializeComponent()
         {
@@ -34,6 +36,11 @@ namespace G1asistenciaEC
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabTomar = new System.Windows.Forms.TabPage();
             this.groupBoxFiltros = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.lblNivel = new System.Windows.Forms.Label();
+            this.cbNivel = new System.Windows.Forms.ComboBox();
+            this.cbGrado = new System.Windows.Forms.ComboBox();
             this.tabHistorial = new System.Windows.Forms.TabPage();
             this.groupBoxFiltrosHistorial = new System.Windows.Forms.GroupBox();
             this.lblFechaHistorial = new System.Windows.Forms.Label();
@@ -43,9 +50,7 @@ namespace G1asistenciaEC
             this.lblNombreProfesor = new System.Windows.Forms.Label();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnInfoPersonal = new System.Windows.Forms.Button();
-            this.cbGrado = new System.Windows.Forms.ComboBox();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabTomar.SuspendLayout();
@@ -110,7 +115,7 @@ namespace G1asistenciaEC
             // 
             this.cbSeccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSeccion.FormattingEnabled = true;
-            this.cbSeccion.Location = new System.Drawing.Point(370, 53);
+            this.cbSeccion.Location = new System.Drawing.Point(610, 53);
             this.cbSeccion.Name = "cbSeccion";
             this.cbSeccion.Size = new System.Drawing.Size(150, 24);
             this.cbSeccion.TabIndex = 5;
@@ -119,7 +124,7 @@ namespace G1asistenciaEC
             // dtpFecha
             // 
             this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFecha.Location = new System.Drawing.Point(539, 53);
+            this.dtpFecha.Location = new System.Drawing.Point(790, 55);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(200, 22);
             this.dtpFecha.TabIndex = 6;
@@ -148,9 +153,12 @@ namespace G1asistenciaEC
             // 
             // groupBoxFiltros
             // 
+            this.groupBoxFiltros.Controls.Add(this.label2);
             this.groupBoxFiltros.Controls.Add(this.label1);
             this.groupBoxFiltros.Controls.Add(this.lblNombre);
+            this.groupBoxFiltros.Controls.Add(this.lblNivel);
             this.groupBoxFiltros.Controls.Add(this.chkA);
+            this.groupBoxFiltros.Controls.Add(this.cbNivel);
             this.groupBoxFiltros.Controls.Add(this.chkT);
             this.groupBoxFiltros.Controls.Add(this.chkF);
             this.groupBoxFiltros.Controls.Add(this.cbGrado);
@@ -158,10 +166,60 @@ namespace G1asistenciaEC
             this.groupBoxFiltros.Controls.Add(this.dtpFecha);
             this.groupBoxFiltros.Location = new System.Drawing.Point(20, 20);
             this.groupBoxFiltros.Name = "groupBoxFiltros";
-            this.groupBoxFiltros.Size = new System.Drawing.Size(800, 100);
+            this.groupBoxFiltros.Size = new System.Drawing.Size(1022, 120);
             this.groupBoxFiltros.TabIndex = 11;
             this.groupBoxFiltros.TabStop = false;
             this.groupBoxFiltros.Text = "Filtros de Asistencia";
+            this.groupBoxFiltros.Enter += new System.EventHandler(this.groupBoxFiltros_Enter);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(607, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "SECCIÓN:";
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(414, 30);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(69, 16);
+            this.lblNombre.TabIndex = 7;
+            this.lblNombre.Text = " GRADO:";
+            // 
+            // lblNivel
+            // 
+            this.lblNivel.AutoSize = true;
+            this.lblNivel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNivel.Location = new System.Drawing.Point(220, 30);
+            this.lblNivel.Name = "lblNivel";
+            this.lblNivel.Size = new System.Drawing.Size(54, 16);
+            this.lblNivel.TabIndex = 12;
+            this.lblNivel.Text = "NIVEL:";
+            // 
+            // cbNivel
+            // 
+            this.cbNivel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNivel.FormattingEnabled = true;
+            this.cbNivel.Location = new System.Drawing.Point(223, 53);
+            this.cbNivel.Name = "cbNivel";
+            this.cbNivel.Size = new System.Drawing.Size(150, 24);
+            this.cbNivel.TabIndex = 11;
+            // 
+            // cbGrado
+            // 
+            this.cbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGrado.FormattingEnabled = true;
+            this.cbGrado.Location = new System.Drawing.Point(417, 53);
+            this.cbGrado.Name = "cbGrado";
+            this.cbGrado.Size = new System.Drawing.Size(150, 24);
+            this.cbGrado.TabIndex = 4;
+            this.cbGrado.SelectedIndexChanged += new System.EventHandler(this.cbGrado_Seccion_Changed);
             // 
             // tabHistorial
             // 
@@ -255,35 +313,15 @@ namespace G1asistenciaEC
             this.btnInfoPersonal.UseVisualStyleBackColor = true;
             this.btnInfoPersonal.Click += new System.EventHandler(this.btnInfoPersonal_Click);
             // 
-            // cbGrado
+            // label2
             // 
-            this.cbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGrado.FormattingEnabled = true;
-            this.cbGrado.Location = new System.Drawing.Point(200, 53);
-            this.cbGrado.Name = "cbGrado";
-            this.cbGrado.Size = new System.Drawing.Size(150, 24);
-            this.cbGrado.TabIndex = 4;
-            this.cbGrado.SelectedIndexChanged += new System.EventHandler(this.cbGrado_Seccion_Changed);
-            // 
-            // lblNombre
-            // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(197, 30);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(69, 16);
-            this.lblNombre.TabIndex = 7;
-            this.lblNombre.Text = " GRADO:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(367, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 16);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "SECCIÓN:";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(787, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 16);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "FECHA:";
             // 
             // FormProfesor
             // 
@@ -314,5 +352,6 @@ namespace G1asistenciaEC
         private System.Windows.Forms.ComboBox cbGrado;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Label label2;
     }
 }
