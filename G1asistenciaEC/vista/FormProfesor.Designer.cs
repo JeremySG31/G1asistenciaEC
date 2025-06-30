@@ -8,7 +8,6 @@ namespace G1asistenciaEC
         private System.Windows.Forms.CheckBox chkA;
         private System.Windows.Forms.CheckBox chkT;
         private System.Windows.Forms.CheckBox chkF;
-        private System.Windows.Forms.ComboBox cbGrado;
         private System.Windows.Forms.ComboBox cbSeccion;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.TabControl tabControl;
@@ -30,7 +29,6 @@ namespace G1asistenciaEC
             this.chkA = new System.Windows.Forms.CheckBox();
             this.chkT = new System.Windows.Forms.CheckBox();
             this.chkF = new System.Windows.Forms.CheckBox();
-            this.cbGrado = new System.Windows.Forms.ComboBox();
             this.cbSeccion = new System.Windows.Forms.ComboBox();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -45,6 +43,9 @@ namespace G1asistenciaEC
             this.lblNombreProfesor = new System.Windows.Forms.Label();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.btnInfoPersonal = new System.Windows.Forms.Button();
+            this.cbGrado = new System.Windows.Forms.ComboBox();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabTomar.SuspendLayout();
@@ -53,7 +54,9 @@ namespace G1asistenciaEC
             this.groupBoxFiltrosHistorial.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
             this.SuspendLayout();
-      
+            // 
+            // dgvAsistencia
+            // 
             this.dgvAsistencia.AllowUserToAddRows = false;
             this.dgvAsistencia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAsistencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -63,7 +66,9 @@ namespace G1asistenciaEC
             this.dgvAsistencia.Size = new System.Drawing.Size(1022, 329);
             this.dgvAsistencia.TabIndex = 0;
             this.dgvAsistencia.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAsistencia_CellClick);
-     
+            // 
+            // chkA
+            // 
             this.chkA.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkA.Location = new System.Drawing.Point(20, 30);
@@ -74,7 +79,9 @@ namespace G1asistenciaEC
             this.chkA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkA.UseVisualStyleBackColor = true;
             this.chkA.CheckedChanged += new System.EventHandler(this.chkA_CheckedChanged);
-     
+            // 
+            // chkT
+            // 
             this.chkT.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkT.Location = new System.Drawing.Point(70, 30);
@@ -85,7 +92,9 @@ namespace G1asistenciaEC
             this.chkT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkT.UseVisualStyleBackColor = true;
             this.chkT.CheckedChanged += new System.EventHandler(this.chkT_CheckedChanged);
-     
+            // 
+            // chkF
+            // 
             this.chkF.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkF.Location = new System.Drawing.Point(120, 30);
@@ -96,30 +105,28 @@ namespace G1asistenciaEC
             this.chkF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkF.UseVisualStyleBackColor = true;
             this.chkF.CheckedChanged += new System.EventHandler(this.chkF_CheckedChanged);
-  
-            this.cbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbGrado.FormattingEnabled = true;
-            this.cbGrado.Location = new System.Drawing.Point(200, 30);
-            this.cbGrado.Name = "cbGrado";
-            this.cbGrado.Size = new System.Drawing.Size(150, 24);
-            this.cbGrado.TabIndex = 4;
-            this.cbGrado.SelectedIndexChanged += new System.EventHandler(this.cbGrado_Seccion_Changed);
-   
+            // 
+            // cbSeccion
+            // 
             this.cbSeccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSeccion.FormattingEnabled = true;
-            this.cbSeccion.Location = new System.Drawing.Point(370, 30);
+            this.cbSeccion.Location = new System.Drawing.Point(370, 53);
             this.cbSeccion.Name = "cbSeccion";
             this.cbSeccion.Size = new System.Drawing.Size(150, 24);
             this.cbSeccion.TabIndex = 5;
             this.cbSeccion.SelectedIndexChanged += new System.EventHandler(this.cbGrado_Seccion_Changed);
- 
+            // 
+            // dtpFecha
+            // 
             this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFecha.Location = new System.Drawing.Point(540, 30);
+            this.dtpFecha.Location = new System.Drawing.Point(539, 53);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(200, 22);
             this.dtpFecha.TabIndex = 6;
             this.dtpFecha.ValueChanged += new System.EventHandler(this.dtpFecha_ValueChanged);
-
+            // 
+            // tabControl
+            // 
             this.tabControl.Controls.Add(this.tabTomar);
             this.tabControl.Controls.Add(this.tabHistorial);
             this.tabControl.Location = new System.Drawing.Point(12, 60);
@@ -127,7 +134,9 @@ namespace G1asistenciaEC
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1067, 517);
             this.tabControl.TabIndex = 7;
-
+            // 
+            // tabTomar
+            // 
             this.tabTomar.Controls.Add(this.groupBoxFiltros);
             this.tabTomar.Controls.Add(this.dgvAsistencia);
             this.tabTomar.Location = new System.Drawing.Point(4, 25);
@@ -136,7 +145,11 @@ namespace G1asistenciaEC
             this.tabTomar.TabIndex = 0;
             this.tabTomar.Text = "Tomar Asistencia";
             this.tabTomar.UseVisualStyleBackColor = true;
-       
+            // 
+            // groupBoxFiltros
+            // 
+            this.groupBoxFiltros.Controls.Add(this.label1);
+            this.groupBoxFiltros.Controls.Add(this.lblNombre);
             this.groupBoxFiltros.Controls.Add(this.chkA);
             this.groupBoxFiltros.Controls.Add(this.chkT);
             this.groupBoxFiltros.Controls.Add(this.chkF);
@@ -148,8 +161,10 @@ namespace G1asistenciaEC
             this.groupBoxFiltros.Size = new System.Drawing.Size(800, 100);
             this.groupBoxFiltros.TabIndex = 11;
             this.groupBoxFiltros.TabStop = false;
-            this.groupBoxFiltros.Text = "Filtros de Asistencia"; 
-      
+            this.groupBoxFiltros.Text = "Filtros de Asistencia";
+            // 
+            // tabHistorial
+            // 
             this.tabHistorial.Controls.Add(this.groupBoxFiltrosHistorial);
             this.tabHistorial.Controls.Add(this.dgvHistorial);
             this.tabHistorial.Location = new System.Drawing.Point(4, 25);
@@ -158,7 +173,9 @@ namespace G1asistenciaEC
             this.tabHistorial.TabIndex = 1;
             this.tabHistorial.Text = "Historial de Asistencias";
             this.tabHistorial.UseVisualStyleBackColor = true;
- 
+            // 
+            // groupBoxFiltrosHistorial
+            // 
             this.groupBoxFiltrosHistorial.Controls.Add(this.lblFechaHistorial);
             this.groupBoxFiltrosHistorial.Controls.Add(this.dtpFechaHistorial);
             this.groupBoxFiltrosHistorial.Controls.Add(this.btnBuscar);
@@ -168,20 +185,26 @@ namespace G1asistenciaEC
             this.groupBoxFiltrosHistorial.TabIndex = 0;
             this.groupBoxFiltrosHistorial.TabStop = false;
             this.groupBoxFiltrosHistorial.Text = "Filtros de Historial";
-
+            // 
+            // lblFechaHistorial
+            // 
             this.lblFechaHistorial.AutoSize = true;
             this.lblFechaHistorial.Location = new System.Drawing.Point(20, 30);
             this.lblFechaHistorial.Name = "lblFechaHistorial";
             this.lblFechaHistorial.Size = new System.Drawing.Size(48, 16);
             this.lblFechaHistorial.TabIndex = 0;
             this.lblFechaHistorial.Text = "Fecha:";
- 
+            // 
+            // dtpFechaHistorial
+            // 
             this.dtpFechaHistorial.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaHistorial.Location = new System.Drawing.Point(80, 28);
             this.dtpFechaHistorial.Name = "dtpFechaHistorial";
             this.dtpFechaHistorial.Size = new System.Drawing.Size(150, 22);
             this.dtpFechaHistorial.TabIndex = 1;
-
+            // 
+            // btnBuscar
+            // 
             this.btnBuscar.Location = new System.Drawing.Point(250, 25);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(100, 30);
@@ -189,7 +212,9 @@ namespace G1asistenciaEC
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-
+            // 
+            // dgvHistorial
+            // 
             this.dgvHistorial.AllowUserToAddRows = false;
             this.dgvHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -199,7 +224,9 @@ namespace G1asistenciaEC
             this.dgvHistorial.RowHeadersWidth = 51;
             this.dgvHistorial.Size = new System.Drawing.Size(1024, 324);
             this.dgvHistorial.TabIndex = 1;
-
+            // 
+            // lblNombreProfesor
+            // 
             this.lblNombreProfesor.AutoSize = true;
             this.lblNombreProfesor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.lblNombreProfesor.Location = new System.Drawing.Point(13, 24);
@@ -207,7 +234,9 @@ namespace G1asistenciaEC
             this.lblNombreProfesor.Size = new System.Drawing.Size(183, 20);
             this.lblNombreProfesor.TabIndex = 8;
             this.lblNombreProfesor.Text = "Nombre del Profesor";
-
+            // 
+            // btnCerrarSesion
+            // 
             this.btnCerrarSesion.Location = new System.Drawing.Point(952, 24);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(120, 30);
@@ -215,7 +244,9 @@ namespace G1asistenciaEC
             this.btnCerrarSesion.Text = "Cerrar sesión";
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);
- 
+            // 
+            // btnInfoPersonal
+            // 
             this.btnInfoPersonal.Location = new System.Drawing.Point(776, 24);
             this.btnInfoPersonal.Name = "btnInfoPersonal";
             this.btnInfoPersonal.Size = new System.Drawing.Size(170, 30);
@@ -223,7 +254,39 @@ namespace G1asistenciaEC
             this.btnInfoPersonal.Text = "Información personal";
             this.btnInfoPersonal.UseVisualStyleBackColor = true;
             this.btnInfoPersonal.Click += new System.EventHandler(this.btnInfoPersonal_Click);
-
+            // 
+            // cbGrado
+            // 
+            this.cbGrado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGrado.FormattingEnabled = true;
+            this.cbGrado.Location = new System.Drawing.Point(200, 53);
+            this.cbGrado.Name = "cbGrado";
+            this.cbGrado.Size = new System.Drawing.Size(150, 24);
+            this.cbGrado.TabIndex = 4;
+            this.cbGrado.SelectedIndexChanged += new System.EventHandler(this.cbGrado_Seccion_Changed);
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(197, 30);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(69, 16);
+            this.lblNombre.TabIndex = 7;
+            this.lblNombre.Text = " GRADO:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(367, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "SECCIÓN:";
+            // 
+            // FormProfesor
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1091, 615);
@@ -238,6 +301,7 @@ namespace G1asistenciaEC
             this.tabControl.ResumeLayout(false);
             this.tabTomar.ResumeLayout(false);
             this.groupBoxFiltros.ResumeLayout(false);
+            this.groupBoxFiltros.PerformLayout();
             this.tabHistorial.ResumeLayout(false);
             this.groupBoxFiltrosHistorial.ResumeLayout(false);
             this.groupBoxFiltrosHistorial.PerformLayout();
@@ -246,5 +310,9 @@ namespace G1asistenciaEC
             this.PerformLayout();
 
         }
+
+        private System.Windows.Forms.ComboBox cbGrado;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNombre;
     }
 }
