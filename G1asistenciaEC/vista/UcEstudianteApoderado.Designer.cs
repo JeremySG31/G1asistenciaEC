@@ -26,6 +26,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnRegistrarApoderado;
+        private System.Windows.Forms.Button btnActualizar;
 
         protected override void Dispose(bool disposing)
         {
@@ -62,6 +63,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.btnActualizar = new System.Windows.Forms.Button();
             this.btnRegistrarApoderado = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grpListadoBusqueda.SuspendLayout();
@@ -172,7 +174,7 @@
             this.grpListadoBusqueda.Controls.Add(this.txtBuscar);
             this.grpListadoBusqueda.Controls.Add(this.dgvUsuarios);
             this.grpListadoBusqueda.Controls.Add(this.label1);
-            this.grpListadoBusqueda.Location = new System.Drawing.Point(453, 45);
+            this.grpListadoBusqueda.Location = new System.Drawing.Point(456, 24);
             this.grpListadoBusqueda.Name = "grpListadoBusqueda";
             this.grpListadoBusqueda.Size = new System.Drawing.Size(573, 450);
             this.grpListadoBusqueda.TabIndex = 4;
@@ -267,7 +269,7 @@
             this.grpAcciones.Controls.Add(this.button3);
             this.grpAcciones.Location = new System.Drawing.Point(52, 339);
             this.grpAcciones.Name = "grpAcciones";
-            this.grpAcciones.Size = new System.Drawing.Size(136, 118);
+            this.grpAcciones.Size = new System.Drawing.Size(136, 107);
             this.grpAcciones.TabIndex = 3;
             this.grpAcciones.TabStop = false;
             this.grpAcciones.Text = "ACCIONES";
@@ -296,6 +298,15 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "ELIMINAR";
             // 
+            // btnActualizar
+            // 
+            this.btnActualizar.Location = new System.Drawing.Point(630, 480);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(229, 25);
+            this.btnActualizar.TabIndex = 3;
+            this.btnActualizar.Text = "ACTUALIZAR TABLA";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            // 
             // btnRegistrarApoderado
             // 
             this.btnRegistrarApoderado.Location = new System.Drawing.Point(6, 10);
@@ -321,6 +332,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpAcciones);
             this.Controls.Add(this.grpInformacionAdicional);
+            this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.grpDatosPrincipales);
             this.Controls.Add(this.grpListadoBusqueda);
             this.Controls.Add(this.lblTitulo);

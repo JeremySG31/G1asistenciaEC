@@ -29,6 +29,7 @@ namespace G1asistenciaEC.vista
             btnRegistrarApoderado.Click += btnRegistrarApoderado_Click;
             dgvUsuarios.SelectionChanged += dgvUsuarios_SelectionChanged;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
+            btnActualizar.Click += btnActualizar_Click;
         }
 
         private void ConfigurarRestricciones()
@@ -552,6 +553,11 @@ namespace G1asistenciaEC.vista
                     }
                 }
             }
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            CargarEstudianteApoderados();
         }
 
         private void grpDatosPrincipales_Enter(object sender, EventArgs e)
