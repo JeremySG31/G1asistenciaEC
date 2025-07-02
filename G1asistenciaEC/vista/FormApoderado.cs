@@ -15,7 +15,6 @@ namespace G1asistenciaEC
         public FormApoderado(string usuario)
         {
             InitializeComponent();
-            this.Icon = new Icon("resources/ACADEMIX.ico");
             this.Size = new Size(769, 500);
             this.MaximumSize = new Size(769, 500);
             this.MinimumSize = new Size(769, 500);

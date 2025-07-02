@@ -16,7 +16,6 @@ namespace G1asistenciaEC
         public FormEstudiante(string usuario)
         {
             InitializeComponent();
-            this.Icon = new Icon("resources/ACADEMIX.ico");
             this.Size = new Size(800, 520);
             this.MaximumSize = new Size(800, 520);
             this.MinimumSize = new Size(800, 520);
