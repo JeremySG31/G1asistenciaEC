@@ -15,6 +15,7 @@ namespace G1asistenciaEC
         public FormAdministrador(string usuario, FormLogin formLogin)
         {
             InitializeComponent();
+            this.Icon = new Icon("resources/ACADEMIX.ico");
             this.Size = new Size(900, 500); 
             this.MaximumSize = new Size(900, 500);
             this.MinimumSize = new Size(900, 500);
