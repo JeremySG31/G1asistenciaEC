@@ -201,7 +201,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormAdministrador";
             this.Text = "FormAdministrador";
-            this.Load += new System.EventHandler(this.FormAdministrador_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

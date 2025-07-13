@@ -24,7 +24,6 @@ namespace G1asistenciaEC
 
             var controlador = new administradorN();
             _administrador = controlador.ObtenerInformacionAdministrador(usuario);
-            this.Load += FormAdministrador_Load;
         }
 
         private void MostrarEnPanel(UserControl control)
@@ -34,19 +33,6 @@ namespace G1asistenciaEC
             panelContenido.Controls.Add(control);
         }
 
-        private void FormAdministrador_Load(object sender, EventArgs e)
-        {
-            MostrarUcUsuarios();
-        }
-
-        private void MostrarUcUsuarios()
-        {
-            panelContenido.Controls.Clear();
-
-            UcUsuarios ucUsuarios = new UcUsuarios();
-            ucUsuarios.Dock = DockStyle.Fill;
-            panelContenido.Controls.Add(ucUsuarios);
-        }
 
         private void mANTENIMIENTOToolStripMenuItem_Click(object sender, EventArgs e)
         {
